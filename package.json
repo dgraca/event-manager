@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "build:backend": "TAILWIND_CONFIG=./backend-tailwind.config.js vite build --config backend.vite.config.js",
+        "build:backend": "cross-env TAILWIND_CONFIG=./backend-tailwind.config.js vite build --config backend.vite.config.js",
         "build:frontend": "TAILWIND_CONFIG=./frontend-tailwind.config.js vite build --config frontend.vite.config.js",
         "dev:backend": "TAILWIND_CONFIG=./backend-tailwind.config.js vite --config backend.vite.config.js",
         "dev:frontend": "TAILWIND_CONFIG=./frontend-tailwind.config.js vite --config frontend.vite.config.js"
@@ -105,6 +105,7 @@
         "@tailwindcss/typography": "^0.5.0",
         "autoprefixer": "^10.4.13",
         "axios": "^1.1.2",
+        "cross-env": "^7.0.3",
         "laravel-vite-plugin": "^0.8.0",
         "lodash": "^4.17.19",
         "postcss": "^8.4.31",
