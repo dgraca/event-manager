@@ -41,6 +41,16 @@
                                 {{ __('A few more clicks to create your account.') }}
                             </div>
 
+                            @if (session('status'))
+                                @push('scripts')
+                                    <script>
+                                        window.onload = function() {
+                                            toastShow('{{ session('status') }}', '', 'success');
+                                        };
+                                    </script>
+                                @endpush
+                            @endif
+
                             <div class="intro-x mt-8">
                                 <x-base.form-input
                                     class="intro-x block min-w-full px-4 py-3 xl:min-w-[350px] {{ ($errors->has('name') ? 'border-danger' : '') }}"
@@ -64,42 +74,6 @@
                                     required autocomplete="username"
                                 />
                                 @error('email')
-                                    <div class ="mt-2 text-danger">{{ $message }}</div>
-                                @enderror
-                                <x-base.form-input
-                                    class="intro-x mt-4 block min-w-full px-4 py-3 xl:min-w-[350px] {{ ($errors->has('password') ? 'border-danger' : '') }}"
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    placeholder="{{ __('Password') }}"
-                                    required autocomplete="new-password"
-                                />
-                                @error('password')
-                                    <div class ="mt-2 text-danger">{{ $message }}</div>
-                                @enderror
-                                @if(false)
-                                    <div class="intro-x mt-3 grid h-1 w-full grid-cols-12 gap-4">
-                                        <div class="col-span-3 h-full rounded bg-success"></div>
-                                        <div class="col-span-3 h-full rounded bg-success"></div>
-                                        <div class="col-span-3 h-full rounded bg-success"></div>
-                                        <div class="col-span-3 h-full rounded bg-slate-100 dark:bg-darkmode-800"></div>
-                                    </div>
-                                    <a
-                                        class="intro-x mt-2 block text-xs text-slate-500 sm:text-sm"
-                                        href=""
-                                    >
-                                        What is a secure password?
-                                    </a>
-                                @endif
-                                <x-base.form-input
-                                    class="intro-x mt-4 block min-w-full px-4 py-3 xl:min-w-[350px] {{ ($errors->has('password_confirmation') ? 'border-danger' : '') }}"
-                                    type="password"
-                                    id="password_confirmation"
-                                    name="password_confirmation"
-                                    required autocomplete="new-password"
-                                    placeholder="{{ __('Confirm Password') }}"
-                                />
-                                @error('password_confirmation')
                                     <div class ="mt-2 text-danger">{{ $message }}</div>
                                 @enderror
                                 @error('g-recaptcha-response')
@@ -162,16 +136,6 @@
                 <div class="mt-4">
                     <x-label for="email" value="{{ __('Email') }}" />
                     <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-                </div>
-
-                <div class="mt-4">
-                    <x-label for="password" value="{{ __('Password') }}" />
-                    <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-                </div>
-
-                <div class="mt-4">
-                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
                 </div>
 
                 @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
