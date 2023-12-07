@@ -35,9 +35,10 @@ class MagicAuth extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('Click here to login.')
-                    ->action('Log in', url($this->link))
-                    ->line('Thank you for using our application!');
+                    ->subject(__('Login') . ' - ' . config('app.name'))
+                    ->line(__('Click here to login.'))
+                    ->action(__('Login'), url($this->link))
+                    ->line(__('Thank you for using our application!'));
     }
 
     /**
