@@ -29,10 +29,17 @@ class MagicRegisterController extends Controller
 
             // Assign the default role to the user
             $user->assignRole('user');
+            $user->markEmailAsVerified();
             $user->save();
 
-            // Send a link to verify the email
-            $user->sendEmailVerificationNotification();
+            // send a login link to the user
+            $link = URL::temporarySignedRoute(
+                'auth.magic',
+                now()->addMinutes(30),
+                ['user' => $user->id]
+            );
+
+            $user->notify(new MagicAuth($link));
         }
 
         return back()->with('status', 'We have emailed your magic link!');

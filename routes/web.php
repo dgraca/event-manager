@@ -31,8 +31,7 @@ Route::post('login', [MagicLoginController::class, 'store'])->name('login')->mid
 Route::post('register', [MagicRegisterController::class, 'store'])->name('register')->middleware('guest');
 
 // Performs auth with magic link
-Route::get('login/{user}', [MagicLoginController::class, 'login'])->name('login.magic')->middleware('signed');
-Route::get('register/{user}', [MagicLoginController::class, 'register'])->name('register.magic')->middleware('signed');
+Route::get('auth/{user}', [MagicLoginController::class, 'auth'])->name('auth.magic')->middleware('signed');
 
 Route::middleware([
     'auth:sanctum',

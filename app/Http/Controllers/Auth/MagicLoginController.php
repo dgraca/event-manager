@@ -22,7 +22,7 @@ class MagicLoginController extends Controller
         if ($user) {
             // Create a temporary signed route
             $link = URL::temporarySignedRoute(
-                'login.magic',
+                'auth.magic',
                 now()->addMinutes(30),
                 ['user' => $user->id]
             );
@@ -34,7 +34,7 @@ class MagicLoginController extends Controller
         return back()->with('status', 'We have emailed your magic link!');
     }
 
-    public function login(User $user) {
+    public function auth(User $user) {
         Auth::login($user);
 
         // Regenerate the session to prevent session fixation
