@@ -63,26 +63,10 @@
                                     <div class="mt-2 text-danger">{{ $message }}</div>
                                 @enderror
 
-                                <x-base.form-input
-                                    class="intro-x mt-4 block min-w-full px-4 py-3 xl:min-w-[350px] {{ ($errors->has('email') ? 'border-danger' : '') }}"
-                                    id="password"
-                                    type="password"
-                                    name="password"
-                                    :value="old('password')"
-                                    placeholder="{{ __('Password') }}"
-                                />
-                                @error('password')
-                                    <div class ="mt-2 text-danger">{{ $message }}</div>
-                                @enderror
                                 @error('g-recaptcha-response')
                                     <div class ="mt-2 text-danger">{{ $message }}</div>
                                 @enderror
                                 <x-base.form-input type="hidden" id="remember_me" name="remember" value="1"/>
-                            </div>
-                            <div class="intro-x mt-4 flex text-xs text-slate-600 dark:text-slate-500 sm:text-sm justify-end">
-                                @if (Route::has('password.request'))
-                                    <a href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
-                                @endif
                             </div>
                             <div class="intro-x mt-5 text-center xl:mt-8 xl:text-left">
                                 <x-base.button
@@ -152,10 +136,6 @@
                     <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
                 </div>
 
-                <div class="mt-4">
-                    <x-label for="password" value="{{ __('Password') }}" />
-                    <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-                </div>
 
                 <div class="block mt-4">
                     <label for="remember_me" class="flex items-center">
@@ -165,12 +145,6 @@
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
-                    @if (Route::has('password.request'))
-                        <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                            {{ __('Forgot your password?') }}
-                        </a>
-                    @endif
-
                     <x-button class="ml-4">
                         {{ __('Log in') }}
                     </x-button>

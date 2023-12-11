@@ -21,7 +21,6 @@ class UserSeeder extends Seeder
                 'name' => 'Daniel',
                 'email' => 'hi@danielgraca.com',
                 'email_verified_at' => date("Y-m-d H:i:s"),
-                'password' => Hash::make('123qwe#'),
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
             ],

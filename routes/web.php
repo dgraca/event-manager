@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\MagicLinkController;
+use App\Http\Controllers\Auth\MagicLoginController;
+use App\Http\Controllers\Auth\MagicRegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +25,13 @@ Route::post(\Laravel\Fortify\RoutePath::for('password.email', '/forgot-password'
 
 Route::get('dark-mode-switcher', [\App\Http\Controllers\DarkModeController::class, 'switch'])->name('dark-mode-switcher');
 Route::get('color-scheme-switcher/{color_scheme}', [\App\Http\Controllers\ColorSchemeController::class, 'switch'])->name('color-scheme-switcher');
+
+// Override the Fortify authentication routes
+Route::post('login', [MagicLoginController::class, 'store'])->name('login')->middleware('guest');
+Route::post('register', [MagicRegisterController::class, 'store'])->name('register')->middleware('guest');
+
+// Performs auth with magic link
+Route::get('auth/{user}', [MagicLoginController::class, 'auth'])->name('auth.magic')->middleware('signed');
 
 Route::middleware([
     'auth:sanctum',
