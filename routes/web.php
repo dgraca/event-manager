@@ -46,7 +46,7 @@ Route::middleware([
 
     Route::impersonate();
 
-    Route::resource('settings', App\Http\Controllers\SettingController::class); //TODO este controller e crud não está ainda feito
+    Route::resource('settings', App\Http\Controllers\SettingController::class);
     Route::get('translations/{groupKey?}', '\Barryvdh\TranslationManager\Controller@getIndex')->where('groupKey', '.*')->name('translations.index');
 
     Route::resource('demos', App\Http\Controllers\DemoController::class);
