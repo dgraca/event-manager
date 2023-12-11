@@ -31,7 +31,7 @@ class MagicLoginController extends Controller
             $user->notify(new MagicAuth($link));
         }
 
-        return back()->with('status', 'We have emailed your magic link!');
+        return back()->with('status', __('We have emailed your magic link!'));
     }
 
     public function auth(User $user) {
