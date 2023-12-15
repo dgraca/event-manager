@@ -29,7 +29,7 @@
                 <div class="my-10 flex h-screen py-5 xl:my-0 xl:h-auto xl:py-0">
                     <div
                         class="mx-auto my-auto w-full rounded-md bg-white px-5 py-8 shadow-md dark:bg-darkmode-600 sm:w-3/4 sm:px-8 lg:w-2/4 xl:ml-20 xl:w-auto xl:bg-transparent xl:p-0 xl:shadow-none">
-                        <form id="login-form" method="POST" action="{{ route('login') }}">
+                        <form id="login-form" method="POST" action="{{ route('magic-login') }}">
                             @csrf
                             @if(config('recaptchav3.enable'))
                                 {!! RecaptchaV3::field('login', 'g-recaptcha-response', true, 'login-form', "onClickRecaptcha") !!}
@@ -83,7 +83,7 @@
                                         class="mt-3 w-full px-4 py-3 align-top xl:mt-0 xl:w-32"
                                         variant="outline-secondary"
                                         as="a"
-                                        href="{{ route('register') }}"
+                                        href="{{ route('magic-register') }}"
                                     >
                                         {{ __('Register') }}
                                     </x-base.button>
@@ -128,7 +128,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('magic-login') }}">
                 @csrf
 
                 <div>

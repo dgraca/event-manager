@@ -27,8 +27,8 @@ Route::get('dark-mode-switcher', [\App\Http\Controllers\DarkModeController::clas
 Route::get('color-scheme-switcher/{color_scheme}', [\App\Http\Controllers\ColorSchemeController::class, 'switch'])->name('color-scheme-switcher');
 
 // Override the Fortify authentication routes
-Route::post('login', [MagicLoginController::class, 'store'])->name('login')->middleware('guest');
-Route::post('register', [MagicRegisterController::class, 'store'])->name('register')->middleware('guest');
+Route::post('/login', [MagicLoginController::class, 'store'])->name('magic-login')->middleware('guest');
+Route::post('/register', [MagicRegisterController::class, 'store'])->name('magic-register')->middleware('guest');
 
 // Performs auth with magic link
 Route::get('auth/{user}', [MagicLoginController::class, 'auth'])->name('auth.magic')->middleware('signed');
@@ -46,10 +46,11 @@ Route::middleware([
 
     Route::impersonate();
 
-    Route::resource('settings', App\Http\Controllers\SettingController::class); //TODO este controller e crud não está ainda feito
+    // Route::resource('settings', App\Http\Controllers\SettingController::class); //TODO este controller e crud não está ainda feito
     Route::get('translations/{groupKey?}', '\Barryvdh\TranslationManager\Controller@getIndex')->where('groupKey', '.*')->name('translations.index');
 
     Route::resource('demos', App\Http\Controllers\DemoController::class);
 
+    Route::resource('entities', App\Http\Controllers\EntityController::class);
 
 });

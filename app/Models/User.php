@@ -268,4 +268,14 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
     {
         return $this->hasMany(\App\Models\Demo::class, 'user_id');
     }
+
+    public function entityUsers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\EntityUser::class, 'user_id');
+    }
+
+    public function entity(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(\App\Models\Entity::class)->withTimestamps();
+    }
 }
