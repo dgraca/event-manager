@@ -174,6 +174,24 @@ Breadcrumbs::for('venues.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->push(__('Update'), route('venues.edit', $model));
 });
 
+// Home > Event Sessions
+Breadcrumbs::for('event-sessions.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('event-sessions'), route('event-sessions.index'));
+});
+Breadcrumbs::for('event-sessions.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('event-sessions.index');
+    $trail->push(__('Create'), route('event-sessions.create'));
+});
+Breadcrumbs::for('event-sessions.show', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('event-sessions.index');
+    $trail->push($model->name, route('event-sessions.show', $model));
+});
+Breadcrumbs::for('event-sessions.edit', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('event-sessions.show', $model);
+    $trail->push(__('Update'), route('event-sessions.edit', $model));
+});
+
 /*
 // Home > Blog
 Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
