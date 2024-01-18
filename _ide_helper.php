@@ -21912,6 +21912,13 @@
      * 
      *
      */ 
+        class HasMany {
+         
+    }
+            /**
+     * 
+     *
+     */ 
         class BelongsTo {
          
     }

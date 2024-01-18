@@ -52,5 +52,5 @@ Route::middleware([
     Route::resource('demos', App\Http\Controllers\DemoController::class);
 
     Route::resource('entities', App\Http\Controllers\EntityController::class);
-
+    Route::resource('zones', App\Http\Controllers\ZoneController::class);
 });
