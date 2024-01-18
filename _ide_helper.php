@@ -21891,6 +21891,20 @@
      * 
      *
      */ 
+        class HasMany {
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class HasOneOrMany {
+         
+    }
+            /**
+     * 
+     *
+     */ 
         class MorphMany {
          
     }
@@ -21899,13 +21913,6 @@
      *
      */ 
         class MorphOneOrMany {
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class HasOneOrMany {
          
     }
             /**

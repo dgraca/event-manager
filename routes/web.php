@@ -57,6 +57,7 @@ Route::middleware([
     Route::resource('event-sessions', App\Http\Controllers\EventSessionsController::class);
     Route::resource('tickets', App\Http\Controllers\TicketsController::class);
     Route::resource('events', App\Http\Controllers\EventsController::class);
+    Route::resource('payment-options', App\Http\Controllers\PaymentOptionsController::class);
 });
 
 

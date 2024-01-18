@@ -246,6 +246,24 @@ Breadcrumbs::for('access-tickets.edit', function (BreadcrumbTrail $trail, $model
     $trail->push(__('Update'), route('access-tickets.edit', $model));
 });
 
+// Home > Payment Options
+Breadcrumbs::for('payment-options.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('payment-options'), route('payment-options.index'));
+});
+Breadcrumbs::for('payment-options.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('payment-options.index');
+    $trail->push(__('Create'), route('payment-options.create'));
+});
+Breadcrumbs::for('payment-options.show', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('payment-options.index');
+    $trail->push($model->name, route('payment-options.show', $model));
+});
+Breadcrumbs::for('payment-options.edit', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('payment-options.show', $model);
+    $trail->push(__('Update'), route('payment-options.edit', $model));
+});
+
 /*
 // Home > Blog
 Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
