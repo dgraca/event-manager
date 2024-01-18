@@ -21915,13 +21915,6 @@
         class BelongsTo {
          
     }
-            /**
-     * 
-     *
-     */ 
-        class HasMany {
-         
-    }
      
 }
 
