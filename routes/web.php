@@ -56,4 +56,5 @@ Route::middleware([
     Route::resource('venues', App\Http\Controllers\VenueController::class);
     Route::resource('event-sessions', App\Http\Controllers\EventSessionsController::class);
     Route::resource('tickets', App\Http\Controllers\TicketsController::class);
+    Route::resource('events', App\Http\Controllers\EventsController::class);
 });
