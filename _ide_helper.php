@@ -21912,14 +21912,14 @@
      * 
      *
      */ 
-        class HasMany {
+        class BelongsTo {
          
     }
             /**
      * 
      *
      */ 
-        class BelongsTo {
+        class HasMany {
          
     }
      

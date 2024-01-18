@@ -138,7 +138,7 @@ Breadcrumbs::for('entities.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->push(__('Update'), route('entities.edit', $model));
 });
 
-// Home > Entities
+// Home > Zones
 Breadcrumbs::for('zones.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push(__('zones'), route('zones.index'));
@@ -154,6 +154,24 @@ Breadcrumbs::for('zones.show', function (BreadcrumbTrail $trail, $model) {
 Breadcrumbs::for('zones.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('zones.show', $model);
     $trail->push(__('Update'), route('zones.edit', $model));
+});
+
+// Home > Venues
+Breadcrumbs::for('venues.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('venues'), route('venues.index'));
+});
+Breadcrumbs::for('venues.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('venues.index');
+    $trail->push(__('Create'), route('venues.create'));
+});
+Breadcrumbs::for('venues.show', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('venues.index');
+    $trail->push($model->name, route('venues.show', $model));
+});
+Breadcrumbs::for('venues.edit', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('venues.show', $model);
+    $trail->push(__('Update'), route('venues.edit', $model));
 });
 
 /*

@@ -53,4 +53,5 @@ Route::middleware([
 
     Route::resource('entities', App\Http\Controllers\EntityController::class);
     Route::resource('zones', App\Http\Controllers\ZoneController::class);
+    Route::resource('venues', App\Http\Controllers\VenueController::class);
 });
