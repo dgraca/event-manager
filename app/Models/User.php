@@ -6,6 +6,7 @@ use App\Facades\HelperMethods;
 use App\Models\Traits\LoadDefaults;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
@@ -277,5 +278,10 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
     public function entity(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(\App\Models\Entity::class)->withTimestamps();
+    }
+
+    public function accessTickets() : HasMany
+    {
+        return $this->hasOne(PaymentOptions::class)->withTimestamps();
     }
 }

@@ -117,7 +117,7 @@ class Tickets extends Model implements Auditable
 
     public function event(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Event::class, 'event_id');
+        return $this->belongsTo(\App\Models\Events::class, 'event_id');
     }
 
     public function zone(): \Illuminate\Database\Eloquent\Relations\BelongsTo

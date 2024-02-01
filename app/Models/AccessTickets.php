@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\LoadDefaults;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use OwenIt\Auditing\Contracts\Auditable;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -142,7 +143,7 @@ class AccessTickets extends Model implements Auditable
 
     public function paymentOption(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\PaymentOption::class, 'payment_option_id');
+        return $this->belongsTo(\App\Models\PaymentOptions::class, 'payment_option_id');
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -170,6 +171,16 @@ class AccessTickets extends Model implements Auditable
     {
         $array = static::getStatusArray();
         return $array[$this->status] ?? "";
+    }
+
+    public function eventSessionTickets(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\EventSessionTicket::class, 'event_session_id');
+    }
+
+    public function paymentOptions() : BelongsTo
+    {
+        return $this->belongsTo(User::class)->withTimestamps();
     }
 
 }

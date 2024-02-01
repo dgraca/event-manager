@@ -75,7 +75,7 @@ class Zone extends Model implements Auditable
 
     public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\Ticket::class, 'zone_id');
+        return $this->hasMany(\App\Models\Tickets::class, 'zone_id');
     }
 
 
