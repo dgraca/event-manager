@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Models;
-use App\Models\Traits\LoadDefaults;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\LoadDefaults;
 use OwenIt\Auditing\Contracts\Auditable;
+ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\Setting
@@ -22,7 +22,6 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \OwenIt\Auditing\Models\Audit> $audits
  * @property-read int|null $audits_count
- * @property-read mixed|string $type_label
  * @method static \Illuminate\Database\Eloquent\Builder|Setting newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Setting newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Setting query()
@@ -44,78 +43,74 @@ class Setting extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
     use HasFactory;
 
-    const TYPE_TEXTFIELD = 1;
-    const TYPE_TEXTAREA = 2;
-    const TYPE_CHECKBOX = 3;
-    const TYPE_SELECT = 4;
-    const TYPE_INTEGER = 5;
-    const TYPE_DECIMAL = 6;
-    const TYPE_CURRENCY = 7;
-    const TYPE_PERCENTAGE = 8;
-    const TYPE_COLOR = 9;
-    const TYPE_RANGE = 10;
+    public $table = 'settings';
 
-    /**
-     * @var int[] Default values
-     */
-    /*protected $attributes = [
-        'type' => self::TYPE_TEXTFIELD,
-        'order' => 0,
-    ];*/
+    public $fillable = [
+        'type',
+        'group',
+        'name',
+        'slug',
+        'options',
+        'value',
+        'order'
+    ];
 
-    protected $guarded=['id']; // isto permite fazer mass assigment a todas as variáveis pode ser perigoso se não controllar o que passo no request
+    protected $casts = [
+        'group' => 'string',
+        'name' => 'string',
+        'slug' => 'string',
+        'options' => 'string',
+        'value' => 'string'
+    ];
 
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    protected static function booted()
-    {
-        static::saved(function ($model) {
-            Cache::forget('setting-params');
-            Cache::forget('setting-options');
-        });
-    }
-
-
-    /**
-     * Return an array with the values of type field
-     * @return array
-     */
-    public static function getTypeArray()
+    public static function rules(): array
     {
         return [
-            self::TYPE_TEXTFIELD =>  __('Textfield'),
-            self::TYPE_TEXTAREA =>  __('Textarea'),
-            self::TYPE_CHECKBOX =>  __('Checkbox'),
-            self::TYPE_SELECT =>  __('Select'),
-            self::TYPE_INTEGER =>  __('Integer'),
-            self::TYPE_DECIMAL =>  __('Decimal'),
-            self::TYPE_CURRENCY =>  __('Currency'),
-            self::TYPE_PERCENTAGE =>  __('Percentage'),
-            self::TYPE_COLOR =>  __('Color'),
-            self::TYPE_RANGE =>  __('Range'),
+            'type' => 'required',
+        'group' => 'nullable|string|max:255',
+        'name' => 'required|string|max:255',
+        'slug' => 'required|string|max:255',
+        'options' => 'nullable|string|max:65535',
+        'value' => 'nullable|string|max:65535',
+        'order' => 'required',
+        'created_at' => 'nullable',
+        'updated_at' => 'nullable'
         ];
     }
 
     /**
-     * Return an array with the values of type field
-     * @return array
-     */
-    public function getTypeOptions()
+    * Attribute labels
+    *
+    * @return array
+    */
+    public static function attributeLabels() : array
     {
-        return static::getTypeArray();
+        return [
+            'id' => __('Id'),
+        'type' => __('Type'),
+        'group' => __('Group'),
+        'name' => __('Name'),
+        'slug' => __('Slug'),
+        'options' => __('Options'),
+        'value' => __('Value'),
+        'order' => __('Order'),
+        'created_at' => __('Created At'),
+        'updated_at' => __('Updated At')
+        ];
     }
 
     /**
-     * Return the first name of the user
-     * @return mixed|string
-     */
-    public function getTypeLabelAttribute()
+    * Return the attribute label
+    * @param string $attribute
+    * @return string
+    */
+    public function getAttributeLabel($attribute) : string
     {
-        $array = self::getTypeOptions();
-        return $array[$this->type];
+        $attributeLabels = static::attributeLabels();
+        return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
     }
+
+    
+
 
 }
