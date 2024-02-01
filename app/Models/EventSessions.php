@@ -161,4 +161,11 @@ class EventSessions extends Model implements Auditable
         return $array[$this->status] ?? "";
     }
 
+    /**
+     * Tickets relationship
+     */
+    public function ticket() {
+        return $this->hasMany(Tickets::class)->withTimestamps();
+    }
+
 }

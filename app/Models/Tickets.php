@@ -130,5 +130,11 @@ class Tickets extends Model implements Auditable
         return $this->hasMany(\App\Models\EventSessionTicket::class, 'ticket_id');
     }
 
+    /**
+     * Event Sessions relationship
+     */
+    public function eventSession() {
+        return $this->hasMany(Tickets::class)->withTimestamps();
+    }
 
 }
