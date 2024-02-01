@@ -29,7 +29,7 @@
                 <div class="my-10 flex h-screen py-5 xl:my-0 xl:h-auto xl:py-0">
                     <div
                         class="mx-auto my-auto w-full rounded-md bg-white px-5 py-8 shadow-md dark:bg-darkmode-600 sm:w-3/4 sm:px-8 lg:w-2/4 xl:ml-20 xl:w-auto xl:bg-transparent xl:p-0 xl:shadow-none">
-                        <form method="POST" action="{{ route('register') }}" id="register-form">
+                        <form method="POST" action="{{ route('magic-register') }}" id="register-form">
                             @csrf
                             @if(config('recaptchav3.enable'))
                                 {!! RecaptchaV3::field('register', 'g-recaptcha-response', true, 'register-form', "onClickRecaptcha") !!}
@@ -105,7 +105,7 @@
                                     class="mt-3 w-full px-4 py-3 align-top xl:mt-0 xl:w-32"
                                     variant="outline-secondary"
                                     as="a"
-                                    href="{{ route('login') }}"
+                                    href="{{ route('magic-login') }}"
                                 >
                                     {{ __('Sign In') }}
                                 </x-base.button>
@@ -125,7 +125,7 @@
 
             <x-validation-errors class="mb-4" />
 
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="{{ route('magic-register') }}">
                 @csrf
 
                 <div>
@@ -156,7 +156,7 @@
                 @endif
 
                 <div class="flex items-center justify-end mt-4">
-                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
+                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('magic-login') }}">
                         {{ __('Already registered?') }}
                     </a>
 

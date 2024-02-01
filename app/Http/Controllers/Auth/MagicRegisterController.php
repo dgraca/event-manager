@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Notifications\MagicAuth;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class MagicRegisterController extends Controller
             $user = User::create($attributes);
 
             // Assign the default role to the user
-            $user->assignRole('user');
+            $user->assignRole(Role::ROLE_USER);
             $user->markEmailAsVerified();
             $user->save();
 
