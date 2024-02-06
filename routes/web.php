@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\MagicLinkController;
-use App\Http\Controllers\Auth\MagicLoginController;
+use App\Http\Controllers\Auth\MagicAuthController;
 use App\Http\Controllers\Auth\MagicRegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,22 +27,22 @@ Route::get('dark-mode-switcher', [\App\Http\Controllers\DarkModeController::clas
 Route::get('color-scheme-switcher/{color_scheme}', [\App\Http\Controllers\ColorSchemeController::class, 'switch'])->name('color-scheme-switcher');
 
 // Override the Fortify authentication routes
-Route::post('/login', [MagicLoginController::class, 'store'])->name('magic-login')->middleware('guest');
-Route::post('/register', [MagicRegisterController::class, 'store'])->name('magic-register')->middleware('guest');
+Route::post('/login', [MagicAuthController::class, 'store'])->name('magic-auth')->middleware('guest');
+
 
 // Performs auth with magic link
-Route::get('auth/{user}', [MagicLoginController::class, 'auth'])->name('auth.magic')->middleware('signed');
+Route::get('auth/{user}', [MagicAuthController::class, 'auth'])->name('auth.magic')->middleware('signed');
 
 Route::middleware([
     'auth:sanctum',
+    'ensure-profile-name',
     config('jetstream.auth_session'),
     'verified',
 ])->prefix('admin')->group(function () {
     Route::get('/', [\App\Http\Controllers\DashboardController::class,'index'])->name('dashboard');
 
-
-    Route::patch('/user/profile', [App\Http\Controllers\UserController::class, 'updateMe'])->name('users.update_me');
     Route::resource('users', App\Http\Controllers\UserController::class);
+    Route::patch('/user/profile', [App\Http\Controllers\UserController::class, 'updateMe'])->name('users.update_me');
 
     Route::impersonate();
 

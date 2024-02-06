@@ -35,7 +35,7 @@ Breadcrumbs::for('users.edit', function (BreadcrumbTrail $trail, $user) {
 });
 Breadcrumbs::for('profile.show', function (BreadcrumbTrail $trail, $user) {
     $trail->parent('home');
-    $trail->push($user->name, route('profile.show'));
+    $trail->push($user->name?? $user->email, route('profile.show'));
 });
 Breadcrumbs::for('users.own_edit', function (BreadcrumbTrail $trail, $user) {
     $trail->parent('users.own_show', $user);

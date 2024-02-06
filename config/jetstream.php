@@ -32,6 +32,7 @@ return [
     'middleware' => ['web'],
 
     'auth_session' => AuthenticateSession::class,
+    'prefix' => 'admin',
 
     /*
     |--------------------------------------------------------------------------

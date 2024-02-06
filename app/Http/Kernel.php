@@ -65,5 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'recaptcha' => \App\Http\Middleware\ValidateRecaptcha::class,
+        'ensure-profile-name' => \App\Http\Middleware\EnsureProfileName::class,
+        'has-profile-name' => \App\Http\Middleware\HasProfileName::class,
     ];
 }

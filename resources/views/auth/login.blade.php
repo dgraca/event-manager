@@ -29,7 +29,7 @@
                 <div class="my-10 flex h-screen py-5 xl:my-0 xl:h-auto xl:py-0">
                     <div
                         class="mx-auto my-auto w-full rounded-md bg-white px-5 py-8 shadow-md dark:bg-darkmode-600 sm:w-3/4 sm:px-8 lg:w-2/4 xl:ml-20 xl:w-auto xl:bg-transparent xl:p-0 xl:shadow-none">
-                        <form id="login-form" method="POST" action="{{ route('magic-login') }}">
+                        <form id="login-form" method="POST" action="{{ route('magic-auth') }}">
                             @csrf
                             @if(config('recaptchav3.enable'))
                                 {!! RecaptchaV3::field('login', 'g-recaptcha-response', true, 'login-form', "onClickRecaptcha") !!}
@@ -68,6 +68,22 @@
                                 @enderror
                                 <x-base.form-input type="hidden" id="remember_me" name="remember" value="1"/>
                             </div>
+                            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
+                                <div class="mt-4">
+                                    <x-label for="terms">
+                                        <div class="flex items-center">
+                                            <x-checkbox name="terms" id="terms" required />
+
+                                            <div class="ml-2">
+                                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
+                                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">'.__('Terms of Service').'</a>',
+                                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">'.__('Privacy Policy').'</a>',
+                                                ]) !!}
+                                            </div>
+                                        </div>
+                                    </x-label>
+                                </div>
+                            @endif
                             <div class="intro-x mt-5 text-center xl:mt-8 xl:text-left">
                                 <x-base.button
                                     class="w-full px-4 py-3 align-top xl:mr-3 xl:w-32"
@@ -77,17 +93,6 @@
                                 >
                                     {{ __('Login') }}
                                 </x-base.button>
-
-                                @if (Route::has('register'))
-                                    <x-base.button
-                                        class="mt-3 w-full px-4 py-3 align-top xl:mt-0 xl:w-32"
-                                        variant="outline-secondary"
-                                        as="a"
-                                        href="{{ route('magic-register') }}"
-                                    >
-                                        {{ __('Register') }}
-                                    </x-base.button>
-                                @endif
                             </div>
                             @if(false)
                                 <div class="intro-x mt-10 text-center text-slate-600 dark:text-slate-500 xl:mt-24 xl:text-left">
@@ -128,7 +133,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('magic-login') }}">
+            <form method="POST" action="{{ route('magic-auth') }}">
                 @csrf
 
                 <div>
@@ -136,13 +141,6 @@
                     <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
                 </div>
 
-
-                <div class="block mt-4">
-                    <label for="remember_me" class="flex items-center">
-                        <x-checkbox id="remember_me" name="remember" />
-                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-                    </label>
-                </div>
 
                 <div class="flex items-center justify-end mt-4">
                     <x-button class="ml-4">

@@ -184,18 +184,9 @@
     <!-- END: Notifications  -->
     <!-- BEGIN: Account Menu -->
     <x-base.menu>
-        @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-            <x-base.menu.button class="image-fit zoom-in intro-x block h-8 w-8 overflow-hidden rounded-full shadow-lg">
-                <img
-                    src="{{ Auth::user()->profile_photo_url }}"
-                    alt="{{ auth()->user()->name }}"
-                />
-            </x-base.menu.button>
-        @else
-            <x-base.menu.button>
-                <span class="px-4 py-3 rounded-full bg-slate-300 text-slate-500 dark:bg-darkmode-800 dark:text-slate-300">{{ Str::substr(auth()->user()->name, 0,1) }}</span>
-            </x-base.menu.button>
-        @endif
+        <x-base.menu.button>
+            <span class="px-4 py-3 rounded-full bg-slate-300 text-slate-500 dark:bg-darkmode-800 dark:text-slate-300">{{ auth()->user()->name ? Str::substr(auth()->user()->name, 0,1) : Str::substr(auth()->user()->email, 0,1) }}</span>
+        </x-base.menu.button>
         <x-base.menu.items class="mt-px w-56 bg-primary text-white">
             <x-base.menu.header class="font-normal">
                 <div class="font-medium">{{ auth()->user()->name }}</div>

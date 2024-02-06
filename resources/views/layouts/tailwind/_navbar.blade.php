@@ -36,9 +36,9 @@
             <ul class="buy-button list-none mb-0">
                 <li class="inline mb-0">
                     @if(isset($lightNav) && $lightNav == true)
-                        <a href="{{ route('magic-login') }}" class="btn btn-icon rounded-full bg-gray-50 hover:bg-gray-200 dark:bg-slate-900 dark:hover:bg-gray-700 hover:border-gray-100 dark:border-gray-700 dark:hover:border-gray-700"><i data-feather="log-in" class="h-4 w-4"></i></a>
+                        <a href="{{ route('magic-auth') }}" class="btn btn-icon rounded-full bg-gray-50 hover:bg-gray-200 dark:bg-slate-900 dark:hover:bg-gray-700 hover:border-gray-100 dark:border-gray-700 dark:hover:border-gray-700"><i data-feather="log-in" class="h-4 w-4"></i></a>
                     @else
-                        <a href="{{ route('magic-login') }}" class="btn btn-icon rounded-full bg-indigo-600/5 hover:bg-indigo-600 border-indigo-600/10 hover:border-indigo-600 text-indigo-600 hover:text-white dark:bg-slate-900 dark:hover:bg-gray-700 dark:border-gray-700 dark:hover:border-gray-700 dark:text-white"><i data-feather="log-in" class="h-4 w-4"></i></a>
+                        <a href="{{ route('magic-auth') }}" class="btn btn-icon rounded-full bg-indigo-600/5 hover:bg-indigo-600 border-indigo-600/10 hover:border-indigo-600 text-indigo-600 hover:text-white dark:bg-slate-900 dark:hover:bg-gray-700 dark:border-gray-700 dark:hover:border-gray-700 dark:text-white"><i data-feather="log-in" class="h-4 w-4"></i></a>
                     @endif
                 </li>
             </ul>
