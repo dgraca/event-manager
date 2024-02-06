@@ -1,4 +1,13 @@
 <x-app-layout>
+    @if (session('status'))
+        @push('scripts')
+            <script>
+                window.onload = function() {
+                    toastShow('{{ session('status') }}', '', 'warning');
+                };
+            </script>
+        @endpush
+    @endif
     @if(true)
         @section('breadcrumbs')
             {{ Breadcrumbs::render('profile.show', $user) }}

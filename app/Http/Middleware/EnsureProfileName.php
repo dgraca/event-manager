@@ -15,8 +15,8 @@ class EnsureProfileName
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Exclude all profile and user routes
-        if ($request->is('admin/profile/*') || $request->is('admin/user/*')) {
+        // Exclude the user profile routes from the profile name check
+        if ($request->is('admin/user/profile')) {
             return $next($request);
         }
 
