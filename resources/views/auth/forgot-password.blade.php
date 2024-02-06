@@ -83,7 +83,7 @@
                                     class="mt-3 w-full px-4 py-3 align-top"
                                     variant="outline-secondary"
                                     as="a"
-                                    href="{{ route('magic-login') }}"
+                                    href="{{ route('magic-auth') }}"
                                 >
                                     {{ __('Login') }}
                                 </x-base.button>
