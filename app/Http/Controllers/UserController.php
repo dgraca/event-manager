@@ -172,6 +172,20 @@ class UserController extends Controller
 
         $user->fill($userAttributes);
         if($user->save()){
+
+            // Create the first entity for this user, with its name (when the name is not empty)
+            // The name should be a hash followed by user's name and an underscore
+            // if the name has a space, it should be replaced by an underscore
+            if($user->entity()->count() == 0 && !empty($user->name)){
+                $user->entity()->create([
+                    'name' => __('Main entity for :name', ['name' => $user->name]),
+                    'slug' => str_replace(' ', '_', strtolower($user->name)) . '_' . hash('sha256', $user->name),
+                    'description' => __('Main entity for :name', ['name' => $user->name]),
+                    'status' => 1,
+                    'user_id' => $user->id
+                ]);
+            }
+
             flash(__('Updated successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();
