@@ -618,7 +618,7 @@ try {
                     sizer: element.querySelector('.my-sizer-element'),
                 });
 
-                // Log events.
+                // Log event.
                 this.addShuffleEventListeners();
                 this._activeFilters = [];
                 this.addFilterButtons();
@@ -626,7 +626,7 @@ try {
         }
 
         /**
-         * Shuffle uses the CustomEvent constructor to dispatch events. You can listen
+         * Shuffle uses the CustomEvent constructor to dispatch event. You can listen
          * for them like you normally would (with jQuery for example).
          */
         addShuffleEventListeners() {

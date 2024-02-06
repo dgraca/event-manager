@@ -1,34 +1,34 @@
 <!-- Event Id Field -->
-<div class="mb-3">
-    <x-base.form-label for="event_id">{{ $tickets->getAttributeLabel('event_id') }}</x-base.form-label>
-    <x-base.form-input
-        class="w-full {{ ($errors->has('event_id') ? 'border-danger' : '') }}"
-        id="event_id"
-        name="event_id"
-        :value="old('event_id', $tickets->event_id ?? '')"
-        type="number"
-        step="1"
-    />
-    @error('event_id')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
-</div>
+{{--<div class="mb-3">--}}
+{{--    <x-base.form-label for="event_id">{{ $tickets->getAttributeLabel('event_id') }}</x-base.form-label>--}}
+{{--    <x-base.form-input--}}
+{{--        class="w-full {{ ($errors->has('event_id') ? 'border-danger' : '') }}"--}}
+{{--        id="event_id"--}}
+{{--        name="event_id"--}}
+{{--        :value="old('event_id', $tickets->event_id ?? '')"--}}
+{{--        type="number"--}}
+{{--        step="1"--}}
+{{--    />--}}
+{{--    @error('event_id')--}}
+{{--        <div class="mt-2 text-danger">{{ $message }}</div>--}}
+{{--    @enderror--}}
+{{--</div>--}}
 
 <!-- Zone Id Field -->
-<div class="mb-3">
-    <x-base.form-label for="zone_id">{{ $tickets->getAttributeLabel('zone_id') }}</x-base.form-label>
-    <x-base.form-input
-        class="w-full {{ ($errors->has('zone_id') ? 'border-danger' : '') }}"
-        id="zone_id"
-        name="zone_id"
-        :value="old('zone_id', $tickets->zone_id ?? '')"
-        type="number"
-        step="1"
-    />
-    @error('zone_id')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
-</div>
+{{--<div class="mb-3">--}}
+{{--    <x-base.form-label for="zone_id">{{ $tickets->getAttributeLabel('zone_id') }}</x-base.form-label>--}}
+{{--    <x-base.form-input--}}
+{{--        class="w-full {{ ($errors->has('zone_id') ? 'border-danger' : '') }}"--}}
+{{--        id="zone_id"--}}
+{{--        name="zone_id"--}}
+{{--        :value="old('zone_id', $tickets->zone_id ?? '')"--}}
+{{--        type="number"--}}
+{{--        step="1"--}}
+{{--    />--}}
+{{--    @error('zone_id')--}}
+{{--        <div class="mt-2 text-danger">{{ $message }}</div>--}}
+{{--    @enderror--}}
+{{--</div>--}}
 
 <!-- Name Field -->
 <div class="mb-3">

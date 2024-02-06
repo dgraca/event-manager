@@ -27,7 +27,7 @@
     </div>
     <!-- BEGIN: HTML Table Data -->
     <div class="intro-y mt-8">
-        <livewire:events-table />
+        <livewire:event-table />
 
     </div>
 </x-app-layout>

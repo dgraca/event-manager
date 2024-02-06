@@ -2,20 +2,20 @@
 
 namespace Database\Factories;
 
-use App\Models\Events;
+use App\Models\Event;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\Entity;
 use App\Models\Venue;
 
-class EventsFactory extends Factory
+class EventFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Events::class;
+    protected $model = Event::class;
 
     /**
      * Define the model's default state.
@@ -24,7 +24,7 @@ class EventsFactory extends Factory
      */
     public function definition()
     {
-        
+
         $venue = Venue::first();
         if (!$venue) {
             $venue = Venue::factory()->create();

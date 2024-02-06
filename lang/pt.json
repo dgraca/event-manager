@@ -194,5 +194,6 @@
     "Thank you for using our application!": "Obrigado por usar a nossa aplicação!",
     "We have emailed your magic link!": "Enviamos o seu link mágico por e-mail!",
     "Please fill in your profile name.": "Por favor preencha o nome do seu perfil.",
-    "Main entity for :name": "Entidade principal para :name"
+    "Main entity for :name": "Entidade principal para :name",
+    "Entity": "Entidade"
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Events;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEventsRequest extends FormRequest
+class UpdateEventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class UpdateEventsRequest extends FormRequest
     public function rules()
     {
         $rules = Events::rules();
-        
+
         return $rules;
     }
 }

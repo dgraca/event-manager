@@ -17,18 +17,18 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
-use App\Models\Events;
+use App\Models\Event;
 
-class EventsTable extends Component implements HasForms, HasTable
+class EventTable extends Component implements HasForms, HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
 
     public function table(Table $table): Table
     {
-        $newModel = new Events();
+        $newModel = new Event();
         return $table
-            ->query(Events::query())
+            ->query(Event::query())
             ->columns([
                 TextColumn::make("entity_id")
                 ->label($newModel->getAttributeLabel("entity_id"))
@@ -99,7 +99,7 @@ class EventsTable extends Component implements HasForms, HasTable
                 ->searchable(),
             TextColumn::make("status")
                 ->label($newModel->getAttributeLabel("status"))
-                ->formatStateUsing(fn (Events $record): string => $record->statusLabel)
+                ->formatStateUsing(fn (Event $record): string => $record->statusLabel)
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
@@ -138,7 +138,7 @@ class EventsTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (Events $record): string => route('events.edit', ['events' => $record]))
+                ->url(fn (Event $record): string => route('event.edit', ['event' => $record]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
@@ -151,7 +151,7 @@ class EventsTable extends Component implements HasForms, HasTable
             ])
             ->defaultSort('id', 'desc')
             ->recordUrl(
-                fn (Model $record): string => route('events.show', ['events' => $record]),
+                fn (Model $record): string => route('event.show', ['event' => $record]),
             )
             //->striped()
             ->persistFiltersInSession()
@@ -161,6 +161,6 @@ class EventsTable extends Component implements HasForms, HasTable
 
     public function render() : View
     {
-        return view('events.table');
+        return view('event.table');
     }
 }

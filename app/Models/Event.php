@@ -33,30 +33,30 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property-read \App\Models\Entity $entity
  * @property-read string $status_label
  * @property-read \App\Models\Venue|null $venue
- * @method static \Illuminate\Database\Eloquent\Builder|Events newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Events newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Events query()
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereEndDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereEntityId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereMaxCapacity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events wherePreApproval($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereRegistrationNote($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereScheduledEnd($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereScheduledStart($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereStartDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Events whereVenueId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Event newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Event query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereEndDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereEntityId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereMaxCapacity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event wherePreApproval($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereRegistrationNote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereScheduledEnd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereScheduledStart($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereVenueId($value)
  * @mixin \Eloquent
  */
-class Events extends Model implements Auditable
+class Event extends Model implements Auditable
 {
     use LoadDefaults;
     use \OwenIt\Auditing\Auditable;
@@ -127,6 +127,7 @@ class Events extends Model implements Auditable
     {
         return [
             'id' => __('Id'),
+            'entity' => __('Entity'),
         'entity_id' => __('Entity Id'),
         'venue_id' => __('Venue Id'),
         'name' => __('Name'),
