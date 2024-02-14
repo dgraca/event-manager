@@ -32,34 +32,29 @@
 
 <!-- Entity field - dropdown to select user's entities -->
 <div class="mb-3">
-    <x-base.form-label for="entity">{{ $event->getAttributeLabel('entity') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="entity">{{ $event->getAttributeLabel('entity_id') }}</x-base.form-label>
     <x-base.form-select
+        :tw-merge="false"
         class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"
-        id="entity"
-        name="entity"
-        :value="old('entity', $event->entity ?? '')"
+        wire:model="entity_id"
         type="text"
     >
         <option >{{ __('Select an option') }}</option>
         @foreach(auth()->user()->entity as $entity)
-            <option value="{{ $entity->id }}" {{ old('entity', $event->entity_id ?? '') == $entity->id ? 'selected' : '' }}>
+            <option wire:key="event-entity-{{$entity->id}}" value="{{ $entity->id }}" {{ old('entity', $event->entity_id ?? '') == $entity->id ? 'selected' : '' }}>
                 {{ $entity->name }}
             </option>
         @endforeach
     </x-base.form-select>
-    @error('entity')
-    <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
 </div>
 
 <!-- Name Field -->
 <div class="mb-3">
-    <x-base.form-label for="name">{{ $event->getAttributeLabel('name') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="name">{{ $event->getAttributeLabel('name') }}</x-base.form-label>
     <x-base.form-input
+        :tw-merge="false"
         class="w-full {{ ($errors->has('name') ? 'border-danger' : '') }}"
-        id="name"
-        name="name"
-        :value="old('name', $event->name ?? '')"
+        wire:model="name"
         type="text"
     />
     @error('name')
@@ -84,13 +79,13 @@
 
 <!-- Description Field -->
 <div class="mb-3">
-    <x-base.form-label for="description">{{ $event->getAttributeLabel('description') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="description">{{ $event->getAttributeLabel('description') }}</x-base.form-label>
     <x-base.form-textarea
+        :tw-merge="false"
         class="w-full {{ ($errors->has('description') ? 'border-danger' : '') }}"
-        id="description"
-        name="description"
+        wire:model="description"
         rows="5"
-    >{{ old('description', $event->description ?? '') }}</x-base.form-textarea>
+    />
     @error('description')
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
@@ -98,8 +93,8 @@
 
 <div class="flex flex-row items-center justify-between gap-2">
     <!-- Scheduled Start Field -->
-    <div class="w-full mb-3">
-        <x-base.form-label for="scheduled_start">{{ $event->getAttributeLabel('scheduled_start') }}</x-base.form-label>
+    <div class="w-full mb-3" wire:ignore>
+        <x-base.form-label :tw-merge="false" for="scheduled_start">{{ $event->getAttributeLabel('scheduled_start') }}</x-base.form-label>
         <x-base.input-group
             class="flatpickr"
             data-wrap="true"
@@ -109,21 +104,21 @@
             data-minute-increment='1'
             inputGroup
         >
-            <x-base.input-group.text class="cursor-pointer" title="{{ __('Toggle') }}" data-toggle>
+            <x-base.input-group.text :tw-merge="false" class="cursor-pointer" title="{{ __('Toggle') }}" data-toggle>
                 <x-base.lucide
+                    :tw-merge="false"
                     class="h-5 w-5"
                     icon="Calendar"
                 />
             </x-base.input-group.text>
             <x-base.flatpickr
                 class="{{ ($errors->has('scheduled_start') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
-                id="scheduled_start"
-                name="scheduled_start"
-                :value="old('scheduled_start', $event->scheduled_start ?? '')"
+                wire:model="scheduled_start"
                 data-input
             />
-            <x-base.input-group.text class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
+            <x-base.input-group.text :tw-merge="false" class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
                 <x-base.lucide
+                    :tw-merge="false"
                     class="h-5 w-5 "
                     icon="x"
                 />
@@ -135,8 +130,8 @@
     </div>
 
     <!-- Scheduled End Field -->
-    <div class="w-full mb-3">
-        <x-base.form-label for="scheduled_end">{{ $event->getAttributeLabel('scheduled_end') }}</x-base.form-label>
+    <div class="w-full mb-3" wire:ignore>
+        <x-base.form-label :tw-merge="false" for="scheduled_end">{{ $event->getAttributeLabel('scheduled_end') }}</x-base.form-label>
         <x-base.input-group
             class="flatpickr"
             data-wrap="true"
@@ -146,21 +141,21 @@
             data-minute-increment='1'
             inputGroup
         >
-            <x-base.input-group.text class="cursor-pointer" title="{{ __('Toggle') }}" data-toggle>
+            <x-base.input-group.text :tw-merge="false" class="cursor-pointer" title="{{ __('Toggle') }}" data-toggle>
                 <x-base.lucide
+                    :tw-merge="false"
                     class="h-5 w-5"
                     icon="Calendar"
                 />
             </x-base.input-group.text>
             <x-base.flatpickr
                 class="{{ ($errors->has('scheduled_end') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
-                id="scheduled_end"
-                name="scheduled_end"
-                :value="old('scheduled_end', $event->scheduled_end ?? '')"
+                wire:model="scheduled_end"
                 data-input
             />
-            <x-base.input-group.text class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
+            <x-base.input-group.text :tw-merge="false" class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
                 <x-base.lucide
+                    :tw-merge="false"
                     class="h-5 w-5 "
                     icon="x"
                 />
@@ -174,8 +169,8 @@
 
 <div class="flex flex-row items-center justify-between gap-2">
     <!-- Start Date Field -->
-    <div class="w-full mb-3">
-        <x-base.form-label for="start_date">{{ $event->getAttributeLabel('start_date') }}</x-base.form-label>
+    <div class="w-full mb-3" wire:ignore>
+        <x-base.form-label :tw-merge="false" for="start_date">{{ $event->getAttributeLabel('start_date') }}</x-base.form-label>
         <x-base.input-group
             class="flatpickr"
             data-wrap="true"
@@ -185,21 +180,21 @@
             data-minute-increment='1'
             inputGroup
         >
-            <x-base.input-group.text class="cursor-pointer" title="{{ __('Toggle') }}" data-toggle>
+            <x-base.input-group.text :tw-merge="false" class="cursor-pointer" title="{{ __('Toggle') }}" data-toggle>
                 <x-base.lucide
+                    :tw-merge="false"
                     class="h-5 w-5"
                     icon="Calendar"
                 />
             </x-base.input-group.text>
             <x-base.flatpickr
                 class="{{ ($errors->has('start_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
-                id="start_date"
-                name="start_date"
-                :value="old('start_date', $event->start_date ?? '')"
+                wire:model="start_date"
                 data-input
             />
-            <x-base.input-group.text class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
+            <x-base.input-group.text :tw-merge="false" class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
                 <x-base.lucide
+                    :tw-merge="false"
                     class="h-5 w-5 "
                     icon="x"
                 />
@@ -211,8 +206,8 @@
     </div>
 
     <!-- End Date Field -->
-    <div class="w-full mb-3">
-        <x-base.form-label for="end_date">{{ $event->getAttributeLabel('end_date') }}</x-base.form-label>
+    <div class="w-full mb-3" wire:ignore>
+        <x-base.form-label :tw-merge="false" for="end_date">{{ $event->getAttributeLabel('end_date') }}</x-base.form-label>
         <x-base.input-group
             class="flatpickr"
             data-wrap="true"
@@ -222,17 +217,16 @@
             data-minute-increment='1'
             inputGroup
         >
-            <x-base.input-group.text class="cursor-pointer" title="{{ __('Toggle') }}" data-toggle>
+            <x-base.input-group.text :tw-merge="false" class="cursor-pointer" title="{{ __('Toggle') }}" data-toggle>
                 <x-base.lucide
+                    :tw-merge="false"
                     class="h-5 w-5"
                     icon="Calendar"
                 />
             </x-base.input-group.text>
             <x-base.flatpickr
                 class="{{ ($errors->has('end_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
-                id="end_date"
-                name="end_date"
-                :value="old('end_date', $event->end_date ?? '')"
+                wire:model="end_date"
                 data-input
             />
             <x-base.input-group.text class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
@@ -250,13 +244,13 @@
 
 <!-- Registration Note Field -->
 <div class="mb-3">
-    <x-base.form-label for="registration_note">{{ $event->getAttributeLabel('registration_note') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="registration_note">{{ $event->getAttributeLabel('registration_note') }}</x-base.form-label>
     <x-base.form-textarea
+        :tw-merge="false"
         class="w-full {{ ($errors->has('registration_note') ? 'border-danger' : '') }}"
-        id="registration_note"
-        name="registration_note"
+        wire:model="registration_note"
         rows="5"
-    >{{ old('registration_note', $event->registration_note ?? '') }}</x-base.form-textarea>
+    />
     @error('registration_note')
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
@@ -265,21 +259,19 @@
 <!-- Pre-Approval Field -->
 <div class="mb-3">
     <x-base.form-input
-        id="pre-approval_hidden"
-        name="pre-approval"
-        :value="0"
+        :tw-merge="false"
+        wire:model="pre-approval"
         type="hidden"
     />
-    <x-base.form-check>
+    <x-base.form-check :tw-merge="false">
         <x-base.form-check.input
+            :tw-merge="false"
             class="{{ ($errors->has('pre-approval') ? 'border-danger' : '') }}"
-            id="pre-approval"
-            name="pre-approval"
+            wire:model="pre-approval"
             :value="1"
-            :checked="old('pre-approval', $event->pre_approval ?? '') == 1"
             type="checkbox"
         />
-        <x-base.form-check.label for="pre-approval">{{ $event->getAttributeLabel('pre-approval') }}</x-base.form-check.label>
+        <x-base.form-check.label :tw-merge="false" for="pre-approval">{{ $event->getAttributeLabel('pre-approval') }}</x-base.form-check.label>
     </x-base.form-check>
     @error('pre-approval')
         <div class="mt-2 text-danger">{{ $message }}</div>
@@ -288,12 +280,11 @@
 
 <!-- Max Capacity Field -->
 <div class="mb-3">
-    <x-base.form-label for="max_capacity">{{ $event->getAttributeLabel('max_capacity') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="max_capacity">{{ $event->getAttributeLabel('max_capacity') }}</x-base.form-label>
     <x-base.form-input
+        :tw-merge="false"
         class="w-full {{ ($errors->has('max_capacity') ? 'border-danger' : '') }}"
-        id="max_capacity"
-        name="max_capacity"
-        :value="old('max_capacity', $event->max_capacity ?? '')"
+        wire:model="max_capacity"
         type="number"
         step="1"
     />
@@ -304,12 +295,11 @@
 
 <!-- Type Field -->
 <div class="mb-3">
-    <x-base.form-label for="type">{{ $event->getAttributeLabel('type') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="type">{{ $event->getAttributeLabel('type') }}</x-base.form-label>
     <x-base.form-input
+        :tw-merge="false"
         class="w-full {{ ($errors->has('type') ? 'border-danger' : '') }}"
-        id="type"
-        name="type"
-        :value="old('type', $event->type ?? '')"
+        wire:model="type"
         type="number"
         step="1"
     />
@@ -320,17 +310,16 @@
 
 <!-- Status Field -->
 <div class="mb-3">
-    <x-base.form-label for="status">{{ $event->getAttributeLabel('status') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="status">{{ $event->getAttributeLabel('status') }}</x-base.form-label>
     <x-base.form-select
+        :tw-merge="false"
         class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"
-        id="status"
-        name="status"
-        :value="old('status', $event->status ?? '')"
+        wire:model="status"
         type="text"
     >
         <option >{{ __('Select an option') }}</option>
         @foreach(\App\Models\Event::getStatusArray() as $key => $label)
-        <option value="{{ $key }}" {{ old('status', $event->status ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>
+        <option wire:key="event-status-{{ $key }}" value="{{ $key }}" {{ old('status', $event->status ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>
         @endforeach
     </x-base.form-select>
     @error('status')

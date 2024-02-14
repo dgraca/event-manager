@@ -1,7 +1,7 @@
-@props(['inputGroup' => null])
+@props(['inputGroup' => null, 'twMerge' => true])
 
 <div
-    data-tw-merge
+    @if($twMerge) data-tw-merge @endif
     {{ $attributes->class(['flex'])->merge($attributes->whereDoesntStartWith('class')->getAttributes()) }}
 >
     {{ $slot }}

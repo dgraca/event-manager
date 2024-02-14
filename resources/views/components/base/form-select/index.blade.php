@@ -1,4 +1,4 @@
-@props(['formSelectSize' => null])
+@props(['formSelectSize' => null, 'twMerge' => true])
 @aware(['formInline' => null])
 @php
     //if is readonly, then disable it and add a hidden input side readonly is not allowed for select
@@ -8,7 +8,7 @@
 @endphp
 
 <select
-    data-tw-merge
+    @if($twMerge) data-tw-merge @endif
     {{ $attributes->class(
             merge([
                 'disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50',

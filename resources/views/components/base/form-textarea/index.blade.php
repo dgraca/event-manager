@@ -1,8 +1,8 @@
 @props(['formTextareaSize' => null, 'rounded' => null])
-@aware(['formInline' => null, 'inputGroup' => null])
+@aware(['formInline' => null, 'inputGroup' => null, 'twMerge' => true])
 
 <textarea
-    data-tw-merge
+    @if($twMerge) data-tw-merge @endif
     {{ $attributes->class(
             merge([
                 'disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent',
