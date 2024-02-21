@@ -42,4 +42,14 @@ class TicketForm extends Form
         unset($this->tickets[$id]);
         $this->tickets = array_values($this->tickets);
     }
+
+    public function store()
+    {
+        // Store the tickets
+    }
+
+    public function update()
+    {
+        // Update the tickets
+    }
 }

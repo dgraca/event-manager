@@ -1,16 +1,16 @@
 <div>
-    <form action="{{ route('events.store') }}" method="POST" accept-charset="UTF-8">
+    <form wire:submit="save" method="POST" accept-charset="UTF-8">
         @csrf
 
         {{--   SECTION 1 - Event details     --}}
-        <h1 class="intro-y mt-6">SECÇÃO 1</h1>
-        <div class="intro-y box mt-3 p-5">
+        <h1 class="mt-6">SECÇÃO 1</h1>
+        <div class="box mt-3 p-5">
             @include('event.fields')
         </div>
 
         {{--   SECTION 2 - Event Session details     --}}
-        <h1 class="intro-y mt-6">SECÇÃO 2</h1>
-        <div class="intro-y box mt-3 p-5">
+        <h1 class="mt-6">SECÇÃO 2</h1>
+        <div class="box mt-3 p-5">
             @if(count($eventSessionForm->sessions) <= 0)
                 <div class="w-full text-center">
                     <h1 class="text-lg font-light">__('Add sessions')</h1>
@@ -18,7 +18,7 @@
             @endif
 
             @foreach($eventSessionForm->sessions as $index => $session)
-                <div class="intro-y box mt-3 p-5">
+                <div class="box mt-3 p-5">
                     <h1 class="text-lg font-light">Session #{{ $index + 1 }}</h1>
                     <div wire:key="session-{{ $index }}" class="mt-3">
                         @include('event_sessions.livewire-fields', ['session' => $session])
@@ -48,8 +48,8 @@
         </div>
 
         {{--   SECTION 3 - Ticket details     --}}
-        <h1 class="intro-y mt-6">SECÇÃO 3</h1>
-        <div class="intro-y box mt-3 p-5">
+        <h1 class="mt-6">SECÇÃO 3</h1>
+        <div class="box mt-3 p-5">
             @if(count($ticketForm->tickets) <= 0)
                 <div class="w-full text-center">
                     <h1 class="text-lg font-light">__('Add tickets')</h1>
@@ -57,7 +57,7 @@
             @endif
 
             @foreach($ticketForm->tickets as $index => $ticket)
-                <div class="intro-y box mt-3 p-5">
+                <div class="box mt-3 p-5">
                     <h1 class="text-lg font-light">Ticket #{{ $index + 1 }}</h1>
                     <div wire:key="ticket-{{ $index }}" class="mt-3">
                         @include('tickets.fields-livewire', ['ticket' => $ticket])

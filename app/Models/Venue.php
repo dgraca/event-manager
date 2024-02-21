@@ -92,9 +92,9 @@ class Venue extends Model implements Auditable
     public static function rules(): array
     {
         return [
-            'entity_id' => 'required',
+            //'entity_id' => 'nullable',
         'name' => 'required|string|max:255',
-        'slug' => 'required|string|max:255',
+        'slug' => 'nullable|string|max:255',
         'address' => 'nullable|string|max:512',
         'location' => 'nullable|string|max:255',
         'country' => 'nullable|string|max:2',
@@ -104,9 +104,9 @@ class Venue extends Model implements Auditable
         'email' => 'nullable|string|max:255',
         'phone' => 'nullable|string|max:255',
         'mobile' => 'nullable|string|max:255',
-        'created_at' => 'nullable',
-        'updated_at' => 'nullable',
-        'deleted_at' => 'nullable'
+        //'created_at' => 'nullable',
+        //'updated_at' => 'nullable',
+        //'deleted_at' => 'nullable'
         ];
     }
 

@@ -17,7 +17,7 @@
         </div>
     </div>
     <!-- BEGIN: HTML Table Data -->
-    <div class="intro-y box mt-5 p-5">
+    <div class="box mt-5 p-5">
         <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
             <form
                 class="sm:mr-auto xl:flex"

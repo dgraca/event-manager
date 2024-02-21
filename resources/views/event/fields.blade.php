@@ -32,7 +32,7 @@
 
 <!-- Entity field - dropdown to select user's entities -->
 <div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="entity">{{ $event->getAttributeLabel('entity_id') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="entity">{{ $event->getAttributeLabel('entity') }}</x-base.form-label>
     <x-base.form-select
         :tw-merge="false"
         class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"
@@ -325,4 +325,35 @@
     @error('status')
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
+</div>
+
+<!-- Venue field - dropdown to select entity's venues -->
+<div class="mb-3">
+    <x-base.form-label :tw-merge="false" for="entity">{{ $event->getAttributeLabel('venue_id') }}</x-base.form-label>
+    <div class="flex flex-row items-center justify-between gap-2">
+        <div class="w-2/3">
+            <x-base.form-select
+                :tw-merge="false"
+                class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"
+                wire:model.live="venue-id"
+                type="text"
+            >
+                <option >{{ __('Select an option') }}</option>
+                @foreach($entity->venues as $venue)
+                    <option wire:key="venue-{{$venue->id}}" value="{{ $venue->id }}" {{ old('venue', $event->venue_id ?? '') == $venue->id ? 'selected' : '' }}>
+                        {{ $entity->name }}
+                    </option>
+                @endforeach
+            </x-base.form-select>
+        </div>
+
+        <x-base.button
+            :tw-merge="false"
+            class="mr-1 w-auto"
+            type="button"
+            variant="outline-primary"
+            wire:click="$dispatch('openModal', { component: 'venue-modal' })"
+        >{{ __('Add venue') }}
+        </x-base.button>
+    </div>
 </div>

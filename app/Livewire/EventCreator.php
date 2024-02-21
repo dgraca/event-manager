@@ -7,6 +7,7 @@ use App\Livewire\Forms\EventSessionForm;
 use App\Livewire\Forms\TicketForm;
 use App\Models\Event;
 use App\Models\Tickets;
+use App\Models\Venue;
 use Livewire\Component;
 
 class EventCreator extends Component
@@ -16,13 +17,16 @@ class EventCreator extends Component
     public TicketForm $ticketForm;
 
     public $event;
-    public $tickets;
+    public ?Venue $venue;
     public $eventSessions;
+    public $tickets;
+    public $zones;
 
     /* component lifecycle */
     public function mount(Event $event)
     {
         $this->eventForm->setEvent($event);
+        $this->venue = new Venue();
         $this->event = $event;
 
         $this->eventSessions = $this->eventSessionForm->sessions;

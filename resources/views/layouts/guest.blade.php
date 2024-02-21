@@ -71,6 +71,7 @@
         @stack('vendors')
         <!-- END: Vendor JS Assets-->
 
+        @livewire('wire-elements-modal')
         @livewireScripts
         @stack('scripts')
     </body>
