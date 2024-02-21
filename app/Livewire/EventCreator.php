@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Livewire\Forms\EventForm;
+use App\Livewire\Forms\EventSessionForm;
 use App\Livewire\Forms\TicketForm;
 use App\Models\Event;
 use App\Models\Tickets;
@@ -11,10 +12,12 @@ use Livewire\Component;
 class EventCreator extends Component
 {
     public EventForm $eventForm;
+    public EventSessionForm $eventSessionForm;
     public TicketForm $ticketForm;
 
     public $event;
     public $tickets;
+    public $eventSessions;
 
     /* component lifecycle */
     public function mount(Event $event)
@@ -22,7 +25,16 @@ class EventCreator extends Component
         $this->eventForm->setEvent($event);
         $this->event = $event;
 
+        $this->eventSessions = $this->eventSessionForm->sessions;
         $this->tickets = $this->ticketForm->tickets;
+    }
+
+    public function addSession() {
+        $this->eventSessionForm->addSession();
+    }
+
+    public function removeSession(int $id) {
+        $this->eventSessionForm->removeSession($id);
     }
 
     public function addTicket()
@@ -40,6 +52,7 @@ class EventCreator extends Component
      * !Maybe this will be segmented in save/update methods
      */
     public function save() {
+        dd($this->event);
         // saves the event
         // associates the event with the chosen entity (or default)
         // saves the venue

@@ -8,9 +8,47 @@
             @include('event.fields')
         </div>
 
-        {{--   SECTION 2 - Ticket details     --}}
+        {{--   SECTION 2 - Event Session details     --}}
         <h1 class="intro-y mt-6">SECÇÃO 2</h1>
+        <div class="intro-y box mt-3 p-5">
+            @if(count($eventSessionForm->sessions) <= 0)
+                <div class="w-full text-center">
+                    <h1 class="text-lg font-light">__('Add sessions')</h1>
+                </div>
+            @endif
 
+            @foreach($eventSessionForm->sessions as $index => $session)
+                <div class="intro-y box mt-3 p-5">
+                    <h1 class="text-lg font-light">Session #{{ $index + 1 }}</h1>
+                    <div wire:key="session-{{ $index }}" class="mt-3">
+                        @include('event_sessions.livewire-fields', ['session' => $session])
+                        <div class="mt-5 text-right">
+                            <x-base.button
+                                :tw-merge="false"
+                                type="button"
+                                variant="outline-danger"
+                                wire:click="removeSession({{ $index }})"
+                            >{{ __('Remove session') }}
+                            </x-base.button>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+            <div class="text-right {{ count($eventSessionForm->sessions) > 0 ? 'mt-5' : ''}}">
+                <x-base.button
+                    :tw-merge="false"
+                    class="mr-1 w-24"
+                    type="button"
+                    variant="outline-primary"
+                    wire:click="addSession"
+                >{{ __('Add session') }}
+                </x-base.button>
+            </div>
+        </div>
+
+        {{--   SECTION 3 - Ticket details     --}}
+        <h1 class="intro-y mt-6">SECÇÃO 3</h1>
         <div class="intro-y box mt-3 p-5">
             @if(count($ticketForm->tickets) <= 0)
                 <div class="w-full text-center">
@@ -22,7 +60,7 @@
                 <div class="intro-y box mt-3 p-5">
                     <h1 class="text-lg font-light">Ticket #{{ $index + 1 }}</h1>
                     <div wire:key="ticket-{{ $index }}" class="mt-3">
-                        @include('tickets.fields-livewire', ['tickets' => $ticket])
+                        @include('tickets.fields-livewire', ['ticket' => $ticket])
                         <div class="mt-5 text-right">
                             <x-base.button
                                 :tw-merge="false"
