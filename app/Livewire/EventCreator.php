@@ -8,6 +8,7 @@ use App\Livewire\Forms\TicketForm;
 use App\Models\Event;
 use App\Models\Tickets;
 use App\Models\Venue;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class EventCreator extends Component
@@ -23,10 +24,6 @@ class EventCreator extends Component
     public $tickets;
     public $zones;
 
-    protected $listeners = [
-        'venue-created' => 'refreshVenues'
-    ];
-
     /* component lifecycle */
     public function mount(Event $event)
     {
@@ -39,6 +36,7 @@ class EventCreator extends Component
         $this->tickets = $this->ticketForm->tickets;
     }
 
+    #[On('venue-created')]
     public function refreshVenues()
     {
         $this->venues = auth()->user()->entity()->first()->venues()->get(); // Get fresh venues
