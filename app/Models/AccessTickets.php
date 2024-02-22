@@ -143,7 +143,7 @@ class AccessTickets extends Model implements Auditable
 
     public function paymentOption(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\PaymentOptions::class, 'payment_option_id');
+        return $this->belongsTo(\App\Models\PaymentOption::class, 'payment_option_id');
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -282,6 +282,6 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
 
     public function accessTickets() : HasMany
     {
-        return $this->hasOne(PaymentOptions::class)->withTimestamps();
+        return $this->hasOne(PaymentOption::class)->withTimestamps();
     }
 }

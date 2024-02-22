@@ -95,7 +95,7 @@ class Entity extends Model implements Auditable
 
     public function paymentOptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\PaymentOptions::class, 'entity_id');
+        return $this->hasMany(\App\Models\PaymentOption::class, 'entity_id');
     }
 
     public function venues(): \Illuminate\Database\Eloquent\Relations\HasMany

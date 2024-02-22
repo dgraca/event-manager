@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePaymentOptionsRequest;
 use App\Http\Requests\UpdatePaymentOptionsRequest;
 //use App\Http\Controllers\AppBaseController;
-use App\Models\PaymentOptions;
+use App\Models\PaymentOption;
 use Illuminate\Http\Request;
 
 class PaymentOptionsController extends Controller
@@ -23,7 +23,7 @@ class PaymentOptionsController extends Controller
      */
     public function create()
     {
-        $paymentOptions = new PaymentOptions();
+        $paymentOptions = new PaymentOption();
         $paymentOptions->loadDefaultValues();
         return view('payment_options.create', compact('paymentOptions'));
     }
@@ -35,8 +35,8 @@ class PaymentOptionsController extends Controller
     {
         $input = $request->all();
 
-        /** @var PaymentOptions $paymentOptions */
-        $paymentOptions = PaymentOptions::create($input);
+        /** @var PaymentOption $paymentOptions */
+        $paymentOptions = PaymentOption::create($input);
         if($paymentOptions){
             flash(__('Saved successfully.'))->overlay()->success();
         }else{
@@ -51,8 +51,8 @@ class PaymentOptionsController extends Controller
      */
     public function show($id)
     {
-        /** @var PaymentOptions $paymentOptions */
-        $paymentOptions = PaymentOptions::find($id);
+        /** @var PaymentOption $paymentOptions */
+        $paymentOptions = PaymentOption::find($id);
 
         if (empty($paymentOptions)) {
             flash(__('Not found'))->overlay()->danger();
@@ -68,8 +68,8 @@ class PaymentOptionsController extends Controller
      */
     public function edit($id)
     {
-        /** @var PaymentOptions $paymentOptions */
-        $paymentOptions = PaymentOptions::find($id);
+        /** @var PaymentOption $paymentOptions */
+        $paymentOptions = PaymentOption::find($id);
 
         if (empty($paymentOptions)) {
             flash(__('Not found'))->overlay()->danger();
@@ -85,8 +85,8 @@ class PaymentOptionsController extends Controller
      */
     public function update($id, UpdatePaymentOptionsRequest $request)
     {
-        /** @var PaymentOptions $paymentOptions */
-        $paymentOptions = PaymentOptions::find($id);
+        /** @var PaymentOption $paymentOptions */
+        $paymentOptions = PaymentOption::find($id);
 
         if (empty($paymentOptions)) {
             flash(__('Not found'))->overlay()->danger();
@@ -111,8 +111,8 @@ class PaymentOptionsController extends Controller
      */
     public function destroy($id)
     {
-        /** @var PaymentOptions $paymentOptions */
-        $paymentOptions = PaymentOptions::find($id);
+        /** @var PaymentOption $paymentOptions */
+        $paymentOptions = PaymentOption::find($id);
 
         if (empty($paymentOptions)) {
             flash(__('Not found'))->overlay()->danger();

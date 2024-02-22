@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\PaymentOptions;
+use App\Models\PaymentOption;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\Entity;
@@ -14,7 +14,7 @@ class PaymentOptionsFactory extends Factory
      *
      * @var string
      */
-    protected $model = PaymentOptions::class;
+    protected $model = PaymentOption::class;
 
     /**
      * Define the model's default state.

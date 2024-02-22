@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\PaymentOptions;
+use App\Models\PaymentOption;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePaymentOptionsRequest extends FormRequest
@@ -24,8 +24,8 @@ class UpdatePaymentOptionsRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = PaymentOptions::rules();
-        
+        $rules = PaymentOption::rules();
+
         return $rules;
     }
 }

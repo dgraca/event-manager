@@ -26,25 +26,25 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \OwenIt\Auditing\Models\Audit> $audits
  * @property-read int|null $audits_count
  * @property-read \App\Models\Entity $entity
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions query()
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereBusinessEntityName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereCountry($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereCurrency($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereData($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereEntityId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions wherePostcode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentOptions whereVat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereBusinessEntityName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereCurrency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereEntityId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption wherePostcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentOption whereVat($value)
  * @mixin \Eloquent
  */
-class PaymentOptions extends Model implements Auditable
+class PaymentOption extends Model implements Auditable
 {
     use LoadDefaults;
     use \OwenIt\Auditing\Auditable;
