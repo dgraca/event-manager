@@ -29,26 +29,26 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property-read int|null $audits_count
  * @property-read string $status_label
  * @property-read \App\Models\User|null $user
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets query()
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereApproved($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereCode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereEventSessionTicketId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets wherePaymentOptionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets wherePhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereTicketsCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|AccessTickets whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket query()
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereApproved($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereEventSessionTicketId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket wherePaymentOptionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereTicketsCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AccessTicket whereUserId($value)
  * @mixin \Eloquent
  */
-class AccessTickets extends Model implements Auditable
+class AccessTicket extends Model implements Auditable
 {
     use LoadDefaults;
     use \OwenIt\Auditing\Auditable;

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\AccessTickets;
+use App\Models\AccessTicket;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\EventSessionTicket;
@@ -16,7 +16,7 @@ class AccessTicketsFactory extends Factory
      *
      * @var string
      */
-    protected $model = AccessTickets::class;
+    protected $model = AccessTicket::class;
 
     /**
      * Define the model's default state.
@@ -25,7 +25,7 @@ class AccessTicketsFactory extends Factory
      */
     public function definition()
     {
-        
+
         $user = User::first();
         if (!$user) {
             $user = User::factory()->create();

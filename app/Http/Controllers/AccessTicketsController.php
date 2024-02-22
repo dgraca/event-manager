@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateAccessTicketsRequest;
 use App\Http\Requests\UpdateAccessTicketsRequest;
 //use App\Http\Controllers\AppBaseController;
-use App\Models\AccessTickets;
+use App\Models\AccessTicket;
 use Illuminate\Http\Request;
 
 class AccessTicketsController extends Controller
@@ -23,7 +23,7 @@ class AccessTicketsController extends Controller
      */
     public function create()
     {
-        $accessTickets = new AccessTickets();
+        $accessTickets = new AccessTicket();
         $accessTickets->loadDefaultValues();
         return view('access_tickets.create', compact('accessTickets'));
     }
@@ -35,8 +35,8 @@ class AccessTicketsController extends Controller
     {
         $input = $request->all();
 
-        /** @var AccessTickets $accessTickets */
-        $accessTickets = AccessTickets::create($input);
+        /** @var AccessTicket $accessTickets */
+        $accessTickets = AccessTicket::create($input);
         if($accessTickets){
             flash(__('Saved successfully.'))->overlay()->success();
         }else{
@@ -51,8 +51,8 @@ class AccessTicketsController extends Controller
      */
     public function show($id)
     {
-        /** @var AccessTickets $accessTickets */
-        $accessTickets = AccessTickets::find($id);
+        /** @var AccessTicket $accessTickets */
+        $accessTickets = AccessTicket::find($id);
 
         if (empty($accessTickets)) {
             flash(__('Not found'))->overlay()->danger();
@@ -68,8 +68,8 @@ class AccessTicketsController extends Controller
      */
     public function edit($id)
     {
-        /** @var AccessTickets $accessTickets */
-        $accessTickets = AccessTickets::find($id);
+        /** @var AccessTicket $accessTickets */
+        $accessTickets = AccessTicket::find($id);
 
         if (empty($accessTickets)) {
             flash(__('Not found'))->overlay()->danger();
@@ -85,8 +85,8 @@ class AccessTicketsController extends Controller
      */
     public function update($id, UpdateAccessTicketsRequest $request)
     {
-        /** @var AccessTickets $accessTickets */
-        $accessTickets = AccessTickets::find($id);
+        /** @var AccessTicket $accessTickets */
+        $accessTickets = AccessTicket::find($id);
 
         if (empty($accessTickets)) {
             flash(__('Not found'))->overlay()->danger();
@@ -111,8 +111,8 @@ class AccessTicketsController extends Controller
      */
     public function destroy($id)
     {
-        /** @var AccessTickets $accessTickets */
-        $accessTickets = AccessTickets::find($id);
+        /** @var AccessTicket $accessTickets */
+        $accessTickets = AccessTicket::find($id);
 
         if (empty($accessTickets)) {
             flash(__('Not found'))->overlay()->danger();

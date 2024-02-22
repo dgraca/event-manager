@@ -114,7 +114,7 @@ class EventSessionTicket extends Model implements Auditable
 
     public function accessTickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\AccessTickets::class, 'event_session_ticket_id');
+        return $this->hasMany(\App\Models\AccessTicket::class, 'event_session_ticket_id');
     }
 
 

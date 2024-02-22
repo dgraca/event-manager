@@ -137,6 +137,6 @@ class PaymentOption extends Model implements Auditable
 
     public function accessTickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\AccessTickets::class, 'payment_option_id');
+        return $this->hasMany(\App\Models\AccessTicket::class, 'payment_option_id');
     }
 }
