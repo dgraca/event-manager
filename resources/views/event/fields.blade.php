@@ -31,22 +31,22 @@
 {{--</div>--}}
 
 <!-- Entity field - dropdown to select user's entities -->
-<div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="entity">{{ $event->getAttributeLabel('entity') }}</x-base.form-label>
-    <x-base.form-select
-        :tw-merge="false"
-        class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"
-        wire:model="entity_id"
-        type="text"
-    >
-        <option >{{ __('Select an option') }}</option>
-        @foreach(auth()->user()->entity as $entity)
-            <option wire:key="event-entity-{{$entity->id}}" value="{{ $entity->id }}" {{ old('entity', $event->entity_id ?? '') == $entity->id ? 'selected' : '' }}>
-                {{ $entity->name }}
-            </option>
-        @endforeach
-    </x-base.form-select>
-</div>
+{{--<div class="mb-3">--}}
+{{--    <x-base.form-label :tw-merge="false" for="entity">{{ $event->getAttributeLabel('entity') }}</x-base.form-label>--}}
+{{--    <x-base.form-select--}}
+{{--        :tw-merge="false"--}}
+{{--        class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"--}}
+{{--        wire:model="entity_id"--}}
+{{--        type="text"--}}
+{{--    >--}}
+{{--        <option >{{ __('Select an option') }}</option>--}}
+{{--        @foreach(auth()->user()->entity as $entity)--}}
+{{--            <option wire:key="event-entity-{{$entity->id}}" value="{{ $entity->id }}" {{ old('entity', $event->entity_id ?? '') == $entity->id ? 'selected' : '' }}>--}}
+{{--                {{ $entity->name }}--}}
+{{--            </option>--}}
+{{--        @endforeach--}}
+{{--    </x-base.form-select>--}}
+{{--</div>--}}
 
 <!-- Name Field -->
 <div class="mb-3">
@@ -339,7 +339,7 @@
                 type="text"
             >
                 <option >{{ __('Select an option') }}</option>
-                @foreach($entity->venues as $venue)
+                @foreach(auth()->user()->entity()->first()->venues as $venue)
                     <option wire:key="venue-{{$venue->id}}" value="{{ $venue->id }}" {{ old('venue', $event->venue_id ?? '') == $venue->id ? 'selected' : '' }}>
                         {{ $venue->name }} ({{ strlen($venue->address) >= 86 ? substr($venue->address, 0, 86) . "..." : $venue->address }})
                     </option>
