@@ -179,7 +179,6 @@ class UserController extends Controller
             if($user->entity()->count() == 0 && !empty($user->name)){
                 $user->entity()->create([
                     'name' => __('Main entity for :name', ['name' => $user->name]),
-                    'slug' => str_replace(' ', '_', strtolower($user->name)) . '_' . hash('sha256', $user->name),
                 ]);
             }
 

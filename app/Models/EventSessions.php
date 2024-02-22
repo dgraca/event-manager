@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\LoadDefaults;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -49,6 +50,22 @@ class EventSessions extends Model implements Auditable
     use LoadDefaults;
     use \OwenIt\Auditing\Auditable;
     use HasFactory;
+    use Sluggable;
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
+
     const STATUS_DISABLE = 0;
     const STATUS_ACTIVE = 1;
 
