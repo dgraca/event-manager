@@ -42,7 +42,7 @@ class EntityController extends Controller
         $user = auth()->user();
 
         // attach entity to user
-        $user->entity()->attach($entity);
+        $user->entities()->attach($entity);
 
         if($entity){
             flash(__('Saved successfully.'))->overlay()->success();

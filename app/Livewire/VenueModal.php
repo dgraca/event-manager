@@ -60,7 +60,7 @@ class VenueModal extends ModalComponent
             ]));
 
             // associate the venue with authenticated user's first entity
-            $this->venue->entity_id = auth()->user()->entity()->first()->id;
+            $this->venue->entity_id = auth()->user()->entities()->first()->id;
 
             $this->venue->save();
 

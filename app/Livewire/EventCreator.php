@@ -29,7 +29,7 @@ class EventCreator extends Component
     {
         $this->eventForm->setEvent($event);
         $this->venue = new Venue();
-        $this->venues = auth()->user()->entity()->first()->venues()->get();
+        $this->venues = auth()->user()->entities()->first()->venues()->get();
         $this->event = $event;
 
         $this->eventSessions = $this->eventSessionForm->sessions;
@@ -39,7 +39,7 @@ class EventCreator extends Component
     #[On('venue-created')]
     public function refreshVenues()
     {
-        $this->venues = auth()->user()->entity()->first()->venues()->get(); // Get fresh venues
+        $this->venues = auth()->user()->entities()->first()->venues()->get(); // Get fresh venues
     }
 
     /* Forms methods */

@@ -176,8 +176,8 @@ class UserController extends Controller
             // Create the first entity for this user, with its name (when the name is not empty)
             // The name should be a hash followed by user's name and an underscore
             // if the name has a space, it should be replaced by an underscore
-            if($user->entity()->count() == 0 && !empty($user->name)){
-                $user->entity()->create([
+            if($user->entities()->count() == 0 && !empty($user->name)){
+                $user->entities()->create([
                     'name' => __('Main entity for :name', ['name' => $user->name]),
                 ]);
             }

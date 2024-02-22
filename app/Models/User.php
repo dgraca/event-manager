@@ -275,7 +275,7 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
         return $this->hasMany(\App\Models\EntityUser::class, 'user_id');
     }
 
-    public function entity(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function entities(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(\App\Models\Entity::class)->withTimestamps();
     }
