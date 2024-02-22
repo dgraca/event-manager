@@ -341,7 +341,7 @@
                 <option >{{ __('Select an option') }}</option>
                 @foreach($entity->venues as $venue)
                     <option wire:key="venue-{{$venue->id}}" value="{{ $venue->id }}" {{ old('venue', $event->venue_id ?? '') == $venue->id ? 'selected' : '' }}>
-                        {{ $venue->name }}
+                        {{ $venue->name }} ({{ strlen($venue->address) >= 86 ? substr($venue->address, 0, 86) . "..." : $venue->address }})
                     </option>
                 @endforeach
             </x-base.form-select>
