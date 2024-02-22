@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateEventSessionsRequest;
 use App\Http\Requests\UpdateEventSessionsRequest;
 //use App\Http\Controllers\AppBaseController;
-use App\Models\EventSessions;
+use App\Models\EventSession;
 use Illuminate\Http\Request;
 
 class EventSessionsController extends Controller
@@ -23,7 +23,7 @@ class EventSessionsController extends Controller
      */
     public function create()
     {
-        $eventSessions = new EventSessions();
+        $eventSessions = new EventSession();
         $eventSessions->loadDefaultValues();
         return view('event_sessions.create', compact('eventSessions'));
     }
@@ -35,8 +35,8 @@ class EventSessionsController extends Controller
     {
         $input = $request->all();
 
-        /** @var EventSessions $eventSessions */
-        $eventSessions = EventSessions::create($input);
+        /** @var EventSession $eventSessions */
+        $eventSessions = EventSession::create($input);
         if($eventSessions){
             flash(__('Saved successfully.'))->overlay()->success();
         }else{
@@ -51,8 +51,8 @@ class EventSessionsController extends Controller
      */
     public function show($id)
     {
-        /** @var EventSessions $eventSessions */
-        $eventSessions = EventSessions::find($id);
+        /** @var EventSession $eventSessions */
+        $eventSessions = EventSession::find($id);
 
         if (empty($eventSessions)) {
             flash(__('Not found'))->overlay()->danger();
@@ -68,8 +68,8 @@ class EventSessionsController extends Controller
      */
     public function edit($id)
     {
-        /** @var EventSessions $eventSessions */
-        $eventSessions = EventSessions::find($id);
+        /** @var EventSession $eventSessions */
+        $eventSessions = EventSession::find($id);
 
         if (empty($eventSessions)) {
             flash(__('Not found'))->overlay()->danger();
@@ -85,8 +85,8 @@ class EventSessionsController extends Controller
      */
     public function update($id, UpdateEventSessionsRequest $request)
     {
-        /** @var EventSessions $eventSessions */
-        $eventSessions = EventSessions::find($id);
+        /** @var EventSession $eventSessions */
+        $eventSessions = EventSession::find($id);
 
         if (empty($eventSessions)) {
             flash(__('Not found'))->overlay()->danger();
@@ -111,8 +111,8 @@ class EventSessionsController extends Controller
      */
     public function destroy($id)
     {
-        /** @var EventSessions $eventSessions */
-        $eventSessions = EventSessions::find($id);
+        /** @var EventSession $eventSessions */
+        $eventSessions = EventSession::find($id);
 
         if (empty($eventSessions)) {
             flash(__('Not found'))->overlay()->danger();

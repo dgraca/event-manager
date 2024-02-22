@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\EventSessions;
+use App\Models\EventSession;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateEventSessionsRequest extends FormRequest
@@ -24,6 +24,6 @@ class CreateEventSessionsRequest extends FormRequest
      */
     public function rules()
     {
-        return EventSessions::rules();
+        return EventSession::rules();
     }
 }

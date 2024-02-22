@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\EventSessions;
+use App\Models\EventSession;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\Event;
@@ -14,7 +14,7 @@ class EventSessionsFactory extends Factory
      *
      * @var string
      */
-    protected $model = EventSessions::class;
+    protected $model = EventSession::class;
 
     /**
      * Define the model's default state.

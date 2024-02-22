@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\EventSessions;
+use App\Models\EventSession;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -23,7 +23,7 @@ class EventSessionForm extends Form
 
     public function addSession() {
         // Create a new instance of the EventSession model with default values
-        $session = new EventSessions();
+        $session = new EventSession();
 
         $this->name = '';
         $this->description = '';

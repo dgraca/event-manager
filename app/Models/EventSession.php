@@ -27,25 +27,25 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \OwenIt\Auditing\Models\Audit> $audits
  * @property-read int|null $audits_count
  * @property-read string $status_label
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions query()
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereEndDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereEventId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereMaxCapacity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereRrule($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereStartDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventSessions whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession query()
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereEndDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereEventId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereMaxCapacity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereRrule($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventSession whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class EventSessions extends Model implements Auditable
+class EventSession extends Model implements Auditable
 {
     use LoadDefaults;
     use \OwenIt\Auditing\Auditable;
