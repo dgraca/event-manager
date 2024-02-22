@@ -18,21 +18,33 @@ class EventCreator extends Component
 
     public $event;
     public ?Venue $venue;
+    public $venues;
     public $eventSessions;
     public $tickets;
     public $zones;
+
+    protected $listeners = [
+        'venue-created' => 'refreshVenues'
+    ];
 
     /* component lifecycle */
     public function mount(Event $event)
     {
         $this->eventForm->setEvent($event);
         $this->venue = new Venue();
+        $this->venues = auth()->user()->entity()->first()->venues()->get();
         $this->event = $event;
 
         $this->eventSessions = $this->eventSessionForm->sessions;
         $this->tickets = $this->ticketForm->tickets;
     }
 
+    public function refreshVenues()
+    {
+        $this->venues = auth()->user()->entity()->first()->venues()->get(); // Get fresh venues
+    }
+
+    /* Forms methods */
     public function addSession() {
         $this->eventSessionForm->addSession();
     }
