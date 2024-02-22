@@ -16,7 +16,7 @@
         <div class="box mt-3 p-5">
             @if(count($eventSessionForm->sessions) <= 0)
                 <div class="w-full text-center">
-                    <h1 class="text-lg font-light">__('Add sessions')</h1>
+                    <h1 class="text-lg font-light">{{ __('Add sessions') }}</h1>
                 </div>
             @endif
 
@@ -55,7 +55,7 @@
         <div class="box mt-3 p-5">
             @if(count($ticketForm->tickets) <= 0)
                 <div class="w-full text-center">
-                    <h1 class="text-lg font-light">__('Add tickets')</h1>
+                    <h1 class="text-lg font-light">{{ __('Add tickets') }}</h1>
                 </div>
             @endif
 
