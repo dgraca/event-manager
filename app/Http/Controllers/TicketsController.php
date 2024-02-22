@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateTicketsRequest;
 use App\Http\Requests\UpdateTicketsRequest;
 //use App\Http\Controllers\AppBaseController;
-use App\Models\Tickets;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 
 class TicketsController extends Controller
@@ -23,7 +23,7 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        $tickets = new Tickets();
+        $tickets = new Ticket();
         $tickets->loadDefaultValues();
         return view('tickets.create', compact('tickets'));
     }
@@ -35,8 +35,8 @@ class TicketsController extends Controller
     {
         $input = $request->all();
 
-        /** @var Tickets $tickets */
-        $tickets = Tickets::create($input);
+        /** @var Ticket $tickets */
+        $tickets = Ticket::create($input);
         if($tickets){
             flash(__('Saved successfully.'))->overlay()->success();
         }else{
@@ -51,8 +51,8 @@ class TicketsController extends Controller
      */
     public function show($id)
     {
-        /** @var Tickets $tickets */
-        $tickets = Tickets::find($id);
+        /** @var Ticket $tickets */
+        $tickets = Ticket::find($id);
 
         if (empty($tickets)) {
             flash(__('Not found'))->overlay()->danger();
@@ -68,8 +68,8 @@ class TicketsController extends Controller
      */
     public function edit($id)
     {
-        /** @var Tickets $tickets */
-        $tickets = Tickets::find($id);
+        /** @var Ticket $tickets */
+        $tickets = Ticket::find($id);
 
         if (empty($tickets)) {
             flash(__('Not found'))->overlay()->danger();
@@ -85,8 +85,8 @@ class TicketsController extends Controller
      */
     public function update($id, UpdateTicketsRequest $request)
     {
-        /** @var Tickets $tickets */
-        $tickets = Tickets::find($id);
+        /** @var Ticket $tickets */
+        $tickets = Ticket::find($id);
 
         if (empty($tickets)) {
             flash(__('Not found'))->overlay()->danger();
@@ -111,8 +111,8 @@ class TicketsController extends Controller
      */
     public function destroy($id)
     {
-        /** @var Tickets $tickets */
-        $tickets = Tickets::find($id);
+        /** @var Ticket $tickets */
+        $tickets = Ticket::find($id);
 
         if (empty($tickets)) {
             flash(__('Not found'))->overlay()->danger();

@@ -25,23 +25,23 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \OwenIt\Auditing\Models\Audit> $audits
  * @property-read int|null $audits_count
  * @property-read \App\Models\Zone|null $zone
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets query()
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets whereCurrency($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets whereEventId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets whereMaxCheckIn($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets whereMaxTicketsPerOrder($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Tickets whereZoneId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket whereCurrency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket whereEventId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket whereMaxCheckIn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket whereMaxTicketsPerOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ticket whereZoneId($value)
  * @mixin \Eloquent
  */
-class Tickets extends Model implements Auditable
+class Ticket extends Model implements Auditable
 {
     use LoadDefaults;
     use \OwenIt\Auditing\Auditable;
@@ -150,7 +150,7 @@ class Tickets extends Model implements Auditable
      * Event Sessions relationship
      */
     public function eventSession() {
-        return $this->hasMany(Tickets::class)->withTimestamps();
+        return $this->hasMany(Ticket::class)->withTimestamps();
     }
 
 }

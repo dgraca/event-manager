@@ -193,7 +193,7 @@ class Event extends Model implements Auditable
 
     public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\Tickets::class, 'event_id');
+        return $this->hasMany(\App\Models\Ticket::class, 'event_id');
     }
 
     /**

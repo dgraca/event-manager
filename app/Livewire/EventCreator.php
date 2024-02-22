@@ -6,7 +6,7 @@ use App\Livewire\Forms\EventForm;
 use App\Livewire\Forms\EventSessionForm;
 use App\Livewire\Forms\TicketForm;
 use App\Models\Event;
-use App\Models\Tickets;
+use App\Models\Ticket;
 use App\Models\Venue;
 use Livewire\Attributes\On;
 use Livewire\Component;

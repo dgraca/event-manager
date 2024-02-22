@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Tickets;
+use App\Models\Ticket;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateTicketsRequest extends FormRequest
@@ -24,6 +24,6 @@ class CreateTicketsRequest extends FormRequest
      */
     public function rules()
     {
-        return Tickets::rules();
+        return Ticket::rules();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\Tickets;
+use App\Models\Ticket;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -22,7 +22,7 @@ class TicketForm extends Form
     public function addTicket()
     {
         // Create a new instance of the Ticket model with default values
-        $ticket = new Tickets();
+        $ticket = new Ticket();
 
         $ticket->event_id = 0;
         $ticket->zone_id = 0;

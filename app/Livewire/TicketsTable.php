@@ -17,7 +17,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
-use App\Models\Tickets;
+use App\Models\Ticket;
 
 class TicketsTable extends Component implements HasForms, HasTable
 {
@@ -26,9 +26,9 @@ class TicketsTable extends Component implements HasForms, HasTable
 
     public function table(Table $table): Table
     {
-        $newModel = new Tickets();
+        $newModel = new Ticket();
         return $table
-            ->query(Tickets::query())
+            ->query(Ticket::query())
             ->columns([
                 TextColumn::make("event_id")
                 ->label($newModel->getAttributeLabel("event_id"))
@@ -105,7 +105,7 @@ class TicketsTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (Tickets $record): string => route('tickets.edit', ['tickets' => $record]))
+                ->url(fn (Ticket $record): string => route('tickets.edit', ['tickets' => $record]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
