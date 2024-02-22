@@ -45,11 +45,33 @@ class VenueModal extends ModalComponent
     {
         $this->validate();
 
-        //$this->venue->fill([
-        //    'name' => $this->name,
-        //]);
-        //
-        //$this->venue->save();
+        try {
+            $this->venue->fill($this->only([
+                'name',
+                'address',
+                'location',
+                'country',
+                'postcode',
+                'latitude',
+                'longitude',
+                'email',
+                'phone',
+                'mobile'
+            ]));
+
+            // associate the venue with authenticated user's first entity
+            $this->venue->entity_id = auth()->user()->entity()->first()->id;
+
+            $this->venue->save();
+
+        } catch (\Exception $e) {
+            $this->dispatch('venue-error')->to(EventCreator::class);
+            //$this->addError('name', $e->getMessage());
+            return;
+        }
+
+        $this->closeModal();
+        $this->dispatch('venue-created', ['state' => true])->to(EventCreator::class);
     }
 
     public function render()

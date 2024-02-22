@@ -73,60 +73,64 @@
     @enderror
 </div>
 
-<!-- Country Field -->
-<div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="country">{{ $venue->getAttributeLabel('country') }}</x-base.form-label>
-    <x-base.form-input
-        :tw-merge="false"
-        class="w-full {{ ($errors->has('country') ? 'border-danger' : '') }}"
-        wire:model="country"
-        type="text"
-    />
-    @error('country')
+<div class="flex flex-row items-center justify-between gap-2">
+    <!-- Country Field -->
+    <div class="w-full mb-3">
+        <x-base.form-label :tw-merge="false" for="country">{{ $venue->getAttributeLabel('country') }}</x-base.form-label>
+        <x-base.form-input
+            :tw-merge="false"
+            class="w-full {{ ($errors->has('country') ? 'border-danger' : '') }}"
+            wire:model="country"
+            type="text"
+        />
+        @error('country')
         <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
+        @enderror
+    </div>
+
+    <!-- Postcode Field -->
+    <div class="w-full mb-3">
+        <x-base.form-label :tw-merge="false" for="postcode">{{ $venue->getAttributeLabel('postcode') }}</x-base.form-label>
+        <x-base.form-input
+            :tw-merge="false"
+            class="w-full {{ ($errors->has('postcode') ? 'border-danger' : '') }}"
+            wire:model="postcode"
+            type="text"
+        />
+        @error('postcode')
+        <div class="mt-2 text-danger">{{ $message }}</div>
+        @enderror
+    </div>
 </div>
 
-<!-- Postcode Field -->
-<div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="postcode">{{ $venue->getAttributeLabel('postcode') }}</x-base.form-label>
-    <x-base.form-input
-        :tw-merge="false"
-        class="w-full {{ ($errors->has('postcode') ? 'border-danger' : '') }}"
-        wire:model="postcode"
-        type="text"
-    />
-    @error('postcode')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
-</div>
+<div class="flex flex-row items-center justify-between gap-2">
+    <!-- Latitude Field -->
+    <div class="w-full mb-3">
+        <x-base.form-label :tw-merge="false" for="latitude">{{ $venue->getAttributeLabel('latitude') }}</x-base.form-label>
+        <x-base.form-input
+            :tw-merge="false"
+            class="w-full {{ ($errors->has('latitude') ? 'border-danger' : '') }}"
+            wire:model="latitude"
+            type="text"
+        />
+        @error('latitude')
+            <div class="mt-2 text-danger">{{ $message }}</div>
+        @enderror
+    </div>
 
-<!-- Latitude Field -->
-<div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="latitude">{{ $venue->getAttributeLabel('latitude') }}</x-base.form-label>
-    <x-base.form-input
-        :tw-merge="false"
-        class="w-full {{ ($errors->has('latitude') ? 'border-danger' : '') }}"
-        wire:model="latitude"
-        type="text"
-    />
-    @error('latitude')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
-</div>
-
-<!-- Longitude Field -->
-<div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="longitude">{{ $venue->getAttributeLabel('longitude') }}</x-base.form-label>
-    <x-base.form-input
-        :tw-merge="false"
-        class="w-full {{ ($errors->has('longitude') ? 'border-danger' : '') }}"
-        wire:model="longitude"
-        type="text"
-    />
-    @error('longitude')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
+    <!-- Longitude Field -->
+    <div class="w-full mb-3">
+        <x-base.form-label :tw-merge="false" for="longitude">{{ $venue->getAttributeLabel('longitude') }}</x-base.form-label>
+        <x-base.form-input
+            :tw-merge="false"
+            class="w-full {{ ($errors->has('longitude') ? 'border-danger' : '') }}"
+            wire:model="longitude"
+            type="text"
+        />
+        @error('longitude')
+            <div class="mt-2 text-danger">{{ $message }}</div>
+        @enderror
+    </div>
 </div>
 
 <!-- Email Field -->

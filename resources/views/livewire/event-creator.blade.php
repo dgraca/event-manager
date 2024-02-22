@@ -1,4 +1,7 @@
-<div>
+<div
+    x-on:venue-created="toastShow('{{ __('Saved with success') }}', '', 'success')"
+    x-on:venue-error="toastShow('{{ __('Failed to save') }}', '', 'error')"
+>
     <form wire:submit="save" method="POST" accept-charset="UTF-8">
         @csrf
 
