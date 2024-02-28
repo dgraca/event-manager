@@ -352,7 +352,7 @@
             class="mr-1 w-auto"
             type="button"
             variant="outline-primary"
-            wire:click="$dispatch('openModal', { component: 'venue-modal' })"
+            wire:click="$dispatch('openModal', { component: 'venue-modal', arguments: { venue: {{ $venue }} } })"
         >{{ __('Add venue') }}
         </x-base.button>
     </div>

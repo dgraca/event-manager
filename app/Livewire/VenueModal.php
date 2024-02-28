@@ -31,9 +31,9 @@ class VenueModal extends ModalComponent
         return '7xl';
     }
 
-    public function mount()
+    public function mount(Venue $venue)
     {
-        $this->venue = new Venue();
+        $this->venue = $venue;
     }
 
     public function rules()
