@@ -3,42 +3,43 @@
 namespace App\Livewire\Forms;
 
 use App\Models\EventSession;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class EventSessionForm extends Form
 {
+    // Will hold the sessions, used for livewire form
     public array $sessions = [];
 
-    public $event_id;
-    public $name;
-    public $slug;
-    public $description;
-    public $max_capacity;
-    public $start_date;
-    public $end_date;
-    public $rrule;
-    public $type;
-    public $status;
-
-    public function addSession() {
-        // Create a new instance of the EventSession model with default values
-        $session = new EventSession();
-
-        $this->name = '';
-        $this->description = '';
-        $this->max_capacity = 0;
-        $this->start_date = now();
-        $this->end_date = now();
-        $this->rrule = '';
-        $this->type = 0;
-
-        // Add the new sessions to the $sessions array
-        $this->sessions[] = $session;
+    public function addSession($session = null) {
+        $this->sessions[] = $session ?? [
+            'name' => 'Nova Sessão',
+            'description' => '',
+            'max_capacity' => 0,
+            'start_date' => now(),
+            'end_date' => now(),
+            'type' => 0,
+        ];
     }
 
     public function removeSession($id) {
         unset($this->sessions[$id]);
         $this->sessions = array_values($this->sessions);
+    }
+
+    public function store(int $event_id) {
+        $sessions = [];
+        foreach ($this->sessions as $s) {
+            $session = new EventSession($s);
+            $session->event_id = $event_id;
+            $session->save();
+            $sessions[] = $session;
+        }
+        return $sessions;
+    }
+
+    public function update() {
+        // TODO: update sessions
     }
 }

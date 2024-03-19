@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('breadcrumbs')
-        {{ Breadcrumbs::render('event.show', $events) }}
+        {{ Breadcrumbs::render('events.show', $event) }}
     @endsection
     <div class="intro-y mt-8 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{ __('Events Details') }}</h2>
@@ -8,7 +8,7 @@
             <x-base.button
                     class="mr-2 shadow-md ml-auto sm:ml-0"
                     variant="primary"
-                    href="{{ route('event.edit', $events) }}"
+                    href="{{ route('events.edit', $event) }}"
                     as="a"
             >
                 <x-base.lucide
@@ -62,7 +62,7 @@
                     </div>
                 </x-base.dialog.panel>
             </x-base.dialog>
-            <form method="POST" action="{{ route('event.destroy', $events) }}" id="delete-record-form">
+            <form method="POST" action="{{ route('events.destroy', $event) }}" id="delete-record-form">
                 @csrf
                 @method('DELETE')
             </form>

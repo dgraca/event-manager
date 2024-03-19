@@ -72,7 +72,6 @@ class EventSession extends Model implements Auditable
     public $table = 'event_sessions';
 
     public $fillable = [
-        'event_id',
         'name',
         'slug',
         'description',
@@ -96,7 +95,7 @@ class EventSession extends Model implements Auditable
     public static function rules(): array
     {
         return [
-            'event_id' => 'required',
+            'event_id' => 'nullable',
         'name' => 'required|string|max:255',
         'slug' => 'required|string|max:255',
         'description' => 'nullable|string|max:65535',
@@ -141,6 +140,12 @@ class EventSession extends Model implements Auditable
     * @return string
     */
     public function getAttributeLabel($attribute) : string
+    {
+        $attributeLabels = static::attributeLabels();
+        return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
+    }
+
+    public static function getAttributeLabelStatic($attribute) : string
     {
         $attributeLabels = static::attributeLabels();
         return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);

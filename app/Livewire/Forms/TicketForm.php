@@ -19,22 +19,18 @@ class TicketForm extends Form
     public $price;
     public $currency;
 
-    public function addTicket()
+    public function addTicket($ticket = null)
     {
-        // Create a new instance of the Ticket model with default values
-        $ticket = new Ticket();
-
-        $ticket->event_id = 0;
-        $ticket->zone_id = 0;
-        $ticket->name = '';
-        $ticket->description = '';
-        $ticket->max_check_in = 0;
-        $ticket->max_tickets_per_order = 0;
-        $ticket->price = 0;
-        $ticket->currency = 'EUR';
-
         // Add the new ticket to the $tickets array
-        $this->tickets[] = $ticket;
+        $this->tickets[] = $ticket ?? [
+            'name' => 'Novo Bilhete',
+            'description' => '',
+            'max_check_in' => 0,
+            'max_tickets_per_order' => 0,
+            'price' => 0,
+            'currency' => 'EUR',
+            'session_id' => 0,
+        ];
     }
 
     public function removeTicket($id)
@@ -43,9 +39,16 @@ class TicketForm extends Form
         $this->tickets = array_values($this->tickets);
     }
 
-    public function store()
+    public function store(int $event_id)
     {
-        // Store the tickets
+        $tickets = [];
+        foreach ($this->tickets as $t) {
+            $ticket = new Ticket($t);
+            $ticket->event_id = $event_id;
+            $ticket->save();
+            $tickets[] = $ticket;
+        }
+        return $tickets;
     }
 
     public function update()

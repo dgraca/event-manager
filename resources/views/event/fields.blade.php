@@ -54,7 +54,7 @@
     <x-base.form-input
         :tw-merge="false"
         class="w-full {{ ($errors->has('name') ? 'border-danger' : '') }}"
-        wire:model="name"
+        wire:model.live="eventForm.event.name"
         type="text"
     />
     @error('name')
@@ -83,7 +83,7 @@
     <x-base.form-textarea
         :tw-merge="false"
         class="w-full {{ ($errors->has('description') ? 'border-danger' : '') }}"
-        wire:model="description"
+        wire:model="eventForm.event.description"
         rows="5"
     />
     @error('description')
@@ -113,7 +113,7 @@
             </x-base.input-group.text>
             <x-base.flatpickr
                 class="{{ ($errors->has('scheduled_start') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
-                wire:model="scheduled_start"
+                wire:model="eventForm.event.scheduled_start"
                 data-input
             />
             <x-base.input-group.text :tw-merge="false" class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
@@ -150,7 +150,7 @@
             </x-base.input-group.text>
             <x-base.flatpickr
                 class="{{ ($errors->has('scheduled_end') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
-                wire:model="scheduled_end"
+                wire:model="eventForm.event.scheduled_end"
                 data-input
             />
             <x-base.input-group.text :tw-merge="false" class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
@@ -189,7 +189,7 @@
             </x-base.input-group.text>
             <x-base.flatpickr
                 class="{{ ($errors->has('start_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
-                wire:model="start_date"
+                wire:model="eventForm.event.start_date"
                 data-input
             />
             <x-base.input-group.text :tw-merge="false" class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
@@ -226,7 +226,7 @@
             </x-base.input-group.text>
             <x-base.flatpickr
                 class="{{ ($errors->has('end_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
-                wire:model="end_date"
+                wire:model="eventForm.event.end_date"
                 data-input
             />
             <x-base.input-group.text class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
@@ -248,7 +248,7 @@
     <x-base.form-textarea
         :tw-merge="false"
         class="w-full {{ ($errors->has('registration_note') ? 'border-danger' : '') }}"
-        wire:model="registration_note"
+        wire:model="eventForm.event.registration_note"
         rows="5"
     />
     @error('registration_note')
@@ -260,14 +260,14 @@
 <div class="mb-3">
     <x-base.form-input
         :tw-merge="false"
-        wire:model="pre-approval"
+        wire:model="eventForm.event.pre-approval"
         type="hidden"
     />
     <x-base.form-check :tw-merge="false">
         <x-base.form-check.input
             :tw-merge="false"
             class="{{ ($errors->has('pre-approval') ? 'border-danger' : '') }}"
-            wire:model="pre-approval"
+            wire:model="eventForm.event.pre-approval"
             :value="1"
             type="checkbox"
         />
@@ -284,7 +284,7 @@
     <x-base.form-input
         :tw-merge="false"
         class="w-full {{ ($errors->has('max_capacity') ? 'border-danger' : '') }}"
-        wire:model="max_capacity"
+        wire:model="eventForm.event.max_capacity"
         type="number"
         step="1"
     />
@@ -299,7 +299,7 @@
     <x-base.form-input
         :tw-merge="false"
         class="w-full {{ ($errors->has('type') ? 'border-danger' : '') }}"
-        wire:model="type"
+        wire:model="eventForm.event.type"
         type="number"
         step="1"
     />
@@ -314,7 +314,7 @@
     <x-base.form-select
         :tw-merge="false"
         class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"
-        wire:model="status"
+        wire:model="eventForm.event.status"
         type="text"
     >
         <option >{{ __('Select an option') }}</option>
@@ -335,7 +335,7 @@
             <x-base.form-select
                 :tw-merge="false"
                 class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"
-                wire:model.live="venue-id"
+                wire:model.live="eventForm.event.venue_id"
                 type="text"
             >
                 <option >{{ __('Select an option') }}</option>
@@ -352,7 +352,7 @@
             class="mr-1 w-auto"
             type="button"
             variant="outline-primary"
-            wire:click="$dispatch('openModal', { component: 'venue-modal', arguments: { venue: {{ $venue }} } })"
+            wire:click="$dispatch('openModal', { component: 'venue-modal' })"
         >{{ __('Add venue') }}
         </x-base.button>
     </div>

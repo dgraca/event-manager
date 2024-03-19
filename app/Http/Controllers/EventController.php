@@ -39,7 +39,7 @@ class EventController extends Controller
         if (empty($event)) {
             flash(__('Not found'))->overlay()->danger();
 
-            return redirect(route('event.index'));
+            return redirect(route('events.index'));
         }
 
         return view('event.show')->with('event', $event);

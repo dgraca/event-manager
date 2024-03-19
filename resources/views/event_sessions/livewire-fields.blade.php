@@ -1,6 +1,6 @@
 {{--<!-- Event Id Field -->--}}
 {{--<div class="mb-3">--}}
-{{--    <x-base.form-label :tw-merge="false" for="event_id">{{ $session->getAttributeLabel('event_id') }}</x-base.form-label>--}}
+{{--    <x-base.form-label :tw-merge="false" for="event_id">{{ \App\Models\EventSession::getAttributeLabelStatic('event_id') }}</x-base.form-label>--}}
 {{--    <x-base.form-input--}}
 {{--        :tw-merge="false"--}}
 {{--        class="w-full {{ ($errors->has('event_id') ? 'border-danger' : '') }}"--}}
@@ -17,13 +17,11 @@
 
 <!-- Name Field -->
 <div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="name">{{ $session->getAttributeLabel('name') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="name">{{ \App\Models\EventSession::getAttributeLabelStatic('name') }}</x-base.form-label>
     <x-base.form-input
             :tw-merge="false"
             class="w-full {{ ($errors->has('name') ? 'border-danger' : '') }}"
-            id="name"
-            name="name"
-            :value="old('name', $session->name ?? '')"
+            wire:model.live="eventSessionForm.sessions.{{ $index }}.name"
             type="text"
     />
     @error('name')
@@ -33,7 +31,7 @@
 
 {{--<!-- Slug Field -->--}}
 {{--<div class="mb-3">--}}
-{{--    <x-base.form-label :tw-merge="false" for="slug">{{ $session->getAttributeLabel('slug') }}</x-base.form-label>--}}
+{{--    <x-base.form-label :tw-merge="false" for="slug">{{ \App\Models\EventSession::getAttributeLabelStatic('slug') }}</x-base.form-label>--}}
 {{--    <x-base.form-input--}}
 {{--        :tw-merge="false"--}}
 {{--        class="w-full {{ ($errors->has('slug') ? 'border-danger' : '') }}"--}}
@@ -50,12 +48,11 @@
 <!-- Description Field -->
 <div class="mb-3">
     <x-base.form-label :tw-merge="false"
-                       for="description">{{ $session->getAttributeLabel('description') }}</x-base.form-label>
+                       for="description">{{ \App\Models\EventSession::getAttributeLabelStatic('description') }}</x-base.form-label>
     <x-base.form-textarea
             :tw-merge="false"
             class="w-full {{ ($errors->has('description') ? 'border-danger' : '') }}"
-            id="description"
-            name="description"
+            wire:model.live="eventSessionForm.sessions.{{ $index }}.description"
             rows="5"
     >{{ old('description', $session->description ?? '') }}</x-base.form-textarea>
     @error('description')
@@ -66,13 +63,11 @@
 <!-- Max Capacity Field -->
 <div class="mb-3">
     <x-base.form-label :tw-merge="false"
-                       for="max_capacity">{{ $session->getAttributeLabel('max_capacity') }}</x-base.form-label>
+                       for="max_capacity">{{ \App\Models\EventSession::getAttributeLabelStatic('max_capacity') }}</x-base.form-label>
     <x-base.form-input
             :tw-merge="false"
             class="w-full {{ ($errors->has('max_capacity') ? 'border-danger' : '') }}"
-            id="max_capacity"
-            name="max_capacity"
-            :value="old('max_capacity', $session->max_capacity ?? '')"
+            wire:model.live="eventSessionForm.sessions.{{ $index }}.max_capacity"
             type="number"
             step="1"
     />
@@ -85,7 +80,7 @@
     <!-- Start Date Field -->
     <div class="w-full mb-3" wire:ignore>
         <x-base.form-label :tw-merge="false"
-                           for="start_date">{{ $session->getAttributeLabel('start_date') }}</x-base.form-label>
+                           for="start_date">{{ \App\Models\EventSession::getAttributeLabelStatic('start_date') }}</x-base.form-label>
         <x-base.input-group
                 class="flatpickr"
                 data-wrap="true"
@@ -104,9 +99,7 @@
             </x-base.input-group.text>
             <x-base.flatpickr
                     class="{{ ($errors->has('start_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
-                    id="start_date"
-                    name="start_date"
-                    :value="old('start_date', $session->start_date ?? '')"
+                    wire:model.live="eventSessionForm.sessions.{{ $index }}.start_date"
                     data-input
             />
             <x-base.input-group.text :tw-merge="false" class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
@@ -125,7 +118,7 @@
     <!-- End Date Field -->
     <div class="w-full mb-3" wire:ignore>
         <x-base.form-label :tw-merge="false"
-                           for="end_date">{{ $session->getAttributeLabel('end_date') }}</x-base.form-label>
+                           for="end_date">{{ \App\Models\EventSession::getAttributeLabelStatic('end_date') }}</x-base.form-label>
         <x-base.input-group
                 class="flatpickr"
                 data-wrap="true"
@@ -144,9 +137,7 @@
             </x-base.input-group.text>
             <x-base.flatpickr
                     class="{{ ($errors->has('end_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
-                    id="end_date"
-                    name="end_date"
-                    :value="old('end_date', $session->end_date ?? '')"
+                    wire:model.live="eventSessionForm.sessions.{{ $index }}.end_date"
                     data-input
             />
             <x-base.input-group.text class="cursor-pointer" title="{{ __('Clear') }}" data-clear>
@@ -164,7 +155,7 @@
 
 <!-- Rrule Field -->
 {{--<div class="mb-3">--}}
-{{--    <x-base.form-label :tw-merge="false" for="rrule">{{ $session->getAttributeLabel('rrule') }}</x-base.form-label>--}}
+{{--    <x-base.form-label :tw-merge="false" for="rrule">{{ \App\Models\EventSession::getAttributeLabelStatic('rrule') }}</x-base.form-label>--}}
 {{--    <x-base.form-textarea--}}
 {{--        :tw-merge="false"--}}
 {{--        class="w-full {{ ($errors->has('rrule') ? 'border-danger' : '') }}"--}}
@@ -179,13 +170,11 @@
 
 <!-- Type Field -->
 <div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="type">{{ $session->getAttributeLabel('type') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="type">{{ \App\Models\EventSession::getAttributeLabelStatic('type') }}</x-base.form-label>
     <x-base.form-input
             :tw-merge="false"
             class="w-full {{ ($errors->has('type') ? 'border-danger' : '') }}"
-            id="type"
-            name="type"
-            :value="old('type', $session->type ?? '')"
+            wire:model.live="eventSessionForm.sessions.{{ $index }}.type"
             type="number"
             step="1"
     />
@@ -196,13 +185,11 @@
 
 <!-- Status Field -->
 <div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="status">{{ $session->getAttributeLabel('status') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="status">{{ \App\Models\EventSession::getAttributeLabelStatic('status') }}</x-base.form-label>
     <x-base.form-select
             :tw-merge="false"
             class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"
-            id="status"
-            name="status"
-            :value="old('status', $session->status ?? '')"
+            wire:model.live="eventSessionForm.sessions.{{ $index }}.status"
             type="text"
     >
         <option>{{ __('Select an option') }}</option>

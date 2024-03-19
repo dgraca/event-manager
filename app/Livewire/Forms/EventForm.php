@@ -8,7 +8,7 @@ use Livewire\Form;
 
 class EventForm extends Form
 {
-    public ?Event $event;
+    public array $event;
 
     public $entity_id;
     public $venue_id;
@@ -25,33 +25,35 @@ class EventForm extends Form
     public $type;
     public $status;
 
-    public function setEvent(Event $event)
+    public function setEvent(Event $ev)
     {
-        $this->entity_id = $event->entity_id;
-        $this->venue_id = $event->venue_id;
-        $this->name = $event->name;
-        $this->slug = $event->slug;
-        $this->description = $event->description;
-        $this->scheduled_start = $event->scheduled_start;
-        $this->scheduled_end = $event->scheduled_end;
-        $this->start_date = $event->start_date;
-        $this->end_date = $event->end_date;
-        $this->registration_note = $event->registration_note;
-        $this->pre_approval = $event->pre_approval;
-        $this->max_capacity = $event->max_capacity;
-        $this->type = $event->type;
-        $this->status = $event->status;
+        $this->event = [
+            'entity_id' => $ev->entity_id ?? auth()->user()->entities->first()->id,
+            'venue_id' => $ev->venue_id ?? 0,
+            'name' => $ev->name ?? 'Evento padrão',
+            'description' => $ev->description ?? '',
+            'scheduled_start' => $ev->scheduled_start ?? now(),
+            'scheduled_end' => $ev->scheduled_end ?? now(),
+            'start_date' => $ev->start_date ?? now(),
+            'end_date' => $ev->end_date ?? now(),
+            'registration_note' => $ev->registration_note ?? '',
+            'pre_approval' => $ev->pre_approval ?? 0,
+            'max_capacity' => $ev->max_capacity ?? 0,
+            'type' => $ev->type ?? 0,
+            'status' => $ev->status ?? 0,
+        ];
     }
 
     public function store()
     {
-        //$this->validate();
-        // Store the event
+        // create new instance of event
+        // TODO: validate event fields
+        $event = new Event($this->event);
+        $event->save();
+        return $event;
     }
 
-    public function update()
-    {
-        //$this->validate();
-        // Update the event
+    public function update() {
+        // TODO: update event here
     }
 }

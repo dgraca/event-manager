@@ -46,21 +46,6 @@ class Ticket extends Model implements Auditable
     use LoadDefaults;
     use \OwenIt\Auditing\Auditable;
     use HasFactory;
-    use Sluggable;
-
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
-    }
 
     public $table = 'tickets';
 
@@ -126,6 +111,12 @@ class Ticket extends Model implements Auditable
     * @return string
     */
     public function getAttributeLabel($attribute) : string
+    {
+        $attributeLabels = static::attributeLabels();
+        return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
+    }
+
+    public static function getAttributeLabelStatic($attribute) : string
     {
         $attributeLabels = static::attributeLabels();
         return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
