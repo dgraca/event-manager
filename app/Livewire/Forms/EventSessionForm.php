@@ -12,6 +12,8 @@ class EventSessionForm extends Form
     // Will hold the sessions, used for livewire form
     public array $sessions = [];
 
+    public $event_id;
+
     public function addSession($session = null) {
         $this->sessions[] = $session ?? [
             'name' => 'Nova Sessão',
@@ -31,15 +33,32 @@ class EventSessionForm extends Form
     public function store(int $event_id) {
         $sessions = [];
         foreach ($this->sessions as $s) {
-            $session = new EventSession($s);
-            $session->event_id = $event_id;
-            $session->save();
-            $sessions[] = $session;
+            $sessions = $this->create($s, $event_id, $sessions);
         }
         return $sessions;
     }
 
-    public function update() {
-        // TODO: update sessions
+    public function create($s, $event_id, $sessions) {
+        $session = new EventSession($s);
+        $session->event_id = $event_id;
+        $session->save();
+        $sessions[] = $session;
+        return $sessions;
+    }
+
+    public function update($event_id) {
+        $sessions = [];
+        foreach ($this->sessions as $s) {
+            // if the session doesn't exist, create it
+            if (!isset($s['id'])) {
+                $sessions = $this->create($s, $event_id, $sessions);
+                continue;
+            }
+            $session = EventSession::find($s['id']);
+            $session->fill($s);
+            $session->save();
+            $sessions[] = $session;
+        }
+        return $sessions;
     }
 }

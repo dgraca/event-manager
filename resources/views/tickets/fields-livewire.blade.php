@@ -119,18 +119,22 @@
 </div>
 
 <div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="session_id">{{ \App\Models\Ticket::getAttributeLabelStatic('session_id') }}</x-base.form-label>
-    <x-base.form-select
-        :tw-merge="false"
-        class="w-full {{ ($errors->has('session_id') ? 'border-danger' : '') }}"
-        wire:model="ticketForm.tickets.{{ $index }}.session_id"
-    >
-        <option value="">{{ __('Select session') }}</option>
-        @foreach($sessions as $index => $session)
-            <option wire:key="session-{{ $index }}" value="session-{{ $index }}">{{ $session["name"] }}</option>
-        @endforeach
-    </x-base.form-select>
-    @error('session_id')
+    <x-base.form-label :tw-merge="false" for="sessions">{{ \App\Models\Ticket::getAttributeLabelStatic('sessions') }}</x-base.form-label>
+    @foreach($sessions as $sessionIndex => $session)
+
+        {{-- class="{{ ($errors->has('pre-approval') ? 'border-danger' : '') }}" --}}
+        <x-base.form-check :tw-merge="false">
+            <x-base.form-check.input
+                :tw-merge="false"
+                wire:model="ticketForm.tickets.{{ $index }}.sessions.{{ $sessionIndex }}"
+                value="ticketForm.tickets.{{ $index }}.sessions.{{ $sessionIndex }}"
+                type="checkbox"
+            />
+            <x-base.form-check.label :tw-merge="false" for="ticketForm.tickets.{{ $index }}.sessions.{{ $sessionIndex }}">{{ $session['name'] }}</x-base.form-check.label>
+        </x-base.form-check>
+    @endforeach
+
+    @error('sessions')
     <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>

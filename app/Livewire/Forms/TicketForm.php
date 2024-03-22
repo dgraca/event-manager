@@ -29,7 +29,7 @@ class TicketForm extends Form
             'max_tickets_per_order' => 0,
             'price' => 0,
             'currency' => 'EUR',
-            'session_id' => 0,
+            'sessions' => [],
         ];
     }
 
@@ -43,16 +43,34 @@ class TicketForm extends Form
     {
         $tickets = [];
         foreach ($this->tickets as $t) {
-            $ticket = new Ticket($t);
-            $ticket->event_id = $event_id;
-            $ticket->save();
-            $tickets[] = $ticket;
+            $tickets = $this->create($t, $event_id, $tickets);
         }
         return $tickets;
     }
 
-    public function update()
+    public function create($t, $event_id, $tickets) {
+        $ticket = new Ticket($t);
+        $ticket->event_id = $event_id;
+        $ticket->save();
+        $tickets[] = $ticket;
+        return $tickets;
+    }
+
+    public function update($event_id)
     {
-        // Update the tickets
+        $tickets = [];
+        foreach ($this->tickets as $t) {
+            // if the ticket doesn't exist, create it
+            if (!isset($t['id'])) {
+                $tickets = $this->create($t, $event_id, $tickets);
+                continue;
+            }
+
+            $ticket = Ticket::find($t['id']);
+            $ticket->fill($t);
+            $ticket->save();
+            $tickets[] = $ticket;
+        }
+        return $tickets;
     }
 }

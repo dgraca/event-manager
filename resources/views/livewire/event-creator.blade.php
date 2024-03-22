@@ -26,13 +26,15 @@
                     <div wire:key="session-{{ $index }}" class="mt-3">
                         @include('event_sessions.livewire-fields', ['session' => $session, 'index' => $index])
                         <div class="mt-5 text-right">
-                            <x-base.button
-                                :tw-merge="false"
-                                type="button"
-                                variant="outline-danger"
-                                wire:click="removeSession({{ $index }})"
-                            >{{ __('Remove session') }}
-                            </x-base.button>
+                            @if(count($eventSessionForm->sessions) > 1)
+                                <x-base.button
+                                    :tw-merge="false"
+                                    type="button"
+                                    variant="outline-danger"
+                                    wire:click="removeSession({{ $index }})"
+                                >{{ __('Remove session') }}
+                                </x-base.button>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -65,13 +67,15 @@
                     <div wire:key="ticket-{{ $index }}" class="mt-3">
                         @include('tickets.fields-livewire', ['ticket' => $ticket, 'sessions' => $eventSessionForm->sessions])
                         <div class="mt-5 text-right">
-                            <x-base.button
-                                :tw-merge="false"
-                                type="button"
-                                variant="outline-danger"
-                                wire:click="removeTicket({{ $index }})"
-                            >{{ __('Remove ticket') }}
-                            </x-base.button>
+                            @if(count($ticketForm->tickets) > 1)
+                                <x-base.button
+                                    :tw-merge="false"
+                                    type="button"
+                                    variant="outline-danger"
+                                    wire:click="removeTicket({{ $index }})"
+                                >{{ __('Remove ticket') }}
+                                </x-base.button>
+                            @endif
                         </div>
                     </div>
                 </div>

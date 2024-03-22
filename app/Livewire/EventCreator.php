@@ -30,7 +30,41 @@ class EventCreator extends Component
         $this->venues = auth()->user()->entities()->first()->venues()->get();
         $this->event = $event;
 
-        // initialize both tickets and sessions
+        /**
+         * If the event is new, add a default session and ticket
+         * If not, get the sessions, tickets and its associations
+         */
+        if ($event->id === null) {
+            $this->addDefaultSessionAndTicket();
+        } else {
+            $sessions = $event->eventSessions;
+            $this->eventSessionForm->sessions = $sessions->toArray();
+            $this->ticketForm->tickets = $event->tickets->toArray();
+
+            // get associations between sessions and tickets
+            foreach ($sessions as $session) {
+                $eventSessionTickets = $session->eventSessionTickets;
+                foreach ($eventSessionTickets as $eventSessionTicket) {
+                    // get the ticket inside the array of tickets ($this->ticketForm->tickets)
+                    // where the ticket id is the same as the eventSessionTicket ticket_id
+                    $ticket = array_filter($this->ticketForm->tickets, function ($ticket) use ($eventSessionTicket) {
+                        return $ticket['id'] === $eventSessionTicket->ticket_id;
+                    });
+                    // get the key of the ticket
+                    $ticketKey = array_key_first($ticket);
+                    // get index of the session with the id
+                    $sessionKey = array_search($session->id, array_column($this->eventSessionForm->sessions, 'id'));
+                    // add the session to the ticket
+                    $this->ticketForm->tickets[$ticketKey]['sessions'][$sessionKey] = true;
+                }
+            }
+
+            debugbar()->info($this->ticketForm->tickets);
+        }
+    }
+
+    public function addDefaultSessionAndTicket()
+    {
         $this->eventSessionForm->addSession([
             'name' => 'Sessão padrão',
             'description' => '',
@@ -46,7 +80,7 @@ class EventCreator extends Component
             'max_tickets_per_order' => 0,
             'price' => 0,
             'currency' => 'EUR',
-            'session_id' => 'session-0',
+            'sessions' => [],
         ]);
     }
 
@@ -76,15 +110,11 @@ class EventCreator extends Component
     }
 
     /**
-     * TODO: Save the event and its related entities
-     * !Maybe this will be segmented in save/update methods
+     * Saves the event and all it's sessions and tickets
+     * or
+     * updates the event and all it's sessions and tickets
      */
     public function save() {
-        // saves event session(s)
-        // saves ticket(s)
-        // associates the ticket with its respective event session
-        // saves the zone(s)
-        // associates the zone with its respective venue
 
         // if event doesn't have any ID, save event and it's sessions/tickets
         // else: updates all information
@@ -96,31 +126,34 @@ class EventCreator extends Component
             // save all tickets created
             $tickets = $this->ticketForm->store($event->id);
 
-            // creates EventSessionTicket, which is a way to associate
-            // one event session with multiple tickets
-            // (and later to associate with access_tickets - user's entry ticket - as well)
-            for ($j = 0; $j < count($tickets); $j++) {
-                // retrieves the session ID associated to $ticket[j].
-                // the format for the session ID in the ticket's array is: 'session-x', x>=0
-                // e.g. ticket[0]['session_id'] => session-0 => (after regexp) 0
-                // e.g. ticket[1]['session_id'] => session-0 => (after regexp) 0
-                // e.g. ticket[2]['session_id'] => session-1 => (after regexp) 1
-                preg_match('/[0-9]+/', $this->ticketForm->tickets[$j]['session_id'], $ticketSession);
-
-                // associates the ticket with the session
-                $eventSessionTicket = new EventSessionTicket();
-                $eventSessionTicket->event_session_id = $sessions[$ticketSession[0]]->id;
-                $eventSessionTicket->ticket_id = $tickets[$j]->id;
-                $eventSessionTicket->limit = $sessions[$ticketSession[0]]->max_capacity;
-                $eventSessionTicket->count = 0;
-                $eventSessionTicket->scheduled_start = $event->scheduled_start;
-                $eventSessionTicket->scheduled_end = $event->scheduled_end;
-                $eventSessionTicket->save();
+            // associate tickets with sessions
+            foreach ($tickets as $index => $ticket) {
+                $ticketSessions = array_keys($this->ticketForm->tickets[$index]['sessions']);
+                // get the sessions associated with the ticket
+                foreach ($ticketSessions as $session) {
+                    $eventSessionTicket = new EventSessionTicket();
+                    $this->fillEventSessionTicket($sessions[$session], $eventSessionTicket, $ticket, $event);
+                }
             }
         } else {
-            $this->eventForm->update();
-            $this->eventSessionForm->update();
-            $this->ticketForm->update();
+            $event = $this->eventForm->update();
+            $sessions = $this->eventSessionForm->update($event->id);
+            $tickets = $this->ticketForm->update($event->id);
+
+            // update and/or create new associations between tickets and sessions
+            foreach ($tickets as $index => $ticket) {
+                $ticketSessions = array_keys($this->ticketForm->tickets[$index]['sessions']);
+                // get the sessions associated with the ticket
+                foreach ($ticketSessions as $session) {
+                    $eventSessionTicket = EventSessionTicket::where('event_session_id', $sessions[$session]['id'])
+                        ->where('ticket_id', $ticket['id'])
+                        ->first();
+                    if ($eventSessionTicket === null) {
+                        $eventSessionTicket = new EventSessionTicket();
+                        $this->fillEventSessionTicket($sessions[$session], $eventSessionTicket, $ticket, $event);
+                    }
+                }
+            }
         }
 
         // redirect to the event page
@@ -130,5 +163,25 @@ class EventCreator extends Component
     public function render()
     {
         return view('livewire.event-creator');
+    }
+
+    /**
+     * Fills the EventSessionTicket model with the necessary information
+     * If the model is new, it will set its information to default values
+     * If not, it will keep the information already set
+     * @param $session
+     * @param EventSessionTicket $eventSessionTicket
+     * @param $ticket
+     * @param Event $event
+     */
+    public function fillEventSessionTicket($session, EventSessionTicket $eventSessionTicket, $ticket, Event $event): void
+    {
+        $eventSessionTicket->event_session_id = $session->id;
+        $eventSessionTicket->ticket_id = $ticket->id;
+        $eventSessionTicket->limit = $eventSessionTicket->id === null ? 0 : $eventSessionTicket->limit;
+        $eventSessionTicket->count = $eventSessionTicket->id === null ? 0 : $eventSessionTicket->count;
+        $eventSessionTicket->scheduled_start = $eventSessionTicket->id === null ? $event->scheduled_start : $eventSessionTicket->scheduled_start;
+        $eventSessionTicket->scheduled_end = $eventSessionTicket->id === null ? $event->scheduled_end : $eventSessionTicket->scheduled_end;
+        $eventSessionTicket->save();
     }
 }

@@ -162,6 +162,13 @@ class EventSession extends Model implements Auditable
     }
 
     /**
+     * Tickets relationship
+     */
+    public function tickets() {
+        return $this->belongsToMany(Ticket::class)->withTimestamps();
+    }
+
+    /**
     * Return an array with the values of status field
     * @return array
     */
@@ -181,13 +188,6 @@ class EventSession extends Model implements Auditable
     {
         $array = static::getStatusArray();
         return $array[$this->status] ?? "";
-    }
-
-    /**
-     * Tickets relationship
-     */
-    public function ticket() {
-        return $this->hasMany(Ticket::class)->withTimestamps();
     }
 
 }

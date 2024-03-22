@@ -28,6 +28,7 @@ class EventForm extends Form
     public function setEvent(Event $ev)
     {
         $this->event = [
+            'id' => $ev->id ?? null,
             'entity_id' => $ev->entity_id ?? auth()->user()->entities->first()->id,
             'venue_id' => $ev->venue_id ?? 0,
             'name' => $ev->name ?? 'Evento padrão',
@@ -54,6 +55,10 @@ class EventForm extends Form
     }
 
     public function update() {
-        // TODO: update event here
+        // TODO: validate event fields
+        $event = Event::find($this->event['id']);
+        $event->fill($this->event);
+        $event->save();
+        return $event;
     }
 }
