@@ -21,9 +21,9 @@
             @endif
 
             @foreach($eventSessionForm->sessions as $index => $session)
-                <div class="box mt-3 p-5">
+                <div wire:key="session-{{ $index }}" class="box mt-3 p-5">
                     <h1 class="text-lg font-light">Session #{{ $index + 1 }}</h1>
-                    <div wire:key="session-{{ $index }}" class="mt-3">
+                    <div class="mt-3">
                         @include('event_sessions.livewire-fields', ['session' => $session, 'index' => $index])
                         <div class="mt-5 text-right">
                             @if(count($eventSessionForm->sessions) > 1)
@@ -62,9 +62,9 @@
             @endif
 
             @foreach($ticketForm->tickets as $index => $ticket)
-                <div class="box mt-3 p-5">
+                <div wire:key="ticket-{{ $index }}" class="box mt-3 p-5">
                     <h1 class="text-lg font-light">Ticket #{{ $index + 1 }}</h1>
-                    <div wire:key="ticket-{{ $index }}" class="mt-3">
+                    <div class="mt-3">
                         @include('tickets.fields-livewire', ['ticket' => $ticket, 'sessions' => $eventSessionForm->sessions])
                         <div class="mt-5 text-right">
                             @if(count($ticketForm->tickets) > 1)

@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Event;
+use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -33,10 +34,10 @@ class EventForm extends Form
             'venue_id' => $ev->venue_id ?? 0,
             'name' => $ev->name ?? 'Evento padrão',
             'description' => $ev->description ?? '',
-            'scheduled_start' => $ev->scheduled_start ?? now(),
-            'scheduled_end' => $ev->scheduled_end ?? now(),
-            'start_date' => $ev->start_date ?? now(),
-            'end_date' => $ev->end_date ?? now(),
+            'scheduled_start' => $ev->scheduled_start ?? Carbon::now()->format('Y-m-d'),
+            'scheduled_end' => $ev->scheduled_end ?? Carbon::now()->format('Y-m-d'),
+            'start_date' => $ev->start_date ?? Carbon::now()->format('Y-m-d'),
+            'end_date' => $ev->end_date ?? Carbon::now()->format('Y-m-d'),
             'registration_note' => $ev->registration_note ?? '',
             'pre_approval' => $ev->pre_approval ?? 0,
             'max_capacity' => $ev->max_capacity ?? 0,

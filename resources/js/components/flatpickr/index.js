@@ -1,4 +1,4 @@
-(function () {
+window.flatpickrInit = function() {
     "use strict";
 
     // flatpickr
@@ -36,4 +36,6 @@
         }
         flatpickr($(this),options);
     });
-})();
+};
+
+window.flatpickrInit();

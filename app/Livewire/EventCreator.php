@@ -10,6 +10,7 @@ use App\Models\EventSession;
 use App\Models\EventSessionTicket;
 use App\Models\Ticket;
 use App\Models\Venue;
+use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Mockery\Exception;
@@ -69,8 +70,8 @@ class EventCreator extends Component
             'name' => 'Sessão padrão',
             'description' => '',
             'max_capacity' => 0,
-            'start_date' => now(),
-            'end_date' => now(),
+            'start_date' => Carbon::now()->format('Y-m-d'),
+            'end_date' => Carbon::now()->format('Y-m-d'),
             'type' => 0,
         ]);
         $this->ticketForm->addTicket([
