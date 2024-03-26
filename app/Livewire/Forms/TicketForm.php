@@ -19,6 +19,19 @@ class TicketForm extends Form
     public $price;
     public $currency;
 
+    public function rules()
+    {
+        return [
+            'tickets.*.name' => 'required|string|max:255',
+            'tickets.*.description' => 'nullable|string|max:65535',
+            'tickets.*.max_check_in' => 'required|integer',
+            'tickets.*.max_tickets_per_order' => 'required|integer',
+            'tickets.*.price' => 'required|numeric',
+            'tickets.*.currency' => 'required|string|max:3',
+            'tickets.*.sessions' => 'required|array|min:1',
+        ];
+    }
+
     public function addTicket($ticket = null)
     {
         // Add the new ticket to the $tickets array
@@ -49,6 +62,10 @@ class TicketForm extends Form
     }
 
     public function create($t, $event_id, $tickets) {
+        // validate ticket fields
+        $this->validate();
+
+        // create ticket
         $ticket = new Ticket($t);
         $ticket->event_id = $event_id;
         $ticket->save();
@@ -66,6 +83,10 @@ class TicketForm extends Form
                 continue;
             }
 
+            // validate ticket fields
+            $this->validate();
+
+            // update ticket
             $ticket = Ticket::find($t['id']);
             $ticket->fill($t);
             $ticket->save();
