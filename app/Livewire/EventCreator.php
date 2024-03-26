@@ -115,48 +115,50 @@ class EventCreator extends Component
      * updates the event and all it's sessions and tickets
      */
     public function save() {
-        // if event doesn't have any ID, save event and it's sessions/tickets
-        // else: updates all information
-        if ($this->event->id === null) {
-            // saves the event
-            $event = $this->eventForm->store();
-            // saves all sessions created
-            $sessions = $this->eventSessionForm->store($event->id);
-            // save all tickets created
-            $tickets = $this->ticketForm->store($event->id);
+        DB::transaction(function() {
+            // if event doesn't have any ID, save event and it's sessions/tickets
+            // else: updates all information
+            if ($this->event->id === null) {
+                // saves the event
+                $event = $this->eventForm->store();
+                // saves all sessions created
+                $sessions = $this->eventSessionForm->store($event->id);
+                // save all tickets created
+                $tickets = $this->ticketForm->store($event->id);
 
-            // associate tickets with sessions
-            foreach ($tickets as $index => $ticket) {
-                $ticketSessions = array_keys($this->ticketForm->tickets[$index]['sessions']);
-                // get the sessions associated with the ticket
-                foreach ($ticketSessions as $session) {
-                    $eventSessionTicket = new EventSessionTicket();
-                    $this->fillEventSessionTicket($sessions[$session], $eventSessionTicket, $ticket, $event);
-                }
-            }
-        } else {
-            $event = $this->eventForm->update();
-            $sessions = $this->eventSessionForm->update($event->id);
-            $tickets = $this->ticketForm->update($event->id);
-
-            // update and/or create new associations between tickets and sessions
-            foreach ($tickets as $index => $ticket) {
-                $ticketSessions = array_keys($this->ticketForm->tickets[$index]['sessions']);
-                // get the sessions associated with the ticket
-                foreach ($ticketSessions as $session) {
-                    $eventSessionTicket = EventSessionTicket::where('event_session_id', $sessions[$session]['id'])
-                        ->where('ticket_id', $ticket['id'])
-                        ->first();
-                    if ($eventSessionTicket === null) {
+                // associate tickets with sessions
+                foreach ($tickets as $index => $ticket) {
+                    $ticketSessions = array_keys($this->ticketForm->tickets[$index]['sessions']);
+                    // get the sessions associated with the ticket
+                    foreach ($ticketSessions as $session) {
                         $eventSessionTicket = new EventSessionTicket();
                         $this->fillEventSessionTicket($sessions[$session], $eventSessionTicket, $ticket, $event);
                     }
                 }
-            }
-        }
+            } else {
+                $event = $this->eventForm->update();
+                $sessions = $this->eventSessionForm->update($event->id);
+                $tickets = $this->ticketForm->update($event->id);
 
-        // redirect to the event page
-        return redirect()->route('events.show', $event->id);
+                // update and/or create new associations between tickets and sessions
+                foreach ($tickets as $index => $ticket) {
+                    $ticketSessions = array_keys($this->ticketForm->tickets[$index]['sessions']);
+                    // get the sessions associated with the ticket
+                    foreach ($ticketSessions as $session) {
+                        $eventSessionTicket = EventSessionTicket::where('event_session_id', $sessions[$session]['id'])
+                            ->where('ticket_id', $ticket['id'])
+                            ->first();
+                        if ($eventSessionTicket === null) {
+                            $eventSessionTicket = new EventSessionTicket();
+                            $this->fillEventSessionTicket($sessions[$session], $eventSessionTicket, $ticket, $event);
+                        }
+                    }
+                }
+            }
+
+            // redirect to the event page
+            return redirect()->route('events.show', $event->id);
+        });
     }
 
     public function render()
