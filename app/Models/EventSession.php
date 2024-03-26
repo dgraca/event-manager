@@ -135,6 +135,24 @@ class EventSession extends Model implements Auditable
     }
 
     /**
+     * Dynamic attribute labels for the dynamic form of EventSessions
+     *
+     * @return array
+     */
+    public static function dynamicAttributeLabels() : array
+    {
+        return [
+            'sessions.*.name' => __('Name'),
+            'sessions.*.description' => __('Description'),
+            'sessions.*.max_capacity' => __('Max Capacity'),
+            'sessions.*.start_date' => __('Start Date'),
+            'sessions.*.end_date' => __('End Date'),
+            'sessions.*.type' => __('Type'),
+            'sessions.*.status' => __('Status'),
+        ];
+    }
+
+    /**
     * Return the attribute label
     * @param string $attribute
     * @return string

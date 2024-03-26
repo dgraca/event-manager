@@ -29,7 +29,7 @@ class EventForm extends Form
     public function rules()
     {
         return [
-            'event.venue_id' => 'required',
+            'event.venue_id' => 'required|integer',
             'event.name' => 'required|string|max:255',
             'event.description' => 'nullable|string|max:65535',
             'event.scheduled_start' => 'required',
@@ -37,7 +37,7 @@ class EventForm extends Form
             'event.start_date' => 'required',
             'event.end_date' => 'required',
             'event.registration_note' => 'nullable|string|max:65535',
-            'event.max_capacity' => 'nullable',
+            'event.max_capacity' => 'required|integer',
             'event.type' => 'nullable',
             'event.status' => 'nullable',
         ];
@@ -66,7 +66,7 @@ class EventForm extends Form
     public function store()
     {
         // validate event fields
-        $this->validate();
+        $this->validate(attributes: \App\Models\Event::dynamicAttributeLabels());
 
         // create new instance of event
         $event = new Event($this->event);
@@ -76,7 +76,7 @@ class EventForm extends Form
 
     public function update() {
         // validate event fields
-        $this->validate();
+        $this->validate(attributes: \App\Models\Event::dynamicAttributeLabels());
 
         // find event by ID and update it
         $event = Event::find($this->event['id']);

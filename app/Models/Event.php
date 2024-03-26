@@ -166,6 +166,29 @@ class Event extends Model implements Auditable
     }
 
     /**
+     * Dynamic attribute labels for the dynamic form of Event
+     *
+     * @return array
+     */
+    public static function dynamicAttributeLabels() : array
+    {
+        return [
+            'event.venue_id' => __('Venue Id'),
+            'event.name' => __('Name'),
+            'event.description' => __('Description'),
+            'event.scheduled_start' => __('Scheduled Start'),
+            'event.scheduled_end' => __('Scheduled End'),
+            'event.start_date' => __('Start Date'),
+            'event.end_date' => __('End Date'),
+            'event.registration_note' => __('Registration Note'),
+            'event.pre_approval' => __('Pre-Approval'),
+            'event.max_capacity' => __('Max Capacity'),
+            'event.type' => __('Type'),
+            'event.status' => __('Status'),
+        ];
+    }
+
+    /**
     * Return the attribute label
     * @param string $attribute
     * @return string

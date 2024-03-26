@@ -63,7 +63,7 @@ class TicketForm extends Form
 
     public function create($t, $event_id, $tickets) {
         // validate ticket fields
-        $this->validate();
+        $this->validate(attributes: \App\Models\Ticket::dynamicAttributeLabels());
 
         // create ticket
         $ticket = new Ticket($t);
@@ -84,7 +84,7 @@ class TicketForm extends Form
             }
 
             // validate ticket fields
-            $this->validate();
+            $this->validate(attributes: \App\Models\Ticket::dynamicAttributeLabels());
 
             // update ticket
             $ticket = Ticket::find($t['id']);

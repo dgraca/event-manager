@@ -52,7 +52,7 @@ class EventSessionForm extends Form
 
     public function create($s, $event_id, $sessions) {
         // validate session fields
-        $this->validate();
+        $this->validate(attributes: \App\Models\EventSession::dynamicAttributeLabels());
 
         // create session
         $session = new EventSession($s);
@@ -72,7 +72,7 @@ class EventSessionForm extends Form
             }
 
             // validate session fields
-            $this->validate();
+            $this->validate(attributes: \App\Models\EventSession::dynamicAttributeLabels());
 
             // update session
             $session = EventSession::find($s['id']);

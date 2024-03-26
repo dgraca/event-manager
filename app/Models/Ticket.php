@@ -106,6 +106,24 @@ class Ticket extends Model implements Auditable
     }
 
     /**
+     * Dynamic attribute labels for the dynamic form of Tickets
+     *
+     * @return array
+     */
+    public static function dynamicAttributeLabels() : array
+    {
+        return [
+            'tickets.*.name' => __('Name'),
+            'tickets.*.description' => __('Description'),
+            'tickets.*.max_check_in' => __('Max Check In'),
+            'tickets.*.max_tickets_per_order' => __('Max Tickets Per Order'),
+            'tickets.*.price' => __('Price'),
+            'tickets.*.currency' => __('Currency'),
+            'tickets.*.sessions' => __('Sessions')
+        ];
+    }
+
+    /**
     * Return the attribute label
     * @param string $attribute
     * @return string
