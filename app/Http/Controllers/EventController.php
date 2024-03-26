@@ -75,7 +75,7 @@ class EventController extends Controller
         if (empty($event)) {
             flash(__('Not found'))->overlay()->danger();
 
-            return redirect(route('event.index'));
+            return redirect(route('events.index'));
         }
 
         if($event->delete()){
@@ -84,6 +84,6 @@ class EventController extends Controller
             flash(__('Ups something went wrong'))->overlay()->danger();
         }
 
-        return redirect(route('event.index'));
+        return redirect(route('events.index'));
     }
 }
