@@ -53,11 +53,11 @@
     <x-base.form-label :tw-merge="false" for="name">{{ $event->getAttributeLabel('name') }}</x-base.form-label>
     <x-base.form-input
         :tw-merge="false"
-        class="w-full {{ ($errors->has('name') ? 'border-danger' : '') }}"
-        wire:model.live="eventForm.event.name"
+        class="w-full {{ ($errors->has('eventForm.event.name') ? 'border-danger' : '') }}"
+        wire:model="eventForm.event.name"
         type="text"
     />
-    @error('name')
+    @error('eventForm.event.name')
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -82,11 +82,11 @@
     <x-base.form-label :tw-merge="false" for="description">{{ $event->getAttributeLabel('description') }}</x-base.form-label>
     <x-base.form-textarea
         :tw-merge="false"
-        class="w-full {{ ($errors->has('description') ? 'border-danger' : '') }}"
+        class="w-full {{ ($errors->has('eventForm.event.description') ? 'border-danger' : '') }}"
         wire:model="eventForm.event.description"
         rows="5"
     />
-    @error('description')
+    @error('eventForm.event.description')
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -112,7 +112,7 @@
                 />
             </x-base.input-group.text>
             <x-base.flatpickr
-                class="{{ ($errors->has('scheduled_start') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
+                class="{{ ($errors->has('eventForm.event.scheduled_start') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
                 wire:model="eventForm.event.scheduled_start"
                 data-input
             />
@@ -124,7 +124,7 @@
                 />
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('scheduled_start')
+        @error('eventForm.event.scheduled_start')
         <div class="mt-2 text-danger">{{ $message }}</div>
         @enderror
     </div>
@@ -149,7 +149,7 @@
                 />
             </x-base.input-group.text>
             <x-base.flatpickr
-                class="{{ ($errors->has('scheduled_end') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
+                class="{{ ($errors->has('eventForm.event.scheduled_end') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
                 wire:model="eventForm.event.scheduled_end"
                 data-input
             />
@@ -161,7 +161,7 @@
                 />
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('scheduled_end')
+        @error('eventForm.event.scheduled_end')
         <div class="mt-2 text-danger">{{ $message }}</div>
         @enderror
     </div>
@@ -188,7 +188,7 @@
                 />
             </x-base.input-group.text>
             <x-base.flatpickr
-                class="{{ ($errors->has('start_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
+                class="{{ ($errors->has('eventForm.event.start_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
                 wire:model="eventForm.event.start_date"
                 data-input
             />
@@ -200,7 +200,7 @@
                 />
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('start_date')
+        @error('eventForm.event.start_date')
         <div class="mt-2 text-danger">{{ $message }}</div>
         @enderror
     </div>
@@ -225,7 +225,7 @@
                 />
             </x-base.input-group.text>
             <x-base.flatpickr
-                class="{{ ($errors->has('end_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
+                class="{{ ($errors->has('eventForm.event.end_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
                 wire:model="eventForm.event.end_date"
                 data-input
             />
@@ -236,7 +236,7 @@
                 />
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('end_date')
+        @error('eventForm.event.end_date')
         <div class="mt-2 text-danger">{{ $message }}</div>
         @enderror
     </div>
@@ -247,11 +247,11 @@
     <x-base.form-label :tw-merge="false" for="registration_note">{{ $event->getAttributeLabel('registration_note') }}</x-base.form-label>
     <x-base.form-textarea
         :tw-merge="false"
-        class="w-full {{ ($errors->has('registration_note') ? 'border-danger' : '') }}"
+        class="w-full {{ ($errors->has('eventForm.event.registration_note') ? 'border-danger' : '') }}"
         wire:model="eventForm.event.registration_note"
         rows="5"
     />
-    @error('registration_note')
+    @error('eventForm.event.registration_note')
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -266,14 +266,14 @@
     <x-base.form-check :tw-merge="false">
         <x-base.form-check.input
             :tw-merge="false"
-            class="{{ ($errors->has('pre-approval') ? 'border-danger' : '') }}"
+            class="{{ ($errors->has('eventForm.event.pre-approval') ? 'border-danger' : '') }}"
             wire:model="eventForm.event.pre-approval"
             :value="1"
             type="checkbox"
         />
         <x-base.form-check.label :tw-merge="false" for="pre-approval">{{ $event->getAttributeLabel('pre-approval') }}</x-base.form-check.label>
     </x-base.form-check>
-    @error('pre-approval')
+    @error('eventForm.event.pre-approval')
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -283,12 +283,12 @@
     <x-base.form-label :tw-merge="false" for="max_capacity">{{ $event->getAttributeLabel('max_capacity') }}</x-base.form-label>
     <x-base.form-input
         :tw-merge="false"
-        class="w-full {{ ($errors->has('max_capacity') ? 'border-danger' : '') }}"
+        class="w-full {{ ($errors->has('eventForm.event.max_capacity') ? 'border-danger' : '') }}"
         wire:model="eventForm.event.max_capacity"
         type="number"
         step="1"
     />
-    @error('max_capacity')
+    @error('eventForm.event.max_capacity')
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -298,12 +298,12 @@
     <x-base.form-label :tw-merge="false" for="type">{{ $event->getAttributeLabel('type') }}</x-base.form-label>
     <x-base.form-input
         :tw-merge="false"
-        class="w-full {{ ($errors->has('type') ? 'border-danger' : '') }}"
+        class="w-full {{ ($errors->has('eventForm.event.type') ? 'border-danger' : '') }}"
         wire:model="eventForm.event.type"
         type="number"
         step="1"
     />
-    @error('type')
+    @error('eventForm.event.type')
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -313,7 +313,7 @@
     <x-base.form-label :tw-merge="false" for="status">{{ $event->getAttributeLabel('status') }}</x-base.form-label>
     <x-base.form-select
         :tw-merge="false"
-        class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"
+        class="w-full {{ ($errors->has('eventForm.event.status') ? 'border-danger' : '') }}"
         wire:model="eventForm.event.status"
         type="text"
     >
@@ -322,7 +322,7 @@
         <option wire:key="event-status-{{ $key }}" value="{{ $key }}" {{ old('status', $event->status ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>
         @endforeach
     </x-base.form-select>
-    @error('status')
+    @error('eventForm.event.status')
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -334,7 +334,7 @@
         <div class="w-2/3">
             <x-base.form-select
                 :tw-merge="false"
-                class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"
+                class="w-full {{ ($errors->has('eventForm.event.venue_id') ? 'border-danger' : '') }}"
                 wire:model.live="eventForm.event.venue_id"
                 type="text"
             >
@@ -345,6 +345,9 @@
                     </option>
                 @endforeach
             </x-base.form-select>
+            @error('eventForm.event.venue_id')
+            <div class="mt-2 text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <x-base.button

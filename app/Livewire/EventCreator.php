@@ -11,6 +11,7 @@ use App\Models\EventSessionTicket;
 use App\Models\Ticket;
 use App\Models\Venue;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Mockery\Exception;
@@ -59,8 +60,6 @@ class EventCreator extends Component
                     $this->ticketForm->tickets[$ticketKey]['sessions'][$sessionKey] = true;
                 }
             }
-
-            debugbar()->info($this->ticketForm->tickets);
         }
     }
 
@@ -116,7 +115,6 @@ class EventCreator extends Component
      * updates the event and all it's sessions and tickets
      */
     public function save() {
-
         // if event doesn't have any ID, save event and it's sessions/tickets
         // else: updates all information
         if ($this->event->id === null) {

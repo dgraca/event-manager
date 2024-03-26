@@ -26,12 +26,29 @@ class EventForm extends Form
     public $type;
     public $status;
 
+    public function rules()
+    {
+        return [
+            'event.venue_id' => 'required',
+            'event.name' => 'required|string|max:255',
+            'event.description' => 'nullable|string|max:65535',
+            'event.scheduled_start' => 'required',
+            'event.scheduled_end' => 'required',
+            'event.start_date' => 'required',
+            'event.end_date' => 'required',
+            'event.registration_note' => 'nullable|string|max:65535',
+            'event.max_capacity' => 'nullable',
+            'event.type' => 'nullable',
+            'event.status' => 'nullable',
+        ];
+    }
+
     public function setEvent(Event $ev)
     {
         $this->event = [
             'id' => $ev->id ?? null,
             'entity_id' => $ev->entity_id ?? auth()->user()->entities->first()->id,
-            'venue_id' => $ev->venue_id ?? 0,
+            'venue_id' => $ev->venue_id ?? null,
             'name' => $ev->name ?? 'Evento padrão',
             'description' => $ev->description ?? '',
             'scheduled_start' => $ev->scheduled_start ?? Carbon::now()->format('Y-m-d'),
@@ -48,15 +65,20 @@ class EventForm extends Form
 
     public function store()
     {
+        // validate event fields
+        $this->validate();
+
         // create new instance of event
-        // TODO: validate event fields
         $event = new Event($this->event);
         $event->save();
         return $event;
     }
 
     public function update() {
-        // TODO: validate event fields
+        // validate event fields
+        $this->validate();
+
+        // find event by ID and update it
         $event = Event::find($this->event['id']);
         $event->fill($this->event);
         $event->save();

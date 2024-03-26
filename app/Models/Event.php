@@ -115,23 +115,23 @@ class Event extends Model implements Auditable
     public static function rules(): array
     {
         return [
-            'entity_id' => 'required',
-        'venue_id' => 'nullable',
+            //'entity_id' => 'required',
+        'venue_id' => 'required',
         'name' => 'required|string|max:255',
-        'slug' => 'required|string|max:255',
+        //'slug' => 'required|string|max:255',
         'description' => 'nullable|string|max:65535',
         'scheduled_start' => 'nullable',
         'scheduled_end' => 'nullable',
         'start_date' => 'nullable',
         'end_date' => 'nullable',
         'registration_note' => 'nullable|string|max:65535',
-        'pre-approval' => 'required|boolean',
+        //'pre_approval' => 'boolean',
         'max_capacity' => 'nullable',
         'type' => 'nullable',
         'status' => 'nullable',
-        'created_at' => 'nullable',
-        'updated_at' => 'nullable',
-        'deleted_at' => 'nullable'
+        //'created_at' => 'nullable',
+        //'updated_at' => 'nullable',
+        //'deleted_at' => 'nullable'
         ];
     }
 
