@@ -19,12 +19,12 @@
 <div class="mb-3">
     <x-base.form-label :tw-merge="false" for="name">{{ \App\Models\EventSession::getAttributeLabelStatic('name') }}</x-base.form-label>
     <x-base.form-input
-            :tw-merge="false"
-            class="w-full {{ ($errors->has('name') ? 'border-danger' : '') }}"
-            wire:model.live="eventSessionForm.sessions.{{ $index }}.name"
-            type="text"
+        :tw-merge="false"
+        class="w-full {{ ($errors->has('eventSessionForm.sessions.' . $index . '.name') ? 'border-danger' : '') }}"
+        wire:model.live="eventSessionForm.sessions.{{ $index }}.name"
+        type="text"
     />
-    @error('name')
+    @error('eventSessionForm.sessions.' . $index . '.name')
     <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -51,11 +51,11 @@
                        for="description">{{ \App\Models\EventSession::getAttributeLabelStatic('description') }}</x-base.form-label>
     <x-base.form-textarea
             :tw-merge="false"
-            class="w-full {{ ($errors->has('description') ? 'border-danger' : '') }}"
+            class="w-full {{ ($errors->has('eventSessionForm.sessions.' . $index . '.description') ? 'border-danger' : '') }}"
             wire:model.live="eventSessionForm.sessions.{{ $index }}.description"
             rows="5"
     >{{ old('description', $session->description ?? '') }}</x-base.form-textarea>
-    @error('description')
+    @error('eventSessionForm.sessions.' . $index . '.description')
     <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -66,12 +66,12 @@
                        for="max_capacity">{{ \App\Models\EventSession::getAttributeLabelStatic('max_capacity') }}</x-base.form-label>
     <x-base.form-input
             :tw-merge="false"
-            class="w-full {{ ($errors->has('max_capacity') ? 'border-danger' : '') }}"
+            class="w-full {{ ($errors->has('eventSessionForm.sessions.' . $index . '.max_capacity') ? 'border-danger' : '') }}"
             wire:model.live="eventSessionForm.sessions.{{ $index }}.max_capacity"
             type="number"
             step="1"
     />
-    @error('max_capacity')
+    @error('eventSessionForm.sessions.' . $index . '.max_capacity')
     <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -95,7 +95,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="calendar" data-lucide="calendar" class="lucide lucide-calendar stroke-1.5 h-5 w-5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
             </x-base.input-group.text>
             <x-base.flatpickr
-                    class="{{ ($errors->has('start_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
+                    class="{{ ($errors->has('eventSessionForm.sessions.' . $index . '.start_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
                     wire:model="eventSessionForm.sessions.{{ $index }}.start_date"
                     data-input
             />
@@ -103,7 +103,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="x" data-lucide="x" class="lucide lucide-x stroke-1.5 h-5 w-5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('start_date')
+        @error('eventSessionForm.sessions.' . $index . '.start_date')
         <div class="mt-2 text-danger">{{ $message }}</div>
         @enderror
     </div>
@@ -126,7 +126,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="calendar" data-lucide="calendar" class="lucide lucide-calendar stroke-1.5 h-5 w-5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
             </x-base.input-group.text>
             <x-base.flatpickr
-                    class="{{ ($errors->has('end_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
+                    class="{{ ($errors->has('eventSessionForm.sessions.' . $index . '.end_date') ? 'border-danger' : '') }} [&[readonly]]:bg-white"
                     wire:model.live="eventSessionForm.sessions.{{ $index }}.end_date"
                     data-input
             />
@@ -134,7 +134,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="x" data-lucide="x" class="lucide lucide-x stroke-1.5 h-5 w-5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('end_date')
+        @error('eventSessionForm.sessions.' . $index . '.end_date')
         <div class="mt-2 text-danger">{{ $message }}</div>
         @enderror
     </div>
@@ -160,12 +160,12 @@
     <x-base.form-label :tw-merge="false" for="type">{{ \App\Models\EventSession::getAttributeLabelStatic('type') }}</x-base.form-label>
     <x-base.form-input
             :tw-merge="false"
-            class="w-full {{ ($errors->has('type') ? 'border-danger' : '') }}"
+            class="w-full {{ ($errors->has('eventSessionForm.sessions.' . $index . '.type') ? 'border-danger' : '') }}"
             wire:model.live="eventSessionForm.sessions.{{ $index }}.type"
             type="number"
             step="1"
     />
-    @error('type')
+    @error('eventSessionForm.sessions.' . $index . '.type')
     <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -175,7 +175,7 @@
     <x-base.form-label :tw-merge="false" for="status">{{ \App\Models\EventSession::getAttributeLabelStatic('status') }}</x-base.form-label>
     <x-base.form-select
             :tw-merge="false"
-            class="w-full {{ ($errors->has('status') ? 'border-danger' : '') }}"
+            class="w-full {{ ($errors->has('eventSessionForm.sessions.' . $index . '.status') ? 'border-danger' : '') }}"
             wire:model.live="eventSessionForm.sessions.{{ $index }}.status"
             type="text"
     >
@@ -184,7 +184,7 @@
             <option value="{{ $key }}" {{ old('status', $session->status ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>
         @endforeach
     </x-base.form-select>
-    @error('status')
+    @error('eventSessionForm.sessions.' . $index . '.status')
     <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>

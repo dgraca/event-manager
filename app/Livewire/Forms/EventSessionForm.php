@@ -14,6 +14,18 @@ class EventSessionForm extends Form
 
     public $event_id;
 
+    public function rules() {
+        return [
+            'sessions.*.name' => 'required|string|max:255',
+            'sessions.*.description' => 'nullable|string|max:65535',
+            'sessions.*.max_capacity' => 'required|integer',
+            'sessions.*.start_date' => 'required|date',
+            'sessions.*.end_date' => 'required|date',
+            'sessions.*.type' => 'required|integer',
+            'sessions.*.status' => 'nullable|integer',
+        ];
+    }
+
     public function addSession($session = null) {
         $this->sessions[] = $session ?? [
             'name' => 'Nova Sessão',
@@ -39,6 +51,10 @@ class EventSessionForm extends Form
     }
 
     public function create($s, $event_id, $sessions) {
+        // validate session fields
+        $this->validate();
+
+        // create session
         $session = new EventSession($s);
         $session->event_id = $event_id;
         $session->save();
@@ -54,6 +70,11 @@ class EventSessionForm extends Form
                 $sessions = $this->create($s, $event_id, $sessions);
                 continue;
             }
+
+            // validate session fields
+            $this->validate();
+
+            // update session
             $session = EventSession::find($s['id']);
             $session->fill($s);
             $session->save();
