@@ -38,8 +38,8 @@ class EventForm extends Form
             'event.end_date' => 'required',
             'event.registration_note' => 'nullable|string|max:65535',
             'event.max_capacity' => 'required|integer',
-            'event.type' => 'nullable',
-            'event.status' => 'nullable',
+            'event.type' => 'required|integer',
+            'event.status' => 'required|integer',
         ];
     }
 

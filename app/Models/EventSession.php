@@ -66,8 +66,11 @@ class EventSession extends Model implements Auditable
         ];
     }
 
-    const STATUS_DISABLE = 0;
-    const STATUS_ACTIVE = 1;
+    const STATUS_DRAFT = 0;
+    const STATUS_AVAILABLE = 1;
+    const STATUS_CLOSED = 2;
+    const STATUS_CANCELLED = 3;
+    const STATUS_FINISHED = 4;
 
     public $table = 'event_sessions';
 
@@ -193,8 +196,11 @@ class EventSession extends Model implements Auditable
     public static function getStatusArray() : array
     {
         return [
-            self::STATUS_ACTIVE =>  __('Active'),
-            self::STATUS_DISABLE =>  __('Disable'),
+            static::STATUS_DRAFT => __('Draft'),
+            static::STATUS_AVAILABLE => __('Available'),
+            static::STATUS_CLOSED => __('Closed'),
+            static::STATUS_CANCELLED => __('Cancelled'),
+            static::STATUS_FINISHED => __('Finished')
         ];
     }
 
