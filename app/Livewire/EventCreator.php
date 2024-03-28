@@ -71,7 +71,7 @@ class EventCreator extends Component
             'max_capacity' => 0,
             'start_date' => Carbon::now()->format('Y-m-d'),
             'end_date' => Carbon::now()->format('Y-m-d'),
-            'type' => 0,
+            'type' => null,
         ]);
         $this->ticketForm->addTicket([
             'name' => 'Bilhete padrão',

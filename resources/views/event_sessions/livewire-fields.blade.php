@@ -158,13 +158,17 @@
 <!-- Type Field -->
 <div class="mb-3">
     <x-base.form-label :tw-merge="false" for="type">{{ \App\Models\EventSession::getAttributeLabelStatic('type') }}</x-base.form-label>
-    <x-base.form-input
-            :tw-merge="false"
-            class="w-full {{ ($errors->has('eventSessionForm.sessions.' . $index . '.type') ? 'border-danger' : '') }}"
-            wire:model.live="eventSessionForm.sessions.{{ $index }}.type"
-            type="number"
-            step="1"
-    />
+    <x-base.form-select
+        :tw-merge="false"
+        class="w-full {{ ($errors->has('eventSessionForm.sessions.' . $index . '.type') ? 'border-danger' : '') }}"
+        wire:model.live="eventSessionForm.sessions.{{ $index }}.type"
+        type="text"
+    >
+        <option>{{ __('Select an option') }}</option>
+        @foreach(\App\Models\EventSession::getTypeArray() as $key => $label)
+            <option value="{{ $key }}" {{ old('type', $session->type ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>
+        @endforeach
+    </x-base.form-select>
     @error('eventSessionForm.sessions.' . $index . '.type')
     <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror

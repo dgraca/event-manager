@@ -78,11 +78,17 @@ class Event extends Model implements Auditable
         ];
     }
 
+    // Status constants
     const STATUS_DRAFT = 0;
     const STATUS_AVAILABLE = 1;
     const STATUS_CLOSED = 2;
     const STATUS_CANCELLED = 3;
     const STATUS_FINISHED = 4;
+
+    // Type constants
+    const TYPE_ON_SITE = 0;
+    const TYPE_ONLINE = 1;
+    const TYPE_HYBRID = 2;
 
     public $table = 'events';
 
@@ -234,6 +240,19 @@ class Event extends Model implements Auditable
             self::STATUS_CLOSED => __('Closed'),
             self::STATUS_CANCELLED => __('Cancelled'),
             self::STATUS_FINISHED => __('Finished')
+        ];
+    }
+
+    /**
+     * Return an array with the values of type field
+     * @return array
+     */
+    public static function getTypeArray() : array
+    {
+        return [
+            self::TYPE_ON_SITE => __('On-Site'),
+            self::TYPE_ONLINE => __('Online'),
+            self::TYPE_HYBRID => __('Hybrid')
         ];
     }
 

@@ -33,7 +33,7 @@ class EventSessionForm extends Form
             'max_capacity' => 0,
             'start_date' => now(),
             'end_date' => now(),
-            'type' => 0,
+            'type' => null,
         ];
     }
 

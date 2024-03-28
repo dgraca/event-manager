@@ -58,8 +58,8 @@ class EventForm extends Form
             'registration_note' => $ev->registration_note ?? '',
             'pre_approval' => $ev->pre_approval ?? 0,
             'max_capacity' => $ev->max_capacity ?? 0,
-            'type' => $ev->type ?? 0,
-            'status' => $ev->status ?? 0,
+            'type' => $ev->type ?? null,
+            'status' => $ev->status ?? null,
         ];
     }
 

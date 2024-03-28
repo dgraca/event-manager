@@ -66,11 +66,17 @@ class EventSession extends Model implements Auditable
         ];
     }
 
+    // Status constants
     const STATUS_DRAFT = 0;
     const STATUS_AVAILABLE = 1;
     const STATUS_CLOSED = 2;
     const STATUS_CANCELLED = 3;
     const STATUS_FINISHED = 4;
+
+    // Type constants
+    const TYPE_ON_SITE = 0;
+    const TYPE_ONLINE = 1;
+    const TYPE_HYBRID = 2;
 
     public $table = 'event_sessions';
 
@@ -201,6 +207,19 @@ class EventSession extends Model implements Auditable
             static::STATUS_CLOSED => __('Closed'),
             static::STATUS_CANCELLED => __('Cancelled'),
             static::STATUS_FINISHED => __('Finished')
+        ];
+    }
+
+    /**
+     * Return an array with the values of type field
+     * @return array
+     */
+    public static function getTypeArray() : array
+    {
+        return [
+            static::TYPE_ON_SITE => __('On-Site'),
+            static::TYPE_ONLINE => __('Online'),
+            static::TYPE_HYBRID => __('Hybrid')
         ];
     }
 
