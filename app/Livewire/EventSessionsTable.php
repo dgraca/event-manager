@@ -118,7 +118,7 @@ class EventSessionsTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (EventSession $record): string => route('event-sessions.edit', ['event_sessions' => $record]))
+                ->url(fn (EventSession $record): string => route('event-sessions.edit', ['event_session' => $record]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
@@ -131,7 +131,7 @@ class EventSessionsTable extends Component implements HasForms, HasTable
             ])
             ->defaultSort('id', 'desc')
             ->recordUrl(
-                fn (Model $record): string => route('event-sessions.show', ['event_sessions' => $record]),
+                fn (Model $record): string => route('event-sessions.show', ['event_session' => $record]),
             )
             //->striped()
             ->persistFiltersInSession()

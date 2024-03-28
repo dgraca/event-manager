@@ -105,7 +105,7 @@ class TicketsTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (Ticket $record): string => route('tickets.edit', ['tickets' => $record]))
+                ->url(fn (Ticket $record): string => route('tickets.edit', ['ticket' => $record]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
@@ -118,7 +118,7 @@ class TicketsTable extends Component implements HasForms, HasTable
             ])
             ->defaultSort('id', 'desc')
             ->recordUrl(
-                fn (Model $record): string => route('tickets.show', ['tickets' => $record]),
+                fn (Model $record): string => route('tickets.show', ['ticket' => $record]),
             )
             //->striped()
             ->persistFiltersInSession()

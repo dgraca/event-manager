@@ -23,11 +23,11 @@ class   MenuComposer
                     'route_name' => 'dashboard',
                     'params' => [],
                 ],
-                'demos.*' => [
-                    'icon' => 'files',
-                    'route_name' => 'demos.index',
+                'events' => [
+                    'icon' => 'calendar-plus',
+                    'title' => __('Events'),
+                    'route_name' => 'events.index',
                     'params' => [],
-                    'title' => __('Demos')
                 ],
                 'divider',
                 'profile.show' => [
@@ -35,6 +35,24 @@ class   MenuComposer
                     'route_name' => 'profile.show',
                     'params' => [],
                     'title' => __('My profile')
+                ],
+                'venues' => [
+                    'icon' => 'map-pin',
+                    'route_name' => 'venues.index',
+                    'params' => [],
+                    'title' => __('Venues')
+                ],
+                'sessions' => [
+                    'icon' => 'grip-vertical',
+                    'route_name' => 'event-sessions.index',
+                    'params' => [],
+                    'title' => __('Sessions')
+                ],
+                'tickets' => [
+                    'icon' => 'ticket',
+                    'route_name' => 'tickets.index',
+                    'params' => [],
+                    'title' => __('Tickets')
                 ],
                 'users' => [
                     'icon' => 'users',
