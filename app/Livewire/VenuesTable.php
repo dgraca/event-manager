@@ -32,7 +32,7 @@ class VenuesTable extends Component implements HasForms, HasTable
             ->query(Venue::query()->with('entity'))
             ->columns([
                 TextColumn::make("entity.name")
-                ->label(Entity::getStaticAttributeLabel("Entity"))
+                ->label(Entity::getAttributeLabelStatic("Entity"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),

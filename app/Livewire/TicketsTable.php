@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Event;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
@@ -28,15 +29,10 @@ class TicketsTable extends Component implements HasForms, HasTable
     {
         $newModel = new Ticket();
         return $table
-            ->query(Ticket::query())
+            ->query(Ticket::query()->with('event'))
             ->columns([
-                TextColumn::make("event_id")
-                ->label($newModel->getAttributeLabel("event_id"))
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
-            TextColumn::make("zone_id")
-                ->label($newModel->getAttributeLabel("zone_id"))
+                TextColumn::make("event.name")
+                ->label(Event::getAttributeLabelStatic("Event"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateAccessTicketsRequest;
-use App\Http\Requests\UpdateAccessTicketsRequest;
+use App\Http\Requests\CreateAccessTicketRequest;
+use App\Http\Requests\UpdateAccessTicketRequest;
 //use App\Http\Controllers\AppBaseController;
 use App\Models\AccessTicket;
 use Illuminate\Http\Request;
 
-class AccessTicketsController extends Controller
+class AccessTicketController extends Controller
 {
     /**
      * Display a listing of the AccessTickets.
@@ -23,21 +23,21 @@ class AccessTicketsController extends Controller
      */
     public function create()
     {
-        $accessTickets = new AccessTicket();
-        $accessTickets->loadDefaultValues();
-        return view('access_tickets.create', compact('accessTickets'));
+        $accessTicket = new AccessTicket();
+        $accessTicket->loadDefaultValues();
+        return view('access_tickets.create', compact('accessTicket'));
     }
 
     /**
      * Store a newly created AccessTickets in storage.
      */
-    public function store(CreateAccessTicketsRequest $request)
+    public function store(CreateAccessTicketRequest $request)
     {
         $input = $request->all();
 
-        /** @var AccessTicket $accessTickets */
-        $accessTickets = AccessTicket::create($input);
-        if($accessTickets){
+        /** @var AccessTicket $accessTicket */
+        $accessTicket = AccessTicket::create($input);
+        if($accessTicket){
             flash(__('Saved successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();
@@ -51,16 +51,16 @@ class AccessTicketsController extends Controller
      */
     public function show($id)
     {
-        /** @var AccessTicket $accessTickets */
-        $accessTickets = AccessTicket::find($id);
+        /** @var AccessTicket $accessTicket */
+        $accessTicket = AccessTicket::find($id);
 
-        if (empty($accessTickets)) {
+        if (empty($accessTicket)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('access-tickets.index'));
         }
 
-        return view('access_tickets.show')->with('accessTickets', $accessTickets);
+        return view('access_tickets.show')->with('accessTicket', $accessTicket);
     }
 
     /**
@@ -68,34 +68,34 @@ class AccessTicketsController extends Controller
      */
     public function edit($id)
     {
-        /** @var AccessTicket $accessTickets */
-        $accessTickets = AccessTicket::find($id);
+        /** @var AccessTicket $accessTicket */
+        $accessTicket = AccessTicket::find($id);
 
-        if (empty($accessTickets)) {
+        if (empty($accessTicket)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('access-tickets.index'));
         }
 
-        return view('access_tickets.edit')->with('accessTickets', $accessTickets);
+        return view('access_tickets.edit')->with('accessTicket', $accessTicket);
     }
 
     /**
      * Update the specified AccessTickets in storage.
      */
-    public function update($id, UpdateAccessTicketsRequest $request)
+    public function update($id, UpdateAccessTicketRequest $request)
     {
-        /** @var AccessTicket $accessTickets */
-        $accessTickets = AccessTicket::find($id);
+        /** @var AccessTicket $accessTicket */
+        $accessTicket = AccessTicket::find($id);
 
-        if (empty($accessTickets)) {
+        if (empty($accessTicket)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('access-tickets.index'));
         }
 
-        $accessTickets->fill($request->all());
-        if($accessTickets->save()){
+        $accessTicket->fill($request->all());
+        if($accessTicket->save()){
             flash(__('Updated successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();
@@ -111,16 +111,16 @@ class AccessTicketsController extends Controller
      */
     public function destroy($id)
     {
-        /** @var AccessTicket $accessTickets */
-        $accessTickets = AccessTicket::find($id);
+        /** @var AccessTicket $accessTicket */
+        $accessTicket = AccessTicket::find($id);
 
-        if (empty($accessTickets)) {
+        if (empty($accessTicket)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('access-tickets.index'));
         }
 
-        if($accessTickets->delete()){
+        if($accessTicket->delete()){
             flash(__('Deleted successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();

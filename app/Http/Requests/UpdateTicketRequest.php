@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\EventSession;
+use App\Models\Ticket;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEventSessionsRequest extends FormRequest
+class UpdateTicketRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdateEventSessionsRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = EventSession::rules();
+        $rules = Ticket::rules();
 
         return $rules;
     }

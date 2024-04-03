@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Event;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
@@ -28,10 +29,10 @@ class EventSessionsTable extends Component implements HasForms, HasTable
     {
         $newModel = new EventSession();
         return $table
-            ->query(EventSession::query())
+            ->query(EventSession::query()->with('event'))
             ->columns([
-                TextColumn::make("event_id")
-                ->label($newModel->getAttributeLabel("event_id"))
+                TextColumn::make("event.name")
+                ->label(Event::getAttributeLabelStatic("Entity"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),

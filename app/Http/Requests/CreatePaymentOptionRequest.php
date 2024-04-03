@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\AccessTicket;
+use App\Models\PaymentOption;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAccessTicketsRequest extends FormRequest
+class CreatePaymentOptionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,6 @@ class UpdateAccessTicketsRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = AccessTicket::rules();
-
-        return $rules;
+        return PaymentOption::rules();
     }
 }

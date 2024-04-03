@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\PaymentOption;
+use App\Models\EventSession;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePaymentOptionsRequest extends FormRequest
+class CreateEventSessionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,6 @@ class UpdatePaymentOptionsRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = PaymentOption::rules();
-
-        return $rules;
+        return EventSession::rules();
     }
 }

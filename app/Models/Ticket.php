@@ -51,7 +51,6 @@ class Ticket extends Model implements Auditable
 
     public $fillable = [
         'event_id',
-        'zone_id',
         'name',
         'description',
         'max_check_in',

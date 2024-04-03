@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePaymentOptionsRequest;
-use App\Http\Requests\UpdatePaymentOptionsRequest;
+use App\Http\Requests\UpdatePaymentOptionRequest;
 //use App\Http\Controllers\AppBaseController;
 use App\Models\PaymentOption;
 use Illuminate\Http\Request;
 
-class PaymentOptionsController extends Controller
+class PaymentOptionController extends Controller
 {
     /**
      * Display a listing of the PaymentOptions.
@@ -23,9 +23,9 @@ class PaymentOptionsController extends Controller
      */
     public function create()
     {
-        $paymentOptions = new PaymentOption();
-        $paymentOptions->loadDefaultValues();
-        return view('payment_options.create', compact('paymentOptions'));
+        $paymentOption = new PaymentOption();
+        $paymentOption->loadDefaultValues();
+        return view('payment_options.create', compact('paymentOption'));
     }
 
     /**
@@ -35,9 +35,9 @@ class PaymentOptionsController extends Controller
     {
         $input = $request->all();
 
-        /** @var PaymentOption $paymentOptions */
-        $paymentOptions = PaymentOption::create($input);
-        if($paymentOptions){
+        /** @var PaymentOption $paymentOption */
+        $paymentOption = PaymentOption::create($input);
+        if($paymentOption){
             flash(__('Saved successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();
@@ -51,16 +51,16 @@ class PaymentOptionsController extends Controller
      */
     public function show($id)
     {
-        /** @var PaymentOption $paymentOptions */
-        $paymentOptions = PaymentOption::find($id);
+        /** @var PaymentOption $paymentOption */
+        $paymentOption = PaymentOption::find($id);
 
-        if (empty($paymentOptions)) {
+        if (empty($paymentOption)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('payment-options.index'));
         }
 
-        return view('payment_options.show')->with('paymentOptions', $paymentOptions);
+        return view('payment_options.show')->with('paymentOption', $paymentOption);
     }
 
     /**
@@ -68,34 +68,34 @@ class PaymentOptionsController extends Controller
      */
     public function edit($id)
     {
-        /** @var PaymentOption $paymentOptions */
-        $paymentOptions = PaymentOption::find($id);
+        /** @var PaymentOption $paymentOption */
+        $paymentOption = PaymentOption::find($id);
 
-        if (empty($paymentOptions)) {
+        if (empty($paymentOption)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('payment-options.index'));
         }
 
-        return view('payment_options.edit')->with('paymentOptions', $paymentOptions);
+        return view('payment_options.edit')->with('paymentOption', $paymentOption);
     }
 
     /**
      * Update the specified PaymentOptions in storage.
      */
-    public function update($id, UpdatePaymentOptionsRequest $request)
+    public function update($id, UpdatePaymentOptionRequest $request)
     {
-        /** @var PaymentOption $paymentOptions */
-        $paymentOptions = PaymentOption::find($id);
+        /** @var PaymentOption $paymentOption */
+        $paymentOption = PaymentOption::find($id);
 
-        if (empty($paymentOptions)) {
+        if (empty($paymentOption)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('payment-options.index'));
         }
 
-        $paymentOptions->fill($request->all());
-        if($paymentOptions->save()){
+        $paymentOption->fill($request->all());
+        if($paymentOption->save()){
             flash(__('Updated successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();
@@ -111,16 +111,16 @@ class PaymentOptionsController extends Controller
      */
     public function destroy($id)
     {
-        /** @var PaymentOption $paymentOptions */
-        $paymentOptions = PaymentOption::find($id);
+        /** @var PaymentOption $paymentOption */
+        $paymentOption = PaymentOption::find($id);
 
-        if (empty($paymentOptions)) {
+        if (empty($paymentOption)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('payment-options.index'));
         }
 
-        if($paymentOptions->delete()){
+        if($paymentOption->delete()){
             flash(__('Deleted successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateTicketsRequest;
-use App\Http\Requests\UpdateTicketsRequest;
+use App\Http\Requests\CreateTicketRequest;
+use App\Http\Requests\UpdateTicketRequest;
 //use App\Http\Controllers\AppBaseController;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
-class TicketsController extends Controller
+class TicketController extends Controller
 {
     /**
      * Display a listing of the Tickets.
@@ -23,21 +23,21 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        $tickets = new Ticket();
-        $tickets->loadDefaultValues();
-        return view('tickets.create', compact('tickets'));
+        $ticket = new Ticket();
+        $ticket->loadDefaultValues();
+        return view('tickets.create', compact('ticket'));
     }
 
     /**
      * Store a newly created Tickets in storage.
      */
-    public function store(CreateTicketsRequest $request)
+    public function store(CreateTicketRequest $request)
     {
         $input = $request->all();
 
-        /** @var Ticket $tickets */
-        $tickets = Ticket::create($input);
-        if($tickets){
+        /** @var Ticket $ticket */
+        $ticket = Ticket::create($input);
+        if($ticket){
             flash(__('Saved successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();
@@ -51,16 +51,16 @@ class TicketsController extends Controller
      */
     public function show($id)
     {
-        /** @var Ticket $tickets */
-        $tickets = Ticket::find($id);
+        /** @var Ticket $ticket */
+        $ticket = Ticket::find($id);
 
-        if (empty($tickets)) {
+        if (empty($ticket)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('tickets.index'));
         }
 
-        return view('tickets.show')->with('tickets', $tickets);
+        return view('tickets.show')->with('tickets', $ticket);
     }
 
     /**
@@ -68,34 +68,33 @@ class TicketsController extends Controller
      */
     public function edit($id)
     {
-        /** @var Ticket $tickets */
-        $tickets = Ticket::find($id);
+        /** @var Ticket $ticket */
+        $ticket = Ticket::find($id);
 
-        if (empty($tickets)) {
+        if (empty($ticket)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('tickets.index'));
         }
 
-        return view('tickets.edit')->with('tickets', $tickets);
+        return view('tickets.edit')->with('ticket', $ticket);
     }
 
     /**
      * Update the specified Tickets in storage.
      */
-    public function update($id, UpdateTicketsRequest $request)
+    public function update($id, UpdateTicketRequest $request)
     {
-        /** @var Ticket $tickets */
-        $tickets = Ticket::find($id);
+        /** @var Ticket $ticket */
+        $ticket = Ticket::find($id);
 
-        if (empty($tickets)) {
+        if (empty($ticket)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('tickets.index'));
         }
-
-        $tickets->fill($request->all());
-        if($tickets->save()){
+        $ticket->fill($request->all());
+        if($ticket->save()){
             flash(__('Updated successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();
@@ -111,16 +110,16 @@ class TicketsController extends Controller
      */
     public function destroy($id)
     {
-        /** @var Ticket $tickets */
-        $tickets = Ticket::find($id);
+        /** @var Ticket $ticket */
+        $ticket = Ticket::find($id);
 
-        if (empty($tickets)) {
+        if (empty($ticket)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('tickets.index'));
         }
 
-        if($tickets->delete()){
+        if($ticket->delete()){
             flash(__('Deleted successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();

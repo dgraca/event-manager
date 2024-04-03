@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\AccessTicket;
+use App\Models\Ticket;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateAccessTicketsRequest extends FormRequest
+class CreateTicketRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,6 @@ class CreateAccessTicketsRequest extends FormRequest
      */
     public function rules()
     {
-        return AccessTicket::rules();
+        return Ticket::rules();
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\EventSession;
+use App\Models\AccessTicket;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateEventSessionsRequest extends FormRequest
+class CreateAccessTicketRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,6 @@ class CreateEventSessionsRequest extends FormRequest
      */
     public function rules()
     {
-        return EventSession::rules();
+        return AccessTicket::rules();
     }
 }

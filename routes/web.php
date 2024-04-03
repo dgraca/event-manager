@@ -54,10 +54,10 @@ Route::middleware([
     Route::resource('entities', App\Http\Controllers\EntityController::class);
     Route::resource('zones', App\Http\Controllers\ZoneController::class);
     Route::resource('venues', App\Http\Controllers\VenueController::class);
-    Route::resource('event-sessions', App\Http\Controllers\EventSessionsController::class);
-    Route::resource('tickets', App\Http\Controllers\TicketsController::class);
+    Route::resource('event-sessions', App\Http\Controllers\EventSessionController::class);
+    Route::resource('tickets', App\Http\Controllers\TicketController::class);
     Route::resource('events', App\Http\Controllers\EventController::class);
-    Route::resource('payment-options', App\Http\Controllers\PaymentOptionsController::class);
+    Route::resource('payment-options', App\Http\Controllers\PaymentOptionController::class);
 });
 
 
@@ -67,4 +67,4 @@ Route::middleware([
  * Será para um utilizador (logged-in ou anónimo) comprar o seu bilhete.
  * Logo, não deverá existir menu lateral e deverá ser disponível sem autenticação.
  */
-Route::resource('access-tickets', App\Http\Controllers\AccessTicketsController::class);
+Route::resource('access-tickets', App\Http\Controllers\AccessTicketController::class);

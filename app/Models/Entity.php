@@ -83,7 +83,7 @@ class Entity extends Model implements Auditable
      * @param string $attribute
      * @return string
      */
-    public static function getStaticAttributeLabel($attribute) : string
+    public static function getAttributeLabelStatic($attribute) : string
     {
         $attributeLabels = static::attributeLabels();
         return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);

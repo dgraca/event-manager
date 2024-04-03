@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateEventSessionsRequest;
-use App\Http\Requests\UpdateEventSessionsRequest;
+use App\Http\Requests\CreateEventSessionRequest;
+use App\Http\Requests\UpdateEventSessionRequest;
 //use App\Http\Controllers\AppBaseController;
 use App\Models\EventSession;
 use Illuminate\Http\Request;
 
-class EventSessionsController extends Controller
+class EventSessionController extends Controller
 {
     /**
      * Display a listing of the EventSessions.
@@ -23,21 +23,21 @@ class EventSessionsController extends Controller
      */
     public function create()
     {
-        $eventSessions = new EventSession();
-        $eventSessions->loadDefaultValues();
-        return view('event_sessions.create', compact('eventSessions'));
+        $eventSession = new EventSession();
+        $eventSession->loadDefaultValues();
+        return view('event_sessions.create', compact('eventSession'));
     }
 
     /**
      * Store a newly created EventSessions in storage.
      */
-    public function store(CreateEventSessionsRequest $request)
+    public function store(CreateEventSessionRequest $request)
     {
         $input = $request->all();
 
-        /** @var EventSession $eventSessions */
-        $eventSessions = EventSession::create($input);
-        if($eventSessions){
+        /** @var EventSession $eventSession */
+        $eventSession = EventSession::create($input);
+        if($eventSession){
             flash(__('Saved successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();
@@ -51,16 +51,16 @@ class EventSessionsController extends Controller
      */
     public function show($id)
     {
-        /** @var EventSession $eventSessions */
-        $eventSessions = EventSession::find($id);
+        /** @var EventSession $eventSession */
+        $eventSession = EventSession::find($id);
 
-        if (empty($eventSessions)) {
+        if (empty($eventSession)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('event-sessions.index'));
         }
 
-        return view('event_sessions.show')->with('eventSessions', $eventSessions);
+        return view('event_sessions.show')->with('eventSessions', $eventSession);
     }
 
     /**
@@ -68,34 +68,34 @@ class EventSessionsController extends Controller
      */
     public function edit($id)
     {
-        /** @var EventSession $eventSessions */
-        $eventSessions = EventSession::find($id);
+        /** @var EventSession $eventSession */
+        $eventSession = EventSession::find($id);
 
-        if (empty($eventSessions)) {
+        if (empty($eventSession)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('event-sessions.index'));
         }
 
-        return view('event_sessions.edit')->with('eventSessions', $eventSessions);
+        return view('event_sessions.edit')->with('eventSession', $eventSession);
     }
 
     /**
      * Update the specified EventSessions in storage.
      */
-    public function update($id, UpdateEventSessionsRequest $request)
+    public function update($id, UpdateEventSessionRequest $request)
     {
-        /** @var EventSession $eventSessions */
-        $eventSessions = EventSession::find($id);
+        /** @var EventSession $eventSession */
+        $eventSession = EventSession::find($id);
 
-        if (empty($eventSessions)) {
+        if (empty($eventSession)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('event-sessions.index'));
         }
 
-        $eventSessions->fill($request->all());
-        if($eventSessions->save()){
+        $eventSession->fill($request->all());
+        if($eventSession->save()){
             flash(__('Updated successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();
@@ -111,16 +111,16 @@ class EventSessionsController extends Controller
      */
     public function destroy($id)
     {
-        /** @var EventSession $eventSessions */
-        $eventSessions = EventSession::find($id);
+        /** @var EventSession $eventSession */
+        $eventSession = EventSession::find($id);
 
-        if (empty($eventSessions)) {
+        if (empty($eventSession)) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('event-sessions.index'));
         }
 
-        if($eventSessions->delete()){
+        if($eventSession->delete()){
             flash(__('Deleted successfully.'))->overlay()->success();
         }else{
             flash(__('Ups something went wrong'))->overlay()->danger();
