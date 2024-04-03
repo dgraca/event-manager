@@ -35,6 +35,8 @@ class VenueController extends Controller
     {
         $input = $request->all();
 
+        $input['entity_id'] = auth()->user()->entities->first()->id;
+
         /** @var Venue $venue */
         $venue = Venue::create($input);
         if($venue){

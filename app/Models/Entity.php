@@ -78,6 +78,17 @@ class Entity extends Model implements Auditable
         return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
     }
 
+    /**
+     * Return the attribute label as static function
+     * @param string $attribute
+     * @return string
+     */
+    public static function getStaticAttributeLabel($attribute) : string
+    {
+        $attributeLabels = static::attributeLabels();
+        return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
+    }
+
     public function entityUsers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\Models\EntityUser::class, 'entity_id');

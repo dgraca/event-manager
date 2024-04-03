@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Entity;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
@@ -28,10 +29,10 @@ class VenuesTable extends Component implements HasForms, HasTable
     {
         $newModel = new Venue();
         return $table
-            ->query(Venue::query())
+            ->query(Venue::query()->with('entity'))
             ->columns([
-                TextColumn::make("entity_id")
-                ->label($newModel->getAttributeLabel("entity_id"))
+                TextColumn::make("entity.name")
+                ->label(Entity::getStaticAttributeLabel("Entity"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
