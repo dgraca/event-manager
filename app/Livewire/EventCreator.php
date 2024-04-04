@@ -157,7 +157,7 @@ class EventCreator extends Component
             }
 
             // redirect to the event page
-            return redirect()->route('events.show', $event->id);
+            return redirect()->route('events.show', $event->slug);
         });
     }
 

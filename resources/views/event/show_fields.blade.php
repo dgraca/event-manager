@@ -1,16 +1,16 @@
-<!-- Entity Id Field -->
+<!-- Entity Field -->
 <div class="grid grid-cols-1 md:grid-cols-3">
-    <dt class="font-medium md:col-span-1">{{ $event->getAttributeLabel('entity_id') }}</dt>
-    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">{{ $event->entity_id }}</dd>
+    <dt class="font-medium md:col-span-1">{{ $event->entity->getAttributeLabel('Entity') }}</dt>
+    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">{{ $event->entity->name }}</dd>
 </div>
 <div class="mt-5 w-full border-t border-slate-200/60 dark:border-darkmode-400 last-of-type:hidden"></div>
 
 
 
-<!-- Venue Id Field -->
+<!-- Venue Field -->
 <div class="grid grid-cols-1 md:grid-cols-3">
-    <dt class="font-medium md:col-span-1">{{ $event->getAttributeLabel('venue_id') }}</dt>
-    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">{{ $event->venue_id }}</dd>
+    <dt class="font-medium md:col-span-1">{{ $event->venue->getAttributeLabel('Venue') }}</dt>
+    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2"><a href="/admin/venues/{{ $event->venue->id }}">{{ $event->venue->name }} ({{ $event->venue->address }})</a></dd>
 </div>
 <div class="mt-5 w-full border-t border-slate-200/60 dark:border-darkmode-400 last-of-type:hidden"></div>
 

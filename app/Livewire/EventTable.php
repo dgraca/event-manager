@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\Entity;
+use App\Models\Venue;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
@@ -28,15 +30,15 @@ class EventTable extends Component implements HasForms, HasTable
     {
         $newModel = new Event();
         return $table
-            ->query(Event::query())
+            ->query(Event::query()->with(['entity', 'venue']))
             ->columns([
-                TextColumn::make("entity_id")
-                ->label($newModel->getAttributeLabel("entity_id"))
+                TextColumn::make("entity.name")
+                ->label(Entity::getAttributeLabelStatic("Entity"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
-            TextColumn::make("venue_id")
-                ->label($newModel->getAttributeLabel("venue_id"))
+            TextColumn::make("venue.name")
+                ->label(Venue::getAttributeLabelStatic("Venue"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
@@ -151,7 +153,7 @@ class EventTable extends Component implements HasForms, HasTable
             ])
             ->defaultSort('id', 'desc')
             ->recordUrl(
-                fn (Model $record): string => route('events.show', ['event' => $record]),
+                fn (Model $record): string => route('events.show', ['event' => $record->slug])
             )
             //->striped()
             ->persistFiltersInSession()

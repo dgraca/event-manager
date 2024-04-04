@@ -31,10 +31,10 @@ class EventController extends Controller
     /**
      * Display the specified Event.
      */
-    public function show($id)
+    public function show($slug)
     {
         /** @var Event $event */
-        $event = Event::find($id);
+        $event = Event::where('slug', $slug)->first();
 
         if (empty($event)) {
             flash(__('Not found'))->overlay()->danger();
@@ -48,10 +48,10 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified Event.
      */
-    public function edit($id)
+    public function edit($slug)
     {
         /** @var Event $event */
-        $event = Event::find($id);
+        $event = Event::where('slug', $slug)->first();
 
         if (empty($event)) {
             flash(__('Not found'))->overlay()->danger();
@@ -67,10 +67,10 @@ class EventController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
         /** @var Event $event */
-        $event = Event::find($id);
+        $event = Event::where('slug', $slug)->first();
 
         if (empty($event)) {
             flash(__('Not found'))->overlay()->danger();
