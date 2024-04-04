@@ -139,7 +139,7 @@ class VenuesTable extends Component implements HasForms, HasTable
             ])
             ->defaultSort('id', 'desc')
             ->recordUrl(
-                fn (Model $record): string => route('venues.show', ['venue' => $record]),
+                fn (Model $record): string => route('venues.show', ['venue' => $record->slug]),
             )
             //->striped()
             ->persistFiltersInSession()

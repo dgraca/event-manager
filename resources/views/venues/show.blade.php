@@ -8,7 +8,7 @@
             <x-base.button
                 class="mr-2 shadow-md ml-auto sm:ml-0"
                 variant="primary"
-                href="{{ route('venues.edit', $venue) }}"
+                href="{{ route('venues.edit', $venue->slug) }}"
                 as="a"
                 >
                 <x-base.lucide
@@ -62,7 +62,7 @@
                     </div>
                 </x-base.dialog.panel>
             </x-base.dialog>
-            <form method="POST" action="{{ route('venues.destroy', $venue) }}" id="delete-record-form">
+            <form method="POST" action="{{ route('venues.destroy', $venue->slug) }}" id="delete-record-form">
                 @csrf
                 @method('DELETE')
             </form>
