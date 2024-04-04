@@ -126,7 +126,7 @@ class VenuesTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (Venue $record): string => route('venues.edit', ['venue' => $record]))
+                ->url(fn (Venue $record): string => route('venues.edit', ['venue' => $record->slug]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])

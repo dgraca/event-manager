@@ -140,7 +140,7 @@ class EventTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (Event $record): string => route('events.edit', ['event' => $record]))
+                ->url(fn (Event $record): string => route('events.edit', ['event' => $record->slug]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
