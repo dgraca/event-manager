@@ -6,7 +6,7 @@
         <h2 class="mr-auto text-lg font-medium">{{ __('Edit Event Sessions') }}</h2>
     </div>
     <div class="intro-y box mt-3 p-5">
-        <form action="{{ route('event-sessions.update', $eventSession->id) }}" method="POST" accept-charset="UTF-8">
+        <form action="{{ route('event-sessions.update', $eventSession->slug) }}" method="POST" accept-charset="UTF-8">
             @csrf
             @method('PATCH')
             @include('event_sessions.fields')

@@ -106,7 +106,7 @@ class EventSession extends Model implements Auditable
         return [
             'event_id' => 'nullable',
         'name' => 'required|string|max:255',
-        'slug' => 'required|string|max:255',
+        'slug' => 'string|max:255',
         'description' => 'nullable|string|max:65535',
         'max_capacity' => 'nullable',
         'start_date' => 'nullable',

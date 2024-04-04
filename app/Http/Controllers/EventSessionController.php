@@ -49,10 +49,10 @@ class EventSessionController extends Controller
     /**
      * Display the specified EventSessions.
      */
-    public function show($id)
+    public function show($slug)
     {
         /** @var EventSession $eventSession */
-        $eventSession = EventSession::find($id);
+        $eventSession = EventSession::where('slug', $slug)->first();
 
         if (empty($eventSession)) {
             flash(__('Not found'))->overlay()->danger();
@@ -66,10 +66,10 @@ class EventSessionController extends Controller
     /**
      * Show the form for editing the specified EventSessions.
      */
-    public function edit($id)
+    public function edit($slug)
     {
         /** @var EventSession $eventSession */
-        $eventSession = EventSession::find($id);
+        $eventSession = EventSession::where('slug', $slug)->first();
 
         if (empty($eventSession)) {
             flash(__('Not found'))->overlay()->danger();
@@ -83,10 +83,10 @@ class EventSessionController extends Controller
     /**
      * Update the specified EventSessions in storage.
      */
-    public function update($id, UpdateEventSessionRequest $request)
+    public function update($slug, UpdateEventSessionRequest $request)
     {
         /** @var EventSession $eventSession */
-        $eventSession = EventSession::find($id);
+        $eventSession = EventSession::where('slug', $slug)->first();
 
         if (empty($eventSession)) {
             flash(__('Not found'))->overlay()->danger();
@@ -109,10 +109,10 @@ class EventSessionController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
         /** @var EventSession $eventSession */
-        $eventSession = EventSession::find($id);
+        $eventSession = EventSession::where('slug', $slug)->first();
 
         if (empty($eventSession)) {
             flash(__('Not found'))->overlay()->danger();
