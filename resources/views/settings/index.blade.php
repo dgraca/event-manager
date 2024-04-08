@@ -42,7 +42,7 @@
         </div>
     </div>
     <!-- BEGIN: HTML Table Data -->
-    <div class="intro-y mt-8">
+    <div class="mt-8">
         <livewire:settings-table />
 
     </div>

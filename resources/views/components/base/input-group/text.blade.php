@@ -1,7 +1,7 @@
-@aware(['inputGroup' => null])
+@aware(['inputGroup' => null, 'twMerge' => true])
 
 <div
-    data-tw-merge
+    @if($twMerge) data-tw-merge @endif
     {{ $attributes->class([
             'py-2 px-3 bg-slate-100 border shadow-sm border-slate-200 text-slate-600 dark:bg-darkmode-900/20 dark:border-darkmode-900/20 dark:text-slate-400',
             $inputGroup ? 'rounded-none [&:not(:first-child)]:border-l-transparent first:rounded-l last:rounded-r' : null,

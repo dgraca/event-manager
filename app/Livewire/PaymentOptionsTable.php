@@ -17,7 +17,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
-use App\Models\PaymentOptions;
+use App\Models\PaymentOption;
 
 class PaymentOptionsTable extends Component implements HasForms, HasTable
 {
@@ -26,9 +26,9 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
 
     public function table(Table $table): Table
     {
-        $newModel = new PaymentOptions();
+        $newModel = new PaymentOption();
         return $table
-            ->query(PaymentOptions::query())
+            ->query(PaymentOption::query())
             ->columns([
                 TextColumn::make("entity_id")
                 ->label($newModel->getAttributeLabel("entity_id"))
@@ -115,7 +115,7 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (PaymentOptions $record): string => route('payment-options.edit', ['payment_options' => $record]))
+                ->url(fn (PaymentOption $record): string => route('payment-options.edit', ['payment_options' => $record]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])

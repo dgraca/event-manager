@@ -15,7 +15,8 @@ export default defineConfig({
     plugins: [
         viteStaticCopy({
             targets: [
-                { src: 'resources/js/vendor/ckeditor/custom/build/ckeditor.js', dest: 'js/ckeditor' }
+                { src: 'resources/js/vendor/ckeditor/custom/build/ckeditor.js', dest: 'js/ckeditor' },
+                { src: 'node_modules/intl-tel-input/build/js/utils.js', dest: 'js/intl-tel-input' }
             ]
         }),
         laravel({
@@ -131,7 +132,8 @@ export default defineConfig({
                 'resources/tailwind-assets/js/app.js',
                 // 'resources/tailwind-assets/js/easy_background.js',
                 'resources/tailwind-assets/js/plugins.init.js',
-
+                "resources/css/components/_intl-tel-input.css",
+                "resources/js/vendor/intl-tel-input/index.js",
 
             ],
             refresh: [

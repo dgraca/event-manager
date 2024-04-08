@@ -35,6 +35,8 @@ class VenueController extends Controller
     {
         $input = $request->all();
 
+        $input['entity_id'] = auth()->user()->entities->first()->id;
+
         /** @var Venue $venue */
         $venue = Venue::create($input);
         if($venue){
@@ -49,10 +51,10 @@ class VenueController extends Controller
     /**
      * Display the specified Venue.
      */
-    public function show($id)
+    public function show($slug)
     {
         /** @var Venue $venue */
-        $venue = Venue::find($id);
+        $venue = Venue::where('slug', $slug)->first();
 
         if (empty($venue)) {
             flash(__('Not found'))->overlay()->danger();
@@ -66,10 +68,10 @@ class VenueController extends Controller
     /**
      * Show the form for editing the specified Venue.
      */
-    public function edit($id)
+    public function edit($slug)
     {
         /** @var Venue $venue */
-        $venue = Venue::find($id);
+        $venue = Venue::where('slug', $slug)->first();
 
         if (empty($venue)) {
             flash(__('Not found'))->overlay()->danger();
@@ -83,10 +85,10 @@ class VenueController extends Controller
     /**
      * Update the specified Venue in storage.
      */
-    public function update($id, UpdateVenueRequest $request)
+    public function update($slug, UpdateVenueRequest $request)
     {
         /** @var Venue $venue */
-        $venue = Venue::find($id);
+        $venue = Venue::where('slug', $slug)->first();
 
         if (empty($venue)) {
             flash(__('Not found'))->overlay()->danger();
@@ -109,10 +111,10 @@ class VenueController extends Controller
      *
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
         /** @var Venue $venue */
-        $venue = Venue::find($id);
+        $venue = Venue::where('slug', $slug)->first();
 
         if (empty($venue)) {
             flash(__('Not found'))->overlay()->danger();

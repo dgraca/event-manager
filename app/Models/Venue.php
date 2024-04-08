@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\LoadDefaults;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -57,6 +58,21 @@ class Venue extends Model implements Auditable
     use LoadDefaults;
     use \OwenIt\Auditing\Auditable;
     use HasFactory;
+    use Sluggable;
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 
     public $table = 'venues';
 
@@ -92,21 +108,21 @@ class Venue extends Model implements Auditable
     public static function rules(): array
     {
         return [
-            'entity_id' => 'required',
+            //'entity_id' => 'nullable',
         'name' => 'required|string|max:255',
-        'slug' => 'required|string|max:255',
-        'address' => 'nullable|string|max:512',
-        'location' => 'nullable|string|max:255',
-        'country' => 'nullable|string|max:2',
-        'postcode' => 'nullable|string|max:16',
+        'slug' => 'nullable|string|max:255',
+        'address' => 'required|string|max:512',
+        'location' => 'required|string|max:255',
+        'country' => 'required|string|max:2',
+        'postcode' => 'required|string|max:16',
         'latitude' => 'nullable|string|max:255',
         'longitude' => 'nullable|string|max:255',
         'email' => 'nullable|string|max:255',
         'phone' => 'nullable|string|max:255',
         'mobile' => 'nullable|string|max:255',
-        'created_at' => 'nullable',
-        'updated_at' => 'nullable',
-        'deleted_at' => 'nullable'
+        //'created_at' => 'nullable',
+        //'updated_at' => 'nullable',
+        //'deleted_at' => 'nullable'
         ];
     }
 
@@ -143,6 +159,17 @@ class Venue extends Model implements Auditable
     * @return string
     */
     public function getAttributeLabel($attribute) : string
+    {
+        $attributeLabels = static::attributeLabels();
+        return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
+    }
+
+    /**
+     * Return the attribute label as static function
+     * @param string $attribute
+     * @return string
+     */
+    public static function getAttributeLabelStatic($attribute) : string
     {
         $attributeLabels = static::attributeLabels();
         return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);

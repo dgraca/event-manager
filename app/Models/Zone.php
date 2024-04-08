@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\LoadDefaults;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -12,6 +13,21 @@ class Zone extends Model implements Auditable
     use LoadDefaults;
     use \OwenIt\Auditing\Auditable;
     use HasFactory;
+    use Sluggable;
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 
     public $table = 'zones';
 
@@ -75,7 +91,7 @@ class Zone extends Model implements Auditable
 
     public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\Tickets::class, 'zone_id');
+        return $this->hasMany(\App\Models\Ticket::class, 'zone_id');
     }
 
 

@@ -96,7 +96,8 @@
         "tom-select": "^2.2.2",
         "wow.js": "^1.2.2",
         "xlsx": "^0.18.5",
-        "zoom-vanilla.js": "^2.0.6"
+        "zoom-vanilla.js": "^2.0.6",
+        "intl-tel-input" : "^19.0.1"
     },
     "devDependencies": {
         "@ckeditor/ckeditor5-dev-translations": "^32.1.2",

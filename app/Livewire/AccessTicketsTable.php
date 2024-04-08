@@ -17,7 +17,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
-use App\Models\AccessTickets;
+use App\Models\AccessTicket;
 
 class AccessTicketsTable extends Component implements HasForms, HasTable
 {
@@ -26,9 +26,9 @@ class AccessTicketsTable extends Component implements HasForms, HasTable
 
     public function table(Table $table): Table
     {
-        $newModel = new AccessTickets();
+        $newModel = new AccessTicket();
         return $table
-            ->query(AccessTickets::query())
+            ->query(AccessTicket::query())
             ->columns([
                 TextColumn::make("event_session_ticket_id")
                 ->label($newModel->getAttributeLabel("event_session_ticket_id"))
@@ -82,7 +82,7 @@ class AccessTicketsTable extends Component implements HasForms, HasTable
                 ->searchable(),
             TextColumn::make("status")
                 ->label($newModel->getAttributeLabel("status"))
-                ->formatStateUsing(fn (AccessTickets $record): string => $record->statusLabel)
+                ->formatStateUsing(fn (AccessTicket $record): string => $record->statusLabel)
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
@@ -121,7 +121,7 @@ class AccessTicketsTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (AccessTickets $record): string => route('access-tickets.edit', ['access_tickets' => $record]))
+                ->url(fn (AccessTicket $record): string => route('access-tickets.edit', ['access_tickets' => $record]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])

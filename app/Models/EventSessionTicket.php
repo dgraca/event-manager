@@ -104,17 +104,17 @@ class EventSessionTicket extends Model implements Auditable
 
     public function eventSession(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\EventSessions::class, 'event_session_id');
+        return $this->belongsTo(\App\Models\EventSession::class, 'event_session_id');
     }
 
     public function ticket(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\Tickets::class, 'ticket_id');
+        return $this->belongsTo(\App\Models\Ticket::class, 'ticket_id');
     }
 
     public function accessTickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\AccessTickets::class, 'event_session_ticket_id');
+        return $this->hasMany(\App\Models\AccessTicket::class, 'event_session_ticket_id');
     }
 
 

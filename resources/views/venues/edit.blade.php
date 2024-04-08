@@ -6,7 +6,7 @@
         <h2 class="mr-auto text-lg font-medium">{{ __('Edit Venue') }}</h2>
     </div>
     <div class="intro-y box mt-3 p-5">
-        <form action="{{ route('venues.update', $venue->id) }}" method="POST" accept-charset="UTF-8">
+        <form action="{{ route('venues.update', $venue->slug) }}" method="POST" accept-charset="UTF-8">
             @csrf
             @method('PATCH')
             @include('venues.fields')

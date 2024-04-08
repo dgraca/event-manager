@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Tickets;
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\Event;
@@ -15,7 +15,7 @@ class TicketsFactory extends Factory
      *
      * @var string
      */
-    protected $model = Tickets::class;
+    protected $model = Ticket::class;
 
     /**
      * Define the model's default state.
@@ -24,7 +24,7 @@ class TicketsFactory extends Factory
      */
     public function definition()
     {
-        
+
         $zone = Zone::first();
         if (!$zone) {
             $zone = Zone::factory()->create();

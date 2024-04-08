@@ -48,13 +48,13 @@
             ],
             drop: function (info) {
                 if (
-                    $("#checkbox-events").length &&
-                    $("#checkbox-events")[0].checked
+                    $("#checkbox-event").length &&
+                    $("#checkbox-event")[0].checked
                 ) {
                     $(info.draggedEl).parent().remove();
 
-                    if ($("#calendar-events").children().length == 1) {
-                        $("#calendar-no-events").removeClass("hidden");
+                    if ($("#calendar-event").children().length == 1) {
+                        $("#calendar-no-event").removeClass("hidden");
                     }
                 }
             },

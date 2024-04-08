@@ -1,12 +1,12 @@
 <x-app-layout>
     @section('breadcrumbs')
-        {{ Breadcrumbs::render('tickets.edit', $tickets) }}
+        {{ Breadcrumbs::render('tickets.edit', $ticket) }}
     @endsection
     <div class="intro-y mt-8 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{ __('Edit Tickets') }}</h2>
     </div>
     <div class="intro-y box mt-3 p-5">
-        <form action="{{ route('tickets.update', $tickets->id) }}" method="POST" accept-charset="UTF-8">
+        <form action="{{ route('tickets.update', $ticket->id) }}" method="POST" accept-charset="UTF-8">
             @csrf
             @method('PATCH')
             @include('tickets.fields')

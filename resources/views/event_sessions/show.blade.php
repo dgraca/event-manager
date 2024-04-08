@@ -8,7 +8,7 @@
             <x-base.button
                 class="mr-2 shadow-md ml-auto sm:ml-0"
                 variant="primary"
-                href="{{ route('event-sessions.edit', $eventSessions) }}"
+                href="{{ route('event-sessions.edit', $eventSessions->slug) }}"
                 as="a"
                 >
                 <x-base.lucide
@@ -62,7 +62,7 @@
                     </div>
                 </x-base.dialog.panel>
             </x-base.dialog>
-            <form method="POST" action="{{ route('event-sessions.destroy', $eventSessions) }}" id="delete-record-form">
+            <form method="POST" action="{{ route('event-sessions.destroy', $eventSessions->slug) }}" id="delete-record-form">
                 @csrf
                 @method('DELETE')
             </form>

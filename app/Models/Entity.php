@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\LoadDefaults;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -12,6 +13,21 @@ class Entity extends Model implements Auditable
     use LoadDefaults;
     use \OwenIt\Auditing\Auditable;
     use HasFactory;
+    use Sluggable;
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 
     public $table = 'entities';
 
@@ -62,6 +78,17 @@ class Entity extends Model implements Auditable
         return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
     }
 
+    /**
+     * Return the attribute label as static function
+     * @param string $attribute
+     * @return string
+     */
+    public static function getAttributeLabelStatic($attribute) : string
+    {
+        $attributeLabels = static::attributeLabels();
+        return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
+    }
+
     public function entityUsers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\Models\EntityUser::class, 'entity_id');
@@ -74,12 +101,12 @@ class Entity extends Model implements Auditable
 
     public function events(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\Events::class, 'entity_id');
+        return $this->hasMany(\App\Models\Event::class, 'entity_id');
     }
 
     public function paymentOptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\PaymentOptions::class, 'entity_id');
+        return $this->hasMany(\App\Models\PaymentOption::class, 'entity_id');
     }
 
     public function venues(): \Illuminate\Database\Eloquent\Relations\HasMany

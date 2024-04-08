@@ -131,7 +131,7 @@ Breadcrumbs::for('entities.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('entities.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('entities.index');
-    $trail->push($model->name, route('entities.show', $model));
+    $trail->push($model->slug, route('entities.show', $model));
 });
 Breadcrumbs::for('entities.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('entities.show', $model);
@@ -149,7 +149,7 @@ Breadcrumbs::for('zones.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('zones.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('zones.index');
-    $trail->push($model->name, route('zones.show', $model));
+    $trail->push($model->slug, route('zones.show', $model));
 });
 Breadcrumbs::for('zones.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('zones.show', $model);
@@ -167,7 +167,7 @@ Breadcrumbs::for('venues.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('venues.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('venues.index');
-    $trail->push($model->name, route('venues.show', $model));
+    $trail->push($model->slug, route('venues.show', $model));
 });
 Breadcrumbs::for('venues.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('venues.show', $model);
@@ -185,7 +185,7 @@ Breadcrumbs::for('event-sessions.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('event-sessions.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('event-sessions.index');
-    $trail->push($model->name, route('event-sessions.show', $model));
+    $trail->push($model->slug, route('event-sessions.show', $model));
 });
 Breadcrumbs::for('event-sessions.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('event-sessions.show', $model);
@@ -203,7 +203,7 @@ Breadcrumbs::for('tickets.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('tickets.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('tickets.index');
-    $trail->push($model->name, route('tickets.show', $model));
+    $trail->push($model->slug, route('tickets.show', $model));
 });
 Breadcrumbs::for('tickets.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('tickets.show', $model);
@@ -221,7 +221,7 @@ Breadcrumbs::for('events.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('events.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('events.index');
-    $trail->push($model->name, route('events.show', $model));
+    $trail->push($model->slug, route('events.show', $model));
 });
 Breadcrumbs::for('events.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('events.show', $model);
@@ -239,7 +239,7 @@ Breadcrumbs::for('access-tickets.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('access-tickets.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('access-tickets.index');
-    $trail->push($model->name, route('access-tickets.show', $model));
+    $trail->push($model->slug, route('access-tickets.show', $model));
 });
 Breadcrumbs::for('access-tickets.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('access-tickets.show', $model);
@@ -257,7 +257,7 @@ Breadcrumbs::for('payment-options.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('payment-options.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('payment-options.index');
-    $trail->push($model->name, route('payment-options.show', $model));
+    $trail->push($model->slug, route('payment-options.show', $model));
 });
 Breadcrumbs::for('payment-options.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('payment-options.show', $model);

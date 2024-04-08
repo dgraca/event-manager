@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\Entity;
+use App\Models\Event;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
@@ -17,7 +19,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
-use App\Models\EventSessions;
+use App\Models\EventSession;
 
 class EventSessionsTable extends Component implements HasForms, HasTable
 {
@@ -26,12 +28,12 @@ class EventSessionsTable extends Component implements HasForms, HasTable
 
     public function table(Table $table): Table
     {
-        $newModel = new EventSessions();
+        $newModel = new EventSession();
         return $table
-            ->query(EventSessions::query())
+            ->query(EventSession::query()->with('event'))
             ->columns([
-                TextColumn::make("event_id")
-                ->label($newModel->getAttributeLabel("event_id"))
+                TextColumn::make("event.entity.name")
+                ->label(Entity::getAttributeLabelStatic("Entity"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
@@ -79,7 +81,7 @@ class EventSessionsTable extends Component implements HasForms, HasTable
                 ->searchable(),
             TextColumn::make("status")
                 ->label($newModel->getAttributeLabel("status"))
-                ->formatStateUsing(fn (EventSessions $record): string => $record->statusLabel)
+                ->formatStateUsing(fn (EventSession $record): string => $record->statusLabel)
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
@@ -118,7 +120,7 @@ class EventSessionsTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (EventSessions $record): string => route('event-sessions.edit', ['event_sessions' => $record]))
+                ->url(fn (EventSession $record): string => route('event-sessions.edit', ['event_session' => $record->slug]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
@@ -131,7 +133,7 @@ class EventSessionsTable extends Component implements HasForms, HasTable
             ])
             ->defaultSort('id', 'desc')
             ->recordUrl(
-                fn (Model $record): string => route('event-sessions.show', ['event_sessions' => $record]),
+                fn (Model $record): string => route('event-sessions.show', ['event_session' => $record->slug]),
             )
             //->striped()
             ->persistFiltersInSession()

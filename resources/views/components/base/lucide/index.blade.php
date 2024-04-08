@@ -1,6 +1,7 @@
-@props(['icon' => null, 'width' => 24, 'height' => 24])
+@props(['icon' => null, 'width' => 24, 'height' => 24, 'twMerge' => true])
 
 <i
+    @if($twMerge) data-tw-merge @endif
     data-lucide="{{ uncamelize($icon, '-') }}"
     width="{{ $width }}"
     height="{{ $height }}"

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Entity;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
@@ -28,10 +29,10 @@ class VenuesTable extends Component implements HasForms, HasTable
     {
         $newModel = new Venue();
         return $table
-            ->query(Venue::query())
+            ->query(Venue::query()->with('entity'))
             ->columns([
-                TextColumn::make("entity_id")
-                ->label($newModel->getAttributeLabel("entity_id"))
+                TextColumn::make("entity.name")
+                ->label(Entity::getAttributeLabelStatic("Entity"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
@@ -125,7 +126,7 @@ class VenuesTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (Venue $record): string => route('venues.edit', ['venue' => $record]))
+                ->url(fn (Venue $record): string => route('venues.edit', ['venue' => $record->slug]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
@@ -138,7 +139,7 @@ class VenuesTable extends Component implements HasForms, HasTable
             ])
             ->defaultSort('id', 'desc')
             ->recordUrl(
-                fn (Model $record): string => route('venues.show', ['venue' => $record]),
+                fn (Model $record): string => route('venues.show', ['venue' => $record->slug]),
             )
             //->striped()
             ->persistFiltersInSession()

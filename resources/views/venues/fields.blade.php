@@ -1,18 +1,18 @@
 <!-- Entity Id Field -->
-<div class="mb-3">
-    <x-base.form-label for="entity_id">{{ $venue->getAttributeLabel('entity_id') }}</x-base.form-label>
-    <x-base.form-input
-        class="w-full {{ ($errors->has('entity_id') ? 'border-danger' : '') }}"
-        id="entity_id"
-        name="entity_id"
-        :value="old('entity_id', $venue->entity_id ?? '')"
-        type="number"
-        step="1"
-    />
-    @error('entity_id')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
-</div>
+{{--<div class="mb-3">--}}
+{{--    <x-base.form-label for="entity_id">{{ $venue->getAttributeLabel('entity_id') }}</x-base.form-label>--}}
+{{--    <x-base.form-input--}}
+{{--        class="w-full {{ ($errors->has('entity_id') ? 'border-danger' : '') }}"--}}
+{{--        id="entity_id"--}}
+{{--        name="entity_id"--}}
+{{--        :value="old('entity_id', $venue->entity_id ?? '')"--}}
+{{--        type="number"--}}
+{{--        step="1"--}}
+{{--    />--}}
+{{--    @error('entity_id')--}}
+{{--        <div class="mt-2 text-danger">{{ $message }}</div>--}}
+{{--    @enderror--}}
+{{--</div>--}}
 
 <!-- Name Field -->
 <div class="mb-3">
@@ -29,20 +29,20 @@
     @enderror
 </div>
 
-<!-- Slug Field -->
-<div class="mb-3">
-    <x-base.form-label for="slug">{{ $venue->getAttributeLabel('slug') }}</x-base.form-label>
-    <x-base.form-input
-        class="w-full {{ ($errors->has('slug') ? 'border-danger' : '') }}"
-        id="slug"
-        name="slug"
-        :value="old('slug', $venue->slug ?? '')"
-        type="text"
-    />
-    @error('slug')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
-</div>
+{{--<!-- Slug Field -->--}}
+{{--<div class="mb-3">--}}
+{{--    <x-base.form-label for="slug">{{ $venue->getAttributeLabel('slug') }}</x-base.form-label>--}}
+{{--    <x-base.form-input--}}
+{{--        class="w-full {{ ($errors->has('slug') ? 'border-danger' : '') }}"--}}
+{{--        id="slug"--}}
+{{--        name="slug"--}}
+{{--        :value="old('slug', $venue->slug ?? '')"--}}
+{{--        type="text"--}}
+{{--    />--}}
+{{--    @error('slug')--}}
+{{--        <div class="mt-2 text-danger">{{ $message }}</div>--}}
+{{--    @enderror--}}
+{{--</div>--}}
 
 <!-- Address Field -->
 <div class="mb-3">

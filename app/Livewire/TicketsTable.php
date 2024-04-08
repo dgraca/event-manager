@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Event;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
@@ -17,7 +18,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
-use App\Models\Tickets;
+use App\Models\Ticket;
 
 class TicketsTable extends Component implements HasForms, HasTable
 {
@@ -26,17 +27,12 @@ class TicketsTable extends Component implements HasForms, HasTable
 
     public function table(Table $table): Table
     {
-        $newModel = new Tickets();
+        $newModel = new Ticket();
         return $table
-            ->query(Tickets::query())
+            ->query(Ticket::query()->with('event'))
             ->columns([
-                TextColumn::make("event_id")
-                ->label($newModel->getAttributeLabel("event_id"))
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
-            TextColumn::make("zone_id")
-                ->label($newModel->getAttributeLabel("zone_id"))
+                TextColumn::make("event.name")
+                ->label(Event::getAttributeLabelStatic("Event"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
@@ -105,7 +101,7 @@ class TicketsTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (Tickets $record): string => route('tickets.edit', ['tickets' => $record]))
+                ->url(fn (Ticket $record): string => route('tickets.edit', ['ticket' => $record]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
@@ -118,7 +114,7 @@ class TicketsTable extends Component implements HasForms, HasTable
             ])
             ->defaultSort('id', 'desc')
             ->recordUrl(
-                fn (Model $record): string => route('tickets.show', ['tickets' => $record]),
+                fn (Model $record): string => route('tickets.show', ['ticket' => $record]),
             )
             //->striped()
             ->persistFiltersInSession()
