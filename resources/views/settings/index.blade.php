@@ -23,7 +23,18 @@
             >
                 {{ __('Create Setting') }}
             </x-base.button>
-            <x-base.menu class="ml-auto sm:ml-0">
+                <x-base.menu class="ml-auto sm:ml-0">
+                <x-base.menu.button
+                    class="!box px-2 font-normal"
+                    as="x-base.button"
+                >
+                    <span class="flex h-5 w-5 items-center justify-center">
+                        <x-base.lucide
+                            class="h-4 w-4"
+                            icon="Plus"
+                        />
+                    </span>
+                </x-base.menu.button>
                 <x-base.menu.items class="w-40">
                     <x-base.menu.item>
                         <x-base.lucide
@@ -44,6 +55,5 @@
     <!-- BEGIN: HTML Table Data -->
     <div class="mt-8">
         <livewire:settings-table />
-
     </div>
 </x-app-layout>

@@ -22,7 +22,7 @@ class SettingFactory extends Factory
      */
     public function definition()
     {
-        
+
         return [
             'type' => $this->faker->word,
             'group' => $this->faker->text($this->faker->numberBetween(5, 255)),
@@ -30,7 +30,7 @@ class SettingFactory extends Factory
             'slug' => $this->faker->text($this->faker->numberBetween(5, 255)),
             'options' => $this->faker->text($this->faker->numberBetween(5, 65535)),
             'value' => $this->faker->text($this->faker->numberBetween(5, 65535)),
-            'order' => $this->faker->word,
+            'order_column' => $this->faker->word,
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s')
         ];

@@ -1,6 +1,5 @@
 <!-- Cookie Consent by TermsFeed https://www.TermsFeed.com -->
-<script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.1.0/cookie-consent.js"
-        charset="UTF-8"></script>
+<script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.1.0/cookie-consent.js" charset="UTF-8"></script>
 <script type="text/javascript" charset="UTF-8">
     document.addEventListener('DOMContentLoaded', function() {
         cookieconsent.run({
@@ -13,7 +12,7 @@
             "preferences_center_close_button_hide": false,
             "page_refresh_confirmation_buttons": false,
             "website_name": "{{ config('app.name', 'Laravel') }}",
-            "website_privacy_policy_url": "{{ route('policy.show') }}"
+            "website_privacy_policy_url": "{{ route('dashboard.privacy_policy') }}"
         });
     });
 </script>
@@ -30,5 +29,4 @@
     </script>
     <!-- end of Google Analytics-->
 @endif
-
 <!-- End Cookie Consent by TermsFeed https://www.TermsFeed.com -->

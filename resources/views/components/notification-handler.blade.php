@@ -48,12 +48,6 @@
         </div>
     </div>
 </x-base.notification>
-@once
-    @push('vendors')
-        @vite('resources/js/vendor/toastify/index.js')
-    @endpush
-
-@endonce
 @push('vendors')
     <script>
         function toastShow(title, message, type, duration = 10000){

@@ -24,6 +24,9 @@ class SettingsTable extends Component implements HasForms, HasTable
     use InteractsWithTable;
     use InteractsWithForms;
 
+    /**
+     * @throws \Exception
+     */
     public function table(Table $table): Table
     {
         $newModel = new Setting();
@@ -32,9 +35,9 @@ class SettingsTable extends Component implements HasForms, HasTable
             ->columns([
                 TextColumn::make("type")
                 ->label($newModel->getAttributeLabel("type"))
+                ->formatStateUsing(fn (Setting $record): string => $record->typeLabel)
                 ->sortable()
-                ->toggleable()
-                ->searchable(),
+                ->toggleable(),
             TextColumn::make("group")
                 ->label($newModel->getAttributeLabel("group"))
                 ->sortable()
@@ -60,11 +63,11 @@ class SettingsTable extends Component implements HasForms, HasTable
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
-            TextColumn::make("order")
+            /*TextColumn::make("order")
                 ->label($newModel->getAttributeLabel("order"))
                 ->sortable()
                 ->toggleable()
-                ->searchable(),
+                ->searchable(),*/
                 TextColumn::make('created_at')
                     ->label($newModel->getAttributeLabel('created_at'))
                     ->dateTime()
@@ -91,11 +94,11 @@ class SettingsTable extends Component implements HasForms, HasTable
                 ->label($newModel->getAttributeLabel('status'))
                 ->query(fn (Builder $query): Builder => $query->where('status', Demo::STATUS_ACTIVE))
                 ->label('Estado ativo')
-                ->toggle(),
-                SelectFilter::make('status')
-                ->label($newModel->getAttributeLabel('status'))
+                ->toggle(),*/
+                SelectFilter::make('type')
+                ->label($newModel->getAttributeLabel('type'))
                 ->multiple()
-                ->options(Demo::getStatusArray())*/
+                ->options(Setting::getTypeArray())
             ])
             ->actions([
                 Action::make('edit')
@@ -118,7 +121,8 @@ class SettingsTable extends Component implements HasForms, HasTable
             //->striped()
             ->persistFiltersInSession()
             ->persistSearchInSession()
-            ->defaultPaginationPageOption(25);
+            ->reorderable('order_column')
+            ->defaultPaginationPageOption(50);
     }
 
     public function render() : View

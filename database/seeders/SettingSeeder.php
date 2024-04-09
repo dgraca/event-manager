@@ -25,7 +25,7 @@ class SettingSeeder extends Seeder
                     'slug' => "email",
                     'options' => null,
                     'value' => 'geral@noop.pt',
-                    'order' => 0,
+                    'order_column' => 0,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ]

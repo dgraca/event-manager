@@ -86,19 +86,3 @@
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>
-
-<!-- Order Field -->
-<div class="mb-3">
-    <x-base.form-label for="order">{{ $setting->getAttributeLabel('order') }}</x-base.form-label>
-    <x-base.form-input
-        class="w-full {{ ($errors->has('order') ? 'border-danger' : '') }}"
-        id="order"
-        name="order"
-        :value="old('order', $setting->order ?? '')"
-        type="number"
-        step="1"
-    />
-    @error('order')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
-</div>

@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])->name('home');
 
+
+Route::get('/admin/cookies-policy', [\App\Http\Controllers\DashboardController::class,'cookiesPolicy'])->name('dashboard.cookies_policy');
+Route::get('/admin/privacy-policy', [\App\Http\Controllers\DashboardController::class,'privacyPolicy'])->name('dashboard.privacy_policy');
+Route::get('/admin/terms-of-service', [\App\Http\Controllers\DashboardController::class,'termsOfService'])->name('dashboard.terms_of_service');
+
+
 /* NÂO meti isto porque usei um middleware para fazer a validação do recaptcha ver se faz sentido usar em todo o lado isto
 Route::post(\Laravel\Fortify\RoutePath::for('password.email', '/forgot-password'), [\App\Http\Controllers\Auth\PasswordResetLinkController::class, 'store'])
     ->middleware(['guest:'.config('fortify.guard')])
@@ -68,3 +74,5 @@ Route::middleware([
  * Logo, não deverá existir menu lateral e deverá ser disponível sem autenticação.
  */
 Route::resource('access-tickets', App\Http\Controllers\AccessTicketController::class);
+Route::get('/evento/{slug}', [\App\Http\Controllers\EventController::class,'showPublic'])->name('events.show_public');
+

@@ -21,7 +21,7 @@ class CreateSettingsTable extends Migration
             $table->string('slug')->index();
             $table->text('options')->nullable();
             $table->text('value')->nullable();
-            $table->smallInteger('order')->nullable(false)->default(0);
+            $table->smallInteger('order_column')->default(1)->index();
             $table->timestamps();
         });
 
