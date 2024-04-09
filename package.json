@@ -5,9 +5,9 @@
         "dev": "vite",
         "build": "vite build",
         "build:backend": "cross-env TAILWIND_CONFIG=./backend-tailwind.config.js vite build --config backend.vite.config.js",
-        "build:frontend": "TAILWIND_CONFIG=./frontend-tailwind.config.js vite build --config frontend.vite.config.js",
-        "dev:backend": "TAILWIND_CONFIG=./backend-tailwind.config.js vite --config backend.vite.config.js",
-        "dev:frontend": "TAILWIND_CONFIG=./frontend-tailwind.config.js vite --config frontend.vite.config.js"
+        "build:frontend": "cross-env TAILWIND_CONFIG=./frontend-tailwind.config.js vite build --config frontend.vite.config.js",
+        "dev:backend": "cross-env TAILWIND_CONFIG=./backend-tailwind.config.js vite --config backend.vite.config.js",
+        "dev:frontend": "cross-env TAILWIND_CONFIG=./frontend-tailwind.config.js vite --config frontend.vite.config.js"
     },
     "dependencies": {
         "@ckeditor/ckeditor5-adapter-ckfinder": "^40.0.0",

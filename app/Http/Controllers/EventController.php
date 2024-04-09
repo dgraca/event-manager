@@ -46,6 +46,23 @@ class EventController extends Controller
     }
 
     /**
+     * Display the specified Event.
+     */
+    public function showPublic($slug)
+    {
+        /** @var Event $event */
+        $event = Event::where('slug', $slug)->first();
+
+        if (empty($event)) {
+            flash(__('Not found'))->overlay()->danger();
+
+            return redirect(route('home'));
+        }
+
+        return view('event.show_public')->with('event', $event);
+    }
+
+    /**
      * Show the form for editing the specified Event.
      */
     public function edit($slug)

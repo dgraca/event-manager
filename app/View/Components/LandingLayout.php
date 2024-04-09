@@ -15,6 +15,6 @@ class LandingLayout extends Component
     {
         //force to use the correct build directory for this template
         Vite::useBuildDirectory('frontend-assets');
-        return view('layouts.tailwind.landing');
+        return view('layouts.frontend.landing');
     }
 }

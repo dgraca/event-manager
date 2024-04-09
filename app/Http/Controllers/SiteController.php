@@ -18,7 +18,7 @@ class SiteController extends Controller
     public function index() : View
     {
 
-        return view('welcome');
+        return view('site.index');
     }
 
 }
