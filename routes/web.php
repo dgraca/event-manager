@@ -73,6 +73,6 @@ Route::middleware([
  * Será para um utilizador (logged-in ou anónimo) comprar o seu bilhete.
  * Logo, não deverá existir menu lateral e deverá ser disponível sem autenticação.
  */
-Route::resource('access-tickets', App\Http\Controllers\AccessTicketController::class);
-Route::get('/evento/{slug}', [\App\Http\Controllers\EventController::class,'showPublic'])->name('events.show_public');
+//Route::resource('access-tickets', App\Http\Controllers\AccessTicketController::class);
+Route::get('/event/{slug}', [\App\Http\Controllers\EventController::class,'showPublic'])->name('events.show_public');
 

@@ -59,7 +59,23 @@ class EventController extends Controller
             return redirect(route('home'));
         }
 
-        return view('event.show_public')->with('event', $event);
+        // Get the event sessions
+        $sessions = $event->eventSessions;
+
+        // Get all eventSessionTickets associated with sessions
+        $eventSessionTickets = $sessions->map(function ($session) {
+            return $session->eventSessionTickets;
+        })->flatten();
+
+        // Add a property to each eventSessionTicket to check if the ticket is sold out
+        $eventSessionTickets->map(function ($ticket) {
+            $ticket->isSoldOut = $ticket->limit <= $ticket->count && $ticket->limit > 0;
+            return $ticket;
+        });
+
+        return view('event.show_public')
+            ->with('event', $event)
+            ->with('sessionTickets', $eventSessionTickets);
     }
 
     /**

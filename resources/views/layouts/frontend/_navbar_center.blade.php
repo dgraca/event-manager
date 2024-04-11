@@ -50,18 +50,18 @@
             <!--Login button End-->
         @endguest
 
-        <div id="navigation">
-            <!-- Navigation Menu-->
-            <ul class="navigation-menu">
-                <li><a href="{{ route('home') }}" class="sub-menu-item {{ request()->routeIs('home') ? "active" : "" }}">{{ __('Home') }}</a></li>
+{{--        <div id="navigation">--}}
+{{--            <!-- Navigation Menu-->--}}
+{{--            <ul class="navigation-menu">--}}
+{{--                <li><a href="{{ route('home') }}" class="sub-menu-item {{ request()->routeIs('home') ? "active" : "" }}">{{ __('Home') }}</a></li>--}}
 
-                <li><a href="{{ route('home') }}#price" class="sub-menu-item ">{{ __('Price') }}</a></li>
-                @if(false)
-                <li><a href="{{ route('contacts.create') }}" class="sub-menu-item">{{ __('Contacts') }}</a></li>
-                @endif
+{{--                <li><a href="{{ route('home') }}#price" class="sub-menu-item ">{{ __('Price') }}</a></li>--}}
+{{--                @if(false)--}}
+{{--                <li><a href="{{ route('contacts.create') }}" class="sub-menu-item">{{ __('Contacts') }}</a></li>--}}
+{{--                @endif--}}
 
-            </ul><!--end navigation menu-->
-        </div><!--end navigation-->
+{{--            </ul><!--end navigation menu-->--}}
+{{--        </div><!--end navigation-->--}}
     </div><!--end container-->
 </nav><!--end header-->
 <!-- End Navbar -->
