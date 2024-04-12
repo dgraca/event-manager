@@ -11,121 +11,40 @@ use Illuminate\Http\Request;
 class AccessTicketController extends Controller
 {
     /**
-     * Display a listing of the AccessTickets.
-     */
-    public function index(Request $request)
-    {
-        return view('access_tickets.index');
-    }
-
-    /**
-     * Show the form for creating a new AccessTickets.
-     */
-    public function create()
-    {
-        $accessTicket = new AccessTicket();
-        $accessTicket->loadDefaultValues();
-        return view('access_tickets.create', compact('accessTicket'));
-    }
-
-    /**
      * Store a newly created AccessTickets in storage.
      */
-    public function store(CreateAccessTicketRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        /**
+         * Validate the request
+         * Name must be required with a minimum of 3 characters and a maximum of 255 characters
+         * Email must be required and must be a valid email address
+         * Phone must be required (validation should be done via intl-tel-input package in the frontend)
+         * Tickets must be required and must be an array
+         * Tickets must contain at least one ticket selected
+         * Tickets must not contain negative values
+         */
+        $request->validate([
+            'name' => 'required|max:255|min:3',
+            'email' => 'required|email|max:255',
+            'phone' => 'required',
+            'tickets' => ['required', 'array', function ($attribute, $value, $fail) {
+                // Check if any ticket has a value greater than 0
+                if (!collect($value)->contains(function ($ticket) {
+                    return $ticket > 0;
+                })) {
+                    $fail(__('validation.custom.at_least_one_ticket_selected', ['attribute' => $attribute]));
+                }
 
-        /** @var AccessTicket $accessTicket */
-        $accessTicket = AccessTicket::create($input);
-        if($accessTicket){
-            flash(__('Saved successfully.'))->overlay()->success();
-        }else{
-            flash(__('Ups something went wrong'))->overlay()->danger();
-        }
+                // Check if any ticket has a negative value
+                if (collect($value)->contains(function ($ticket) {
+                    return $ticket < 0;
+                })) {
+                    $fail(__('validation.custom.no_negative_values_allowed', ['attribute' => $attribute]));
+                }
+            }],
+        ]);
 
-        return redirect(route('access-tickets.index'));
-    }
-
-    /**
-     * Display the specified AccessTickets.
-     */
-    public function show($id)
-    {
-        /** @var AccessTicket $accessTicket */
-        $accessTicket = AccessTicket::find($id);
-
-        if (empty($accessTicket)) {
-            flash(__('Not found'))->overlay()->danger();
-
-            return redirect(route('access-tickets.index'));
-        }
-
-        return view('access_tickets.show')->with('accessTicket', $accessTicket);
-    }
-
-    /**
-     * Show the form for editing the specified AccessTickets.
-     */
-    public function edit($id)
-    {
-        /** @var AccessTicket $accessTicket */
-        $accessTicket = AccessTicket::find($id);
-
-        if (empty($accessTicket)) {
-            flash(__('Not found'))->overlay()->danger();
-
-            return redirect(route('access-tickets.index'));
-        }
-
-        return view('access_tickets.edit')->with('accessTicket', $accessTicket);
-    }
-
-    /**
-     * Update the specified AccessTickets in storage.
-     */
-    public function update($id, UpdateAccessTicketRequest $request)
-    {
-        /** @var AccessTicket $accessTicket */
-        $accessTicket = AccessTicket::find($id);
-
-        if (empty($accessTicket)) {
-            flash(__('Not found'))->overlay()->danger();
-
-            return redirect(route('access-tickets.index'));
-        }
-
-        $accessTicket->fill($request->all());
-        if($accessTicket->save()){
-            flash(__('Updated successfully.'))->overlay()->success();
-        }else{
-            flash(__('Ups something went wrong'))->overlay()->danger();
-        }
-
-        return redirect(route('access-tickets.index'));
-    }
-
-    /**
-     * Remove the specified AccessTickets from storage.
-     *
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
-        /** @var AccessTicket $accessTicket */
-        $accessTicket = AccessTicket::find($id);
-
-        if (empty($accessTicket)) {
-            flash(__('Not found'))->overlay()->danger();
-
-            return redirect(route('access-tickets.index'));
-        }
-
-        if($accessTicket->delete()){
-            flash(__('Deleted successfully.'))->overlay()->success();
-        }else{
-            flash(__('Ups something went wrong'))->overlay()->danger();
-        }
-
-        return redirect(route('access-tickets.index'));
+        return $request->all();
     }
 }

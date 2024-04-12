@@ -220,5 +220,7 @@ return [
         ],
         'postal_code'          => 'The :attribute is invalid.',
         'postal_code_with'     => 'The :attribute is invalid.',
+        'at_least_one_ticket_selected' => 'The :attribute must have at least one ticket selected.',
+        'no_negative_values_allowed' => 'The :attribute must not contain negative values.',
     ],
 ];

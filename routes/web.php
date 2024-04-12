@@ -66,13 +66,6 @@ Route::middleware([
     Route::resource('payment-options', App\Http\Controllers\PaymentOptionController::class);
 });
 
-
-/**
- * Este formulário deverá existir fora da página de admin.
- *
- * Será para um utilizador (logged-in ou anónimo) comprar o seu bilhete.
- * Logo, não deverá existir menu lateral e deverá ser disponível sem autenticação.
- */
-//Route::resource('access-tickets', App\Http\Controllers\AccessTicketController::class);
+Route::post('/access-tickets', [\App\Http\Controllers\AccessTicketController::class, 'store'])->name('access-tickets.store');
 Route::get('/event/{slug}', [\App\Http\Controllers\EventController::class,'showPublic'])->name('events.show_public');
 

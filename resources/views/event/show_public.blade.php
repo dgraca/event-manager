@@ -104,56 +104,72 @@ view()->share('pageTitle', __('Homepage'));
                 <p class="text-slate-400 max-w-xl mx-auto">Colocar aqui um texto qualquer, se calhar? Para não ficar demasiado vazio?</p>
             </div><!--end grid-->
 
-            <div class="grid grid-cols-1">
-                <div class="mt-1 mb-24">
-                    <div class="grid grid-cols-1">
-                        <div class="relative overflow-x-auto block w-full bg-white dark:bg-slate-900">
-                            <table class="w-full text-start">
-                                <tbody>
-                                @foreach($sessionTickets as $sessionTicket)
-                                    <tr wire:key="{{ $sessionTicket->id }}">
-                                        <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[200px] text-slate-400">
-                                            {{ $sessionTicket->eventSession->start_date->format('Y-m-d') }}<br />
-                                            <i class="uil uil-angle-right-b"></i><br />
-                                            {{ $sessionTicket->eventSession->end_date->format('Y-m-d') }}
-                                        </td>
-                                        <td class="p-3 border-b border-gray-100 dark:border-gray-700 min-w-[540px] py-12 px-5">
-                                            <div class="flex items-center">
-{{--                                                <img src="{{ asset('assets-frontend/images/event/eve-sch/1.jpg') }}" class="rounded-full size-24 shadow-md dark:shadow-gray-700" alt="">--}}
+            <form method="POST" action="{{ route('access-tickets.store') }}">
+                @csrf
 
-                                                <div class="ms-4">
-                                                    <p class="text-lg font-semibold">{{ $sessionTicket->eventSession->name }}</p>
-                                                    @if($sessionTicket->eventSession->description)
-                                                        <p class="text-slate-400 -mt-2">{{ $sessionTicket->eventSession->description }}</p>
-                                                    @endif
+                <div class="grid grid-cols-1">
+                    <div class="mt-1 mb-12">
+                        <div class="grid grid-cols-1">
+                            <div class="relative overflow-x-auto bg-white dark:bg-slate-900">
+                                <table class="w-full text-start">
+                                    <tbody>
+                                    @foreach($sessionTickets as $sessionTicket)
+                                        <tr wire:key="{{ $sessionTicket->id }}">
+                                            <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[200px] text-slate-400">
+                                                {{ $sessionTicket->eventSession->start_date->format('Y-m-d') }}<br />
+                                                <i class="uil uil-angle-right-b"></i><br />
+                                                {{ $sessionTicket->eventSession->end_date->format('Y-m-d') }}
+                                            </td>
+                                            <td class="p-3 border-b border-gray-100 dark:border-gray-700 min-w-[540px] py-12 px-5">
+                                                <div class="flex items-center">
+        {{--                                                <img src="{{ asset('assets-frontend/images/event/eve-sch/1.jpg') }}" class="rounded-full size-24 shadow-md dark:shadow-gray-700" alt="">--}}
+
+                                                    <div class="ms-4">
+                                                        <p class="text-lg font-semibold">{{ $sessionTicket->eventSession->name }}</p>
+                                                        @if($sessionTicket->eventSession->description)
+                                                            <p class="text-slate-400 -mt-2">{{ $sessionTicket->eventSession->description }}</p>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px] text-slate-400">
-                                            <span class="block">{{ $sessionTicket->ticket->name }}</span>
-                                            <span class="block text-black dark:text-white text-md mt-1">{{ $sessionTicket->ticket->price }} ({{ $sessionTicket->ticket->currency }})</span>
-                                        </td>
-                                        @if($sessionTicket->isSoldOut)
-                                            <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px]">
-                                                <p class="text-lg font-semibold tracking-wider">SOLD OUT</p>
                                             </td>
-                                        @else
-                                            <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px]">
-                                                <input type="number" class="w-20 h-10 border border-gray-200 dark:border-gray-700 rounded-md text-center" value="0" min="1" max="{{ $sessionTicket->ticket->max_tickets_per_order > 0 ? $sessionTicket->ticket->max_tickets_per_order : 99 }}">
+                                            <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px] text-slate-400">
+                                                <span class="block">{{ $sessionTicket->ticket->name }}</span>
+                                                <span class="block text-black dark:text-white text-md mt-1">{{ $sessionTicket->ticket->price }} ({{ $sessionTicket->ticket->currency }})</span>
                                             </td>
-                                        @endif
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-
-                            <div class="mt-10 mb-16 flex flex-col items-end">
-                                <x-frontend.button class="hover:">{{ __('Buy tickets') }}</x-frontend.button>
+                                            @if($sessionTicket->isSoldOut)
+                                                <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px]">
+                                                    <p class="text-lg font-semibold tracking-wider">SOLD OUT</p>
+                                                </td>
+                                            @else
+                                                <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px]">
+                                                    <input name="tickets[{{ $sessionTicket->id }}]" type="number" class="w-20 h-10 border bg-transparent border-primary dark:border-primary rounded-md text-center" value="{{ old('tickets[' . $sessionTicket->id . ']', 0) }}" min="0" max="{{ $sessionTicket->ticket->max_tickets_per_order > 0 ? $sessionTicket->ticket->max_tickets_per_order : 99 }}">
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                                @error('tickets')
+                                    <div class="mt-2 text-red-500">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="flex flex-col gap-4 mb-24 xl:mb-32">
+                    <h1 class="my-4 text-center tracking-wide font-semibold text-lg">{{ __('Billing information') }}</h1>
+                    <div class="flex flex-row items-center justify-between gap-4">
+                        <input value="{{ old('name', '') }}" name="name" type="text" placeholder="{{ __('Name') }}" class="w-1/2 h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required>
+                        <input value="{{ old('email', '') }}" name="email" type="email" placeholder="{{ __('Email') }}" class="w-1/2 h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required>
+                    </div>
+                    <div class="flex flex-row items-start justify-between gap-4">
+                        <div class="w-full flex flex-col justify-between">
+                            <x-base.form-phone value="{{ old('phone', '') }}" id="phone" name="phone" placeholder="{{ __('Phone') }}" class="w-1/2 h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required />
+                        </div>
+                        <x-frontend.button type="submit" class="w-1/2 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ __('Buy tickets') }}</x-frontend.button>
+                    </div>
+                </div>
+            </form>
         </div><!--end container-->
     </section><!--end section-->
     <!-- End -->
