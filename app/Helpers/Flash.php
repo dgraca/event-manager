@@ -128,7 +128,7 @@ class Flash
     {
         $existingNotifications = session('notification', []);
         $mergedNotifications = array_merge($existingNotifications, $this->notifications);
-        request()->session()->flash('notification', $mergedNotifications);
+        session(['notification' => $mergedNotifications]); // added this line instead of flash
     }
 
     /**
