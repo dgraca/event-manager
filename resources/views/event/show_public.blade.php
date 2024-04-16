@@ -43,11 +43,10 @@ view()->share('pageTitle', __('Homepage'));
         <div class="container relative">
             <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-[30px]">
                 <div class="text-center px-6 mt-6">
-                    <div class="size-20 bg-indigo-600/5 text-indigo-600 rounded-xl text-3xl flex align-middle justify-center items-center shadow-sm dark:shadow-gray-800 mx-auto">
-                        <i class="uil uil-phone"></i>
-                    </div>
-
                     @if($event->venue->phone || $event->venue->mobile)
+                        <div class="size-20 bg-indigo-600/5 text-indigo-600 rounded-xl text-3xl flex align-middle justify-center items-center shadow-sm dark:shadow-gray-800 mx-auto">
+                            <i class="uil uil-phone"></i>
+                        </div>
                         <div class="content mt-7">
                             <h5 class="title h5 text-xl font-medium">Phone</h5>
                             @if($event->venue->phone)
@@ -98,10 +97,8 @@ view()->share('pageTitle', __('Homepage'));
     <!-- Start -->
     <section class="relative md:py-12 py-8">
         <div class="container relative">
-            <div class="grid grid-cols-1 pb-8 text-center">
-                <h3 class="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">{{ __('Sessions') }}</h3>
-
-                <p class="text-slate-400 max-w-xl mx-auto">Colocar aqui um texto qualquer, se calhar? Para não ficar demasiado vazio?</p>
+            <div class="mt-4 -mb-4 grid grid-cols-1 pb-8 text-center">
+                <h3 class="md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">{{ __('Sessions') }}</h3>
             </div><!--end grid-->
 
             <form method="POST" action="{{ route('access-tickets.store') }}">
@@ -122,8 +119,6 @@ view()->share('pageTitle', __('Homepage'));
                                             </td>
                                             <td class="p-3 border-b border-gray-100 dark:border-gray-700 min-w-[540px] py-12 px-5">
                                                 <div class="flex items-center">
-        {{--                                                <img src="{{ asset('assets-frontend/images/event/eve-sch/1.jpg') }}" class="rounded-full size-24 shadow-md dark:shadow-gray-700" alt="">--}}
-
                                                     <div class="ms-4">
                                                         <p class="text-lg font-semibold">{{ $sessionTicket->eventSession->name }}</p>
                                                         @if($sessionTicket->eventSession->description)
@@ -159,18 +154,45 @@ view()->share('pageTitle', __('Homepage'));
                 <div class="flex flex-col gap-4 mb-24 xl:mb-32">
                     <h1 class="my-4 text-center tracking-wide font-semibold text-lg">{{ __('Billing information') }}</h1>
                     <div class="flex flex-row items-center justify-between gap-4">
-                        <input value="{{ old('name', '') }}" name="name" type="text" placeholder="{{ __('Name') }}" class="w-1/2 h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required>
-                        <input value="{{ old('email', '') }}" name="email" type="email" placeholder="{{ __('Email') }}" class="w-1/2 h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required>
-                    </div>
-                    <div class="flex flex-row items-start justify-between gap-4">
-                        <div class="w-full flex flex-col justify-between">
-                            <x-base.form-phone value="{{ old('phone', '') }}" id="phone" name="phone" placeholder="{{ __('Phone') }}" class="w-1/2 h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required />
+                        <div class="mb-3 w-full flex flex-col">
+                            <x-base.form-label :tw-merge="false"
+                                               for="description">{{ \App\Models\EventSession::getAttributeLabelStatic('name') }}</x-base.form-label>
+                            <input value="{{ old('name', '') }}" name="name" type="text" placeholder="{{ \App\Models\EventSession::getAttributeLabelStatic('name') }}" class="w-full h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required>
+                            @error('name')
+                                <div class="mt-2 text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
-                        <x-frontend.button type="submit" class="w-1/2 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ __('Buy tickets') }}</x-frontend.button>
+                        <div class="mb-3 w-full flex flex-col">
+                            <x-base.form-label :tw-merge="false"
+                                               for="description">{{ \App\Models\Venue::getAttributeLabelStatic('email') }}</x-base.form-label>
+                            <input value="{{ old('email', '') }}" name="email" type="email" placeholder="{{ \App\Models\Venue::getAttributeLabelStatic('email') }}" class="w-full h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required>
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-col justify-between">
+                        <x-base.form-label :tw-merge="false"
+                                           for="phone">{{ \App\Models\Venue::getAttributeLabelStatic('phone') }}</x-base.form-label>
+                        <x-base.form-phone value="{{ old('phone', '') }}" id="phone" name="phone" placeholder="{{ \App\Models\Venue::getAttributeLabelStatic('phone') }}" class="w-1/2 h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" />
+                    </div>
+                    <div class="mb-3">
+                        <x-base.form-label :tw-merge="false"
+                                           for="description">{{ \App\Models\EventSession::getAttributeLabelStatic('description') }}</x-base.form-label>
+                        <x-base.form-textarea
+                            :tw-merge="false"
+                            class="w-full bg-transparent border border-primary dark:border-primary rounded-md p-2 {{ ($errors->has('description') ? 'border-danger' : '') }}"
+                            :value="old('description', '')"
+                            name="description"
+                            rows="5"
+                        />
+                        @error('description')
+                            <div class="mt-2 text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <input type="hidden" name="event_id" value="{{ $event->id }}">
+                        <x-frontend.button type="submit" class=" w-1/2 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ __('Buy tickets') }}</x-frontend.button>
                     </div>
                 </div>
             </form>
         </div><!--end container-->
     </section><!--end section-->
-    <!-- End -->
 </x-landing-layout>

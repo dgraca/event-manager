@@ -31,7 +31,7 @@
     </div>
 </x-base.notification>
 <x-base.notification class="flex" id="danger-generic-notification">
-    <i class="text-xl text-red uil uil-times-circle"></i>
+    <i class="text-xl text-red-400 uil uil-times-circle"></i>
     <div class="ml-4 mr-4">
         <div class="font-medium">{title}</div>
         <div class="mt-1 text-slate-500">

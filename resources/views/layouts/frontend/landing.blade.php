@@ -73,7 +73,7 @@
             <!-- Loader End -->
             @include('layouts.frontend._navbar_center')
             {{-- @include('flash::message_tailwind') --}}
-            {{--<x-frontend.notification-handler />--}}
+            <x-frontend.notification-handler />
             {{ $slot }}
         </div>
 
