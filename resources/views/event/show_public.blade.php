@@ -9,7 +9,7 @@ view()->share('pageTitle', __('Homepage'));
 ?>
 <x-landing-layout>
     <!-- Start Hero -->
-    <section class="relative table w-full py-36 bg-[url('{{ asset('assets-frontend/images/event/bg3.jpg') }}')] bg-center bg-no-repeat bg-cover">
+    <section class="relative table w-full py-36 bg-center bg-no-repeat bg-cover" style="background-image: url({{ asset('assets-frontend/images/event/bg3.jpg') }})">
         <div class="absolute inset-0 bg-black opacity-75"></div>
         <div class="container relative">
             <div class="grid grid-cols-1 pb-8 text-center mt-10">
@@ -172,20 +172,6 @@ view()->share('pageTitle', __('Homepage'));
                         <x-base.form-label :tw-merge="false"
                                            for="phone">{{ \App\Models\Venue::getAttributeLabelStatic('phone') }}</x-base.form-label>
                         <x-base.form-phone value="{{ old('phone', '') }}" id="phone" name="phone" placeholder="{{ \App\Models\Venue::getAttributeLabelStatic('phone') }}" class="w-1/2 h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" />
-                    </div>
-                    <div class="mb-3">
-                        <x-base.form-label :tw-merge="false"
-                                           for="description">{{ \App\Models\EventSession::getAttributeLabelStatic('description') }}</x-base.form-label>
-                        <x-base.form-textarea
-                            :tw-merge="false"
-                            class="w-full bg-transparent border border-primary dark:border-primary rounded-md p-2 {{ ($errors->has('description') ? 'border-danger' : '') }}"
-                            :value="old('description', '')"
-                            name="description"
-                            rows="5"
-                        />
-                        @error('description')
-                            <div class="mt-2 text-danger">{{ $message }}</div>
-                        @enderror
                     </div>
                     <div class="flex flex-col items-end">
                         <input type="hidden" name="event_id" value="{{ $event->id }}">

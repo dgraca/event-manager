@@ -52,7 +52,7 @@ class AccessTicketController extends Controller
                 if ($quantity > 0) {
                     $eventSessionTicket = EventSessionTicket::find($eventSessionTicketId);
                     if ($eventSessionTicket->limit == 0 || ($eventSessionTicket->limit > 0 && $eventSessionTicket->limit >= $eventSessionTicket->count + $quantity)) {
-                        $accessTickets[] = $this->create($eventSessionTicketId, $request, $quantity, $eventSessionTicket);
+                        $accessTickets = array_merge($accessTickets, $this->create($eventSessionTicketId, $request, $quantity, $eventSessionTicket));
                     } else {
                         throw new \Exception(__("Ticket limit exceeded"));
                     }
@@ -63,8 +63,6 @@ class AccessTicketController extends Controller
             foreach ($accessTickets as $accessTicket) {
                 $accessTicket->save();
             }
-
-            $eventSessionTicket->save();
 
             // Commit the transaction
             DB::commit();
@@ -80,15 +78,6 @@ class AccessTicketController extends Controller
 
         // TODO: Gerar PDF com os bilhetes e com o respetivo QR Code
         // TODO: Enviar email com os bilhetes
-        /**
-         * TODO: Repensar na forma como os bilhetes  (accessTickets) são guardados na DB.
-         * Não faz sentido existir um campo "tickets_count". Porquê? Porque um accessTicket pode ter vários tickets.
-         * E são um QR code está associado a um e um só ticket. Logo, esse tickets_count deverá ser substituído por um "used"
-         * Que será um smallint. Se o bilhete for de uso único, será 1. Se for de vários usos, será o número de usos.
-         * Fará também sentido ter um campo para descrição? Vamos supor que eu compro um bilhete para mim e para mais 4 amigos.
-         * Seriam 4 campos de descrição ou apenas 1? Estou a demais? Será que faz sentido ter um campo de descrição?
-         * Depois esses campos têm que ser visíveis no PDF e também para o manager do evento.
-         */
 
         return redirect(route('access-tickets.thank_you'));
     }
@@ -98,21 +87,26 @@ class AccessTicketController extends Controller
      */
     public function create($id, $request, $quantity, $eventSessionTicket)
     {
-        $accessCode = uuid_create();
+        $accessTickets = [];
+        // for i in quantity create a new access ticket
+        for ($i = 0; $i < $quantity; $i++) {
+            $accessTicket = new AccessTicket();
+            $accessTicket->event_session_ticket_id = $id;
+            $accessTicket->name = $request->name;
+            $accessTicket->email = $request->email;
+            $accessTicket->phone = $request->phone ?? null;
+            $accessTicket->description = $request->description ?? null;
+            $accessTicket->tickets_count = $eventSessionTicket->ticket->max_check_in;
+            $accessTicket->code = uuid_create();
+            $accessTicket->approved = $request->approved ?? false;
+            $accessTicket->save();
+            $accessTickets[] = $accessTicket;
 
-        $accessTicket = new AccessTicket();
-        $accessTicket->event_session_ticket_id = $id;
-        $accessTicket->name = $request->name;
-        $accessTicket->email = $request->email;
-        $accessTicket->phone = $request->phone ?? null;
-        $accessTicket->description = $request->description ?? null;
-        $accessTicket->tickets_count = $quantity;
-        $accessTicket->code = $accessCode;
-        $accessTicket->approved = $request->approved ?? false;
 
-        $eventSessionTicket->count += $quantity;
+            $eventSessionTicket->increment('count');
+        }
 
-        return $accessTicket;
+        return $accessTickets;
     }
 
     /**
