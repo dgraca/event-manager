@@ -2,13 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Mail\AccessTicket;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class SendAccessTicketEmail implements ShouldQueue
 {
@@ -35,7 +35,7 @@ class SendAccessTicketEmail implements ShouldQueue
      */
     public function handle()
     {
-        // Send email with PDF attachment
-        Mail::to($this->email)->send(new AccessTicket(base64_decode($this->pdfContent), __('Tickets') . '.pdf'));
+        // Dispatch notification with PDF attachment
+        Notification::route('mail', $this->email)->notify(new \App\Notifications\AccessTicket(base64_decode($this->pdfContent), __('Tickets') . '.pdf'));
     }
 }
