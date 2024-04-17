@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateAccessTicketRequest;
-use App\Http\Requests\UpdateAccessTicketRequest;
+use App\Helpers\Word2Pdf;
+use App\Jobs\GenerateAccessTicketPDF;
 use App\Models\AccessTicket;
 use App\Models\Event;
 use App\Models\EventSessionTicket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class AccessTicketController extends Controller
 {
@@ -66,6 +68,10 @@ class AccessTicketController extends Controller
 
             // Commit the transaction
             DB::commit();
+
+            // Dispatch job for generating PDFs asynchronously
+            GenerateAccessTicketPDF::dispatch($accessTickets);
+
         } catch (\Exception $e) {
             // If an exception occurs, rollback the transaction
             DB::rollBack();
@@ -76,16 +82,13 @@ class AccessTicketController extends Controller
             return back();
         }
 
-        // TODO: Gerar PDF com os bilhetes e com o respetivo QR Code
-        // TODO: Enviar email com os bilhetes
-
         return redirect(route('access-tickets.thank_you'));
     }
 
     /**
      * Create a new AccessTicket
      */
-    public function create($id, $request, $quantity, $eventSessionTicket)
+    private function create($id, $request, $quantity, $eventSessionTicket)
     {
         $accessTickets = [];
         // for i in quantity create a new access ticket
@@ -99,9 +102,7 @@ class AccessTicketController extends Controller
             $accessTicket->tickets_count = $eventSessionTicket->ticket->max_check_in;
             $accessTicket->code = uuid_create();
             $accessTicket->approved = $request->approved ?? false;
-            $accessTicket->save();
             $accessTickets[] = $accessTicket;
-
 
             $eventSessionTicket->increment('count');
         }
