@@ -12,32 +12,28 @@ use Illuminate\Support\Facades\Log;
  */
 class Word2Pdf
 {
+    // Inside Word2Pdf helper class
     public static function convertDocument2Pdf($pathToTemplate, $formData)
     {
         $apiUrl = 'https://wordgenerator.noop.pt/generator_word_to_pdf_var/cabcdefghijklmnopqrst';
 
         try {
-            // Envio do ficheiro para a API de conversão
+            // Send the file to the conversion API
             $response = Http::asMultipart()
                 ->attach('file', file_get_contents($pathToTemplate), 'document.docx')
                 ->post($apiUrl, $formData);
 
             if ($response->successful()) {
-                // Se a solicitação for bem-sucedida, retorna o corpo da resposta
+                // If the request is successful, return the body of the response
                 return $response->body();
-
             } else {
-                // Se a solicitação não for bem-sucedida, registra um erro e retorna uma resposta de erro
-                Log::error('Erro ao enviar o arquivo para a API:' . $response->status() . $response->body());
-                flash(__('Error generating the PDF'))->error()->overlay();
-                return redirect()->back();
+                // If the request is not successful, return an array with the error message
+                return ['error' => __('Response was not successful.') . ' ' . $response->body()];
             }
-
         } catch (\Exception $e) {
-            // Em caso de exceção, registra o erro e retorna uma resposta de erro
-            Log::error('Erro na Geração de PDF: ' . $e->getMessage());
-            flash(__('Error generating the PDF'))->error()->overlay();
-            return redirect()->back();
+            // If an exception occurs, return an array with the error message
+            return ['error' => $e->getMessage()];
         }
     }
+
 }

@@ -32,12 +32,15 @@ class GenerateAccessTicketPDF implements ShouldQueue
      */
     public function handle()
     {
-        $formData = [
-            'title' => 'Your Title Here',
-            'subtitle1' => 'Your Subtitle 1 Here',
-            'subtitle2' => 'Your Subtitle 2 Here',
-            'subtitle3' => 'Your Subtitle 3 Here',
-        ];
+        $formData = [];
+
+        // Loop through all access tickets to add them to $formData
+        for ($i = 0; $i < count($this->accessTickets); $i++) {
+            $formData["tickets[$i][name]"] = $this->accessTickets[$i]->name;
+            $formData["tickets[$i][email]"] = $this->accessTickets[$i]->email;
+            $formData["tickets[$i][phone]"] = $this->accessTickets[$i]->phone;
+            $formData["tickets[$i][qrcode]"] = $this->accessTickets[$i]->qrcode;
+        }
 
         // Get the path to the template file
         $pathToTemplate = storage_path('email_templates/test.docx');
@@ -46,9 +49,14 @@ class GenerateAccessTicketPDF implements ShouldQueue
         // using the Word2PDF API provided by noop
         $response = Word2Pdf::convertDocument2Pdf($pathToTemplate, $formData);
 
+        // If the error key is present in the response, throw an exception
+        if (is_array($response) && array_key_exists('error', $response)) {
+            throw new \Exception($response['error']);
+        }
+
         // If the request is successful, send the email with the PDF attached
         if (!empty($response)) {
-            // Once PDF is generated, dispatch job for sending emails assynchronously
+            // Once PDF is generated, dispatch job for sending emails asynchronously
             SendAccessTicketEmail::dispatch('test@danielgraca.com', base64_encode($response));
         } else {
             throw new \Exception(__('Error generating the PDF'));
