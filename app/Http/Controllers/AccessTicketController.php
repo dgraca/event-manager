@@ -70,7 +70,7 @@ class AccessTicketController extends Controller
             DB::commit();
 
             // Dispatch job for generating PDFs asynchronously
-            GenerateAccessTicketPDF::dispatch($accessTickets);
+            GenerateAccessTicketPDF::dispatch($event, $accessTickets);
 
         } catch (\Exception $e) {
             // If an exception occurs, rollback the transaction

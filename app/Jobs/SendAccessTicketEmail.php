@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 class SendAccessTicketEmail implements ShouldQueue
@@ -35,7 +35,12 @@ class SendAccessTicketEmail implements ShouldQueue
      */
     public function handle()
     {
-        // Dispatch notification with PDF attachment
-        Notification::route('mail', $this->email)->notify(new \App\Notifications\AccessTicket(base64_decode($this->pdfContent), __('Tickets') . '.pdf'));
+        try {
+            // Dispatch notification with PDF attachment
+            Notification::route('mail', 'eu@ipt.pt')->notify(new \App\Notifications\AccessTicket(base64_decode($this->pdfContent), __('Tickets') . '.pdf'));
+        } catch (\Exception $e) {
+            Log::error(__("Failed to send email") . ": " . $e->getMessage());
+            throw new \Exception(__("Failed to send email") . ": " . $e->getMessage());
+        }
     }
 }
