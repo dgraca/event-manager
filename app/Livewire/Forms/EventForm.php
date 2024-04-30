@@ -68,8 +68,6 @@ class EventForm extends Form
         // validate event fields
         $this->validate(attributes: \App\Models\Event::dynamicAttributeLabels());
 
-        dd($this->event);
-
         // create new instance of event
         $event = new Event($this->event);
         $event->save();
