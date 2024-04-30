@@ -26,9 +26,12 @@ class EntitiesTable extends Component implements HasForms, HasTable
 
     public function table(Table $table): Table
     {
+        debugbar()->info();
         $newModel = new Entity();
+        $entityId = auth()->user()->entities->first()->id;
+
         return $table
-            ->query(Entity::query())
+            ->query(Entity::query()->where('id', '=', $entityId))
             ->columns([
                 TextColumn::make("name")
                 ->label($newModel->getAttributeLabel("name"))

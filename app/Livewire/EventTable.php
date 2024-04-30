@@ -29,8 +29,10 @@ class EventTable extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         $newModel = new Event();
+        $entityId = auth()->user()->entities->first()->id;
+
         return $table
-            ->query(Event::query()->with(['entity', 'venue']))
+            ->query(Event::query()->where('entity_id', '=', $entityId)->with(['entity', 'venue']))
             ->columns([
                 TextColumn::make("entity.name")
                 ->label(Entity::getAttributeLabelStatic("Entity"))
