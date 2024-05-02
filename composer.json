@@ -25,6 +25,7 @@
         "noopstudios/laravel-recaptchav3": "^1.0",
         "owen-it/laravel-auditing": "^13.5",
         "rappasoft/laravel-livewire-tables": "v3.0.0-beta.2",
+        "simplesoftwareio/simple-qrcode": "~4",
         "spatie/eloquent-sortable": "^4.2",
         "spatie/laravel-medialibrary": "^10.0.0",
         "spatie/laravel-pdf": "^1.5",

@@ -40,7 +40,7 @@ class GenerateAccessTicketPDF implements ShouldQueue
     public function handle()
     {
         // Generate PDF using the CustomPDF helper
-        $pdf = CustomPdf::generate($this->event, $this->eventSessionTickets ,$this->accessTickets);
+        $pdf = CustomPdf::generate($this->event, $this->eventSessionTickets, $this->accessTickets);
 
         // Send the PDF via email using the SendAccessTicketEmail job
         SendAccessTicketEmail::dispatch($this->event->email, $pdf);

@@ -37,7 +37,7 @@
                         <p class="font-bold">{{ $event->venue->name }}</p>
                     </div>
                     <div class="mt-8 flex justify-center">
-                        <img class="w-44 rounded-lg shadow-lg" src="https://i.pinimg.com/736x/1f/f1/1b/1ff11b9b25bb93326200727f856217d3.jpg" />
+                        {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->generate($ticket->code); !!}
                     </div>
                 </div>
             </div>
