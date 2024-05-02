@@ -29,6 +29,8 @@ class EventSessionsTable extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         $newModel = new EventSession();
+        $entityId = auth()->user()->entities->first()->id;
+
         return $table
             ->query(EventSession::query()->with('event'))
             ->columns([
@@ -116,6 +118,14 @@ class EventSessionsTable extends Component implements HasForms, HasTable
                 ->label($newModel->getAttributeLabel('status'))
                 ->multiple()
                 ->options(Demo::getStatusArray())*/
+
+                // Filters all the data to show only data associated with the logged user (using their entities)
+                SelectFilter::make('entity_id')
+                    ->label('Entity')
+                    ->query(fn (Builder $query): Builder => $query->whereHas('event', function (Builder $query) use ($entityId) {
+                        $query->where('entity_id', $entityId);
+                    }))
+                    ->options(Entity::pluck('name', 'id')->all()),
             ])
             ->actions([
                 Action::make('edit')

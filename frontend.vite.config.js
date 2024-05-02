@@ -39,6 +39,8 @@ export default defineConfig({
                 "resources/js/vendor/tom-select/index.js",
                 "resources/js/components/tom-select/index.js",
                 "resources/js/vendor/toastify/index.js",
+                "resources/css/components/_intl-tel-input.css",
+                "resources/js/vendor/intl-tel-input/index.js",
 
                 //"resources/js/vendor/tiny-slider.js",
             ],

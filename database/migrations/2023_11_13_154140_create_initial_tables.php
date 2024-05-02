@@ -101,7 +101,7 @@ return new class extends Migration
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->text('registration_note')->nullable();
-            $table->boolean('pre-approval')->default(false);
+            $table->boolean('pre_approval')->default(false);
             $table->integer('max_capacity')->nullable();
             $table->smallInteger('type')->comment('0: on-site, 1: online, 2: hybrid')->nullable();
             $table->smallInteger('status')->comment('0: draft, 1: available, 2: closed, 3: cancelled, 4: finished')->nullable();

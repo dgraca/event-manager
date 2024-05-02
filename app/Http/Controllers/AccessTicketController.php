@@ -2,130 +2,135 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateAccessTicketRequest;
-use App\Http\Requests\UpdateAccessTicketRequest;
-//use App\Http\Controllers\AppBaseController;
+use App\Helpers\Word2Pdf;
+use App\Jobs\GenerateAccessTicketPDF;
 use App\Models\AccessTicket;
+use App\Models\Event;
+use App\Models\EventSessionTicket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class AccessTicketController extends Controller
 {
     /**
-     * Display a listing of the AccessTickets.
-     */
-    public function index(Request $request)
-    {
-        return view('access_tickets.index');
-    }
-
-    /**
-     * Show the form for creating a new AccessTickets.
-     */
-    public function create()
-    {
-        $accessTicket = new AccessTicket();
-        $accessTicket->loadDefaultValues();
-        return view('access_tickets.create', compact('accessTicket'));
-    }
-
-    /**
      * Store a newly created AccessTickets in storage.
      */
-    public function store(CreateAccessTicketRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        $request->validate([
+            'name' => 'required|max:255|min:3',
+            'email' => 'required|email|max:255',
+            'tickets' => ['required', 'array', function ($attribute, $value, $fail) {
+                if (!collect($value)->contains(function ($ticket) {
+                    return $ticket > 0;
+                })) {
+                    $fail(__('validation.custom.at_least_one_ticket_selected', ['attribute' => $attribute]));
+                }
 
-        /** @var AccessTicket $accessTicket */
-        $accessTicket = AccessTicket::create($input);
-        if($accessTicket){
-            flash(__('Saved successfully.'))->overlay()->success();
-        }else{
-            flash(__('Ups something went wrong'))->overlay()->danger();
+                if (collect($value)->contains(function ($ticket) {
+                    return $ticket < 0;
+                })) {
+                    $fail(__('validation.custom.no_negative_values_allowed', ['attribute' => $attribute]));
+                }
+            }],
+        ]);
+
+        // Begin a database transaction
+        DB::beginTransaction();
+
+        try {
+            // Get event
+            $event = Event::find($request->event_id);
+            if ($event->pre_approval) {
+                $request->merge(['approved' => true]);
+            }
+
+            $accessTickets = [];
+            $eventSessionTickets = [];
+
+            foreach ($request->tickets as $eventSessionTicketId => $quantity) {
+                $quantity = (int) $quantity;
+                if ($quantity > 0) {
+                    $eventSessionTicket = EventSessionTicket::find($eventSessionTicketId);
+                    $eventSessionTickets[] = $eventSessionTicket;
+
+                    // Check how many tickets this email has already bought for this specific eventSession
+                    $accessTicketsCount = AccessTicket::where('email', $request->email)
+                        ->whereHas('eventSessionTicket', function ($query) use ($eventSessionTicket) {
+                            $query->where('event_session_id', $eventSessionTicket->id);
+                        })
+                        ->count();
+
+                    // Check if the limit is exceeded
+                    if ($eventSessionTicket->limit > 0 && $accessTicketsCount >= $eventSessionTicket->limit) {
+                        throw new \Exception(__("Ticket limit exceeded"));
+                    }
+
+                    // Check if there is a limit for this eventSessionTicket (0 is unlimited) and if there is a limit, checks if it is not exceeded
+                    if ($eventSessionTicket->limit == 0 || ($eventSessionTicket->limit > 0 && $eventSessionTicket->limit >= $eventSessionTicket->count + $quantity)) {
+                        $accessTickets = array_merge($accessTickets, $this->create($eventSessionTicketId, $request, $quantity, $eventSessionTicket));
+                    } else {
+                        throw new \Exception(__("Ticket limit exceeded"));
+                    }
+                }
+            }
+
+            // Save all access tickets
+            foreach ($accessTickets as $accessTicket) {
+                $accessTicket->save();
+            }
+
+            // Commit the transaction
+            DB::commit();
+
+            // Dispatch job for generating PDFs asynchronously
+            GenerateAccessTicketPDF::dispatch($event, $eventSessionTickets, $accessTickets);
+
+        } catch (\Exception $e) {
+            // If an exception occurs, rollback the transaction
+            DB::rollBack();
+
+            flash($e->getMessage())->danger();
+
+            // return back with error message
+            return back();
         }
 
-        return redirect(route('access-tickets.index'));
+        return redirect(route('access-tickets.thank_you'));
     }
 
     /**
-     * Display the specified AccessTickets.
+     * Create a new AccessTicket
      */
-    public function show($id)
+    private function create($id, $request, $quantity, $eventSessionTicket)
     {
-        /** @var AccessTicket $accessTicket */
-        $accessTicket = AccessTicket::find($id);
+        $accessTickets = [];
+        // for i in quantity create a new access ticket
+        for ($i = 0; $i < $quantity; $i++) {
+            $accessTicket = new AccessTicket();
+            $accessTicket->event_session_ticket_id = $id;
+            $accessTicket->name = $request->name;
+            $accessTicket->email = $request->email;
+            $accessTicket->phone = $request->phone ?? null;
+            $accessTicket->description = $request->description ?? null;
+            $accessTicket->tickets_count = $eventSessionTicket->ticket->max_check_in;
+            $accessTicket->code = uuid_create();
+            $accessTicket->approved = $request->approved ?? false;
+            $accessTickets[] = $accessTicket;
 
-        if (empty($accessTicket)) {
-            flash(__('Not found'))->overlay()->danger();
-
-            return redirect(route('access-tickets.index'));
+            $eventSessionTicket->increment('count');
         }
 
-        return view('access_tickets.show')->with('accessTicket', $accessTicket);
+        return $accessTickets;
     }
 
     /**
-     * Show the form for editing the specified AccessTickets.
+     * Show the thank-you page
      */
-    public function edit($id)
+    public function showThankYou()
     {
-        /** @var AccessTicket $accessTicket */
-        $accessTicket = AccessTicket::find($id);
-
-        if (empty($accessTicket)) {
-            flash(__('Not found'))->overlay()->danger();
-
-            return redirect(route('access-tickets.index'));
-        }
-
-        return view('access_tickets.edit')->with('accessTicket', $accessTicket);
-    }
-
-    /**
-     * Update the specified AccessTickets in storage.
-     */
-    public function update($id, UpdateAccessTicketRequest $request)
-    {
-        /** @var AccessTicket $accessTicket */
-        $accessTicket = AccessTicket::find($id);
-
-        if (empty($accessTicket)) {
-            flash(__('Not found'))->overlay()->danger();
-
-            return redirect(route('access-tickets.index'));
-        }
-
-        $accessTicket->fill($request->all());
-        if($accessTicket->save()){
-            flash(__('Updated successfully.'))->overlay()->success();
-        }else{
-            flash(__('Ups something went wrong'))->overlay()->danger();
-        }
-
-        return redirect(route('access-tickets.index'));
-    }
-
-    /**
-     * Remove the specified AccessTickets from storage.
-     *
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
-        /** @var AccessTicket $accessTicket */
-        $accessTicket = AccessTicket::find($id);
-
-        if (empty($accessTicket)) {
-            flash(__('Not found'))->overlay()->danger();
-
-            return redirect(route('access-tickets.index'));
-        }
-
-        if($accessTicket->delete()){
-            flash(__('Deleted successfully.'))->overlay()->success();
-        }else{
-            flash(__('Ups something went wrong'))->overlay()->danger();
-        }
-
-        return redirect(route('access-tickets.index'));
+        return view('event.thank_you_public');
     }
 }

@@ -260,20 +260,20 @@
 <div class="mb-3">
     <x-base.form-input
         :tw-merge="false"
-        wire:model="eventForm.event.pre-approval"
+        wire:model="eventForm.event.pre_approval"
         type="hidden"
     />
     <x-base.form-check :tw-merge="false">
         <x-base.form-check.input
             :tw-merge="false"
-            class="{{ ($errors->has('eventForm.event.pre-approval') ? 'border-danger' : '') }}"
-            wire:model="eventForm.event.pre-approval"
+            class="{{ ($errors->has('eventForm.event.pre_approval') ? 'border-danger' : '') }}"
+            wire:model="eventForm.event.pre_approval"
             :value="1"
             type="checkbox"
         />
         <x-base.form-check.label :tw-merge="false" for="pre-approval">{{ $event->getAttributeLabel('pre-approval') }}</x-base.form-check.label>
     </x-base.form-check>
-    @error('eventForm.event.pre-approval')
+    @error('eventForm.event.pre_approval')
         <div class="mt-2 text-danger">{{ $message }}</div>
     @enderror
 </div>

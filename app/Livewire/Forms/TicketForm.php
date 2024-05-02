@@ -38,7 +38,7 @@ class TicketForm extends Form
         $this->tickets[] = $ticket ?? [
             'name' => 'Novo Bilhete',
             'description' => '',
-            'max_check_in' => 0,
+            'max_check_in' => 1,
             'max_tickets_per_order' => 0,
             'price' => 0,
             'currency' => 'EUR',

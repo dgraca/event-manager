@@ -1,3 +1,12 @@
+<!-- Buying page URL Field -->
+<div class="grid grid-cols-1 md:grid-cols-3">
+    <dt class="font-medium md:col-span-1">{{ $event->getAttributeLabel('sales_url') }}</dt>
+    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">
+        <a href="{{ route('events.show_public', $event->slug) }}">{{ route('events.show_public', $event->slug) }}</a>
+    </dd>
+</div>
+<div class="mt-5 w-full border-t border-slate-200/60 dark:border-darkmode-400 last-of-type:hidden"></div>
+
 <!-- Entity Field -->
 <div class="grid grid-cols-1 md:grid-cols-3">
     <dt class="font-medium md:col-span-1">{{ $event->entity->getAttributeLabel('Entity') }}</dt>
@@ -91,7 +100,19 @@
 <!-- Pre-Approval Field -->
 <div class="grid grid-cols-1 md:grid-cols-3">
     <dt class="font-medium md:col-span-1">{{ $event->getAttributeLabel('pre-approval') }}</dt>
-    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">{{ $event->pre_approval }}</dd>
+    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">
+        @if($event->pre_approval)
+            <x-base.lucide
+                class="h-4 w-4 text-success"
+                icon="check"
+            />
+        @else
+            <x-base.lucide
+                class="h-4 w-4 text-danger"
+                icon="x"
+            />
+        @endif
+    </dd>
 </div>
 <div class="mt-5 w-full border-t border-slate-200/60 dark:border-darkmode-400 last-of-type:hidden"></div>
 
@@ -109,7 +130,7 @@
 <!-- Type Field -->
 <div class="grid grid-cols-1 md:grid-cols-3">
     <dt class="font-medium md:col-span-1">{{ $event->getAttributeLabel('type') }}</dt>
-    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">{{ $event->type }}</dd>
+    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">{{ $event->getTypeArray()[$event->type] }}</dd>
 </div>
 <div class="mt-5 w-full border-t border-slate-200/60 dark:border-darkmode-400 last-of-type:hidden"></div>
 
@@ -118,7 +139,7 @@
 <!-- Status Field -->
 <div class="grid grid-cols-1 md:grid-cols-3">
     <dt class="font-medium md:col-span-1">{{ $event->getAttributeLabel('status') }}</dt>
-    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">{{ $event->status }}</dd>
+    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">{{ $event->getStatusArray()[$event->status] }}</dd>
 </div>
 <div class="mt-5 w-full border-t border-slate-200/60 dark:border-darkmode-400 last-of-type:hidden"></div>
 

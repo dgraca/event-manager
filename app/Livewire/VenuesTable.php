@@ -28,8 +28,10 @@ class VenuesTable extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         $newModel = new Venue();
+        $entityId = auth()->user()->entities->first()->id;
+
         return $table
-            ->query(Venue::query()->with('entity'))
+            ->query(Venue::query()->where('entity_id', '=', $entityId)->with('entity'))
             ->columns([
                 TextColumn::make("entity.name")
                 ->label(Entity::getAttributeLabelStatic("Entity"))

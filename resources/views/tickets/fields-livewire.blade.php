@@ -67,6 +67,7 @@
         wire:model.live="ticketForm.tickets.{{ $index }}.max_check_in"
         type="number"
         step="1"
+        min="1"
     />
     @error('ticketForm.tickets.' . $index . '.max_check_in')
         <div class="mt-2 text-danger">{{ $message }}</div>
