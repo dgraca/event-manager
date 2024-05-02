@@ -17,6 +17,7 @@ class GenerateAccessTicketPDF implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $event;
+    private $eventSessionTickets;
     private $accessTickets;
 
     /**
@@ -24,9 +25,10 @@ class GenerateAccessTicketPDF implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($event, $accessTickets)
+    public function __construct($event, $eventSessionTickets, $accessTickets)
     {
         $this->event = $event;
+        $this->eventSessionTickets = $eventSessionTickets;
         $this->accessTickets = $accessTickets;
     }
 
@@ -38,7 +40,7 @@ class GenerateAccessTicketPDF implements ShouldQueue
     public function handle()
     {
         // Generate PDF using the CustomPDF helper
-        $pdf = CustomPdf::generate($this->event, $this->accessTickets);
+        $pdf = CustomPdf::generate($this->event, $this->eventSessionTickets ,$this->accessTickets);
 
         // Send the PDF via email using the SendAccessTicketEmail job
         SendAccessTicketEmail::dispatch($this->event->email, $pdf);

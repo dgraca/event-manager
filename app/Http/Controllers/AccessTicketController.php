@@ -48,11 +48,27 @@ class AccessTicketController extends Controller
             }
 
             $accessTickets = [];
+            $eventSessionTickets = [];
 
             foreach ($request->tickets as $eventSessionTicketId => $quantity) {
                 $quantity = (int) $quantity;
                 if ($quantity > 0) {
                     $eventSessionTicket = EventSessionTicket::find($eventSessionTicketId);
+                    $eventSessionTickets[] = $eventSessionTicket;
+
+                    // Check how many tickets this email has already bought for this specific eventSession
+                    $accessTicketsCount = AccessTicket::where('email', $request->email)
+                        ->whereHas('eventSessionTicket', function ($query) use ($eventSessionTicket) {
+                            $query->where('event_session_id', $eventSessionTicket->id);
+                        })
+                        ->count();
+
+                    // Check if the limit is exceeded
+                    if ($eventSessionTicket->limit > 0 && $accessTicketsCount >= $eventSessionTicket->limit) {
+                        throw new \Exception(__("Ticket limit exceeded"));
+                    }
+
+                    // Check if there is a limit for this eventSessionTicket (0 is unlimited) and if there is a limit, checks if it is not exceeded
                     if ($eventSessionTicket->limit == 0 || ($eventSessionTicket->limit > 0 && $eventSessionTicket->limit >= $eventSessionTicket->count + $quantity)) {
                         $accessTickets = array_merge($accessTickets, $this->create($eventSessionTicketId, $request, $quantity, $eventSessionTicket));
                     } else {
@@ -70,7 +86,7 @@ class AccessTicketController extends Controller
             DB::commit();
 
             // Dispatch job for generating PDFs asynchronously
-            GenerateAccessTicketPDF::dispatch($event, $accessTickets);
+            GenerateAccessTicketPDF::dispatch($event, $eventSessionTickets, $accessTickets);
 
         } catch (\Exception $e) {
             // If an exception occurs, rollback the transaction

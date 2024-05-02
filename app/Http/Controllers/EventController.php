@@ -59,6 +59,13 @@ class EventController extends Controller
             return redirect(route('home'));
         }
 
+        // if the event status is draft, redirect to home
+        if ($event->status == Event::STATUS_DRAFT) {
+            flash(__('Not found'))->overlay()->danger();
+
+            return redirect(route('home'));
+        }
+
         // Get the event sessions
         $sessions = $event->eventSessions;
 
