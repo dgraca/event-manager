@@ -36,6 +36,12 @@ class   MenuComposer
                     'params' => [],
                     'title' => __('My profile')
                 ],
+                'payment-options.index' => [
+                    'icon' => 'credit-card',
+                    'route_name' => 'payment-options.index',
+                    'params' => [],
+                    'title' => __('Payment options')
+                ],
                 'venues' => [
                     'icon' => 'map-pin',
                     'route_name' => 'venues.index',
