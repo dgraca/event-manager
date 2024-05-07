@@ -116,6 +116,12 @@ class VenueController extends Controller
         /** @var Venue $venue */
         $venue = Venue::where('slug', $slug)->first();
 
+        // Check if venue is being used by any event
+        if($venue->events->count() > 0){
+            flash(__('This venue is being used by an event. Please remove the event first.'))->overlay()->danger();
+            return redirect(route('venues.index'));
+        }
+
         if (empty($venue)) {
             flash(__('Not found'))->overlay()->danger();
 

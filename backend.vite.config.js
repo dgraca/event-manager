@@ -127,13 +127,13 @@ export default defineConfig({
                 "resources/js/components/vertical-bar-chart/index.js",
 
 
-                // 'resources/tailwind-assets/scss/icons.scss',
-                // 'resources/tailwind-assets/scss/app.scss',
-                // 'resources/tailwind-assets/js/app.js',
-                // 'resources/tailwind-assets/js/easy_background.js',
-                // 'resources/tailwind-assets/js/plugins.init.js',
-                // "resources/css/components/_intl-tel-input.css",
-                // "resources/js/vendor/intl-tel-input/index.js",
+                // 'resources/frontend-assets/scss/icons.scss', // DOESN'T EXIST
+                'resources/frontend-assets/scss/app.scss',
+                'resources/frontend-assets/js/app.js',
+                'resources/frontend-assets/js/easy_background.js',
+                'resources/frontend-assets/js/plugins.init.js',
+                'resources/css/components/_intl-tel-input.css',
+                'resources/js/vendor/intl-tel-input/index.js',
 
             ],
             refresh: [

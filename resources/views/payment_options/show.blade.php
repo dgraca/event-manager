@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('breadcrumbs')
-        {{ Breadcrumbs::render('payment-options.show', $paymentOptions) }}
+        {{ Breadcrumbs::render('payment-options.show', $paymentOption) }}
     @endsection
     <div class="intro-y mt-8 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{ __('Payment Options Details') }}</h2>
@@ -8,7 +8,7 @@
             <x-base.button
                 class="mr-2 shadow-md ml-auto sm:ml-0"
                 variant="primary"
-                href="{{ route('payment-options.edit', $paymentOptions) }}"
+                href="{{ route('payment-options.edit', $paymentOption) }}"
                 as="a"
                 >
                 <x-base.lucide
@@ -62,7 +62,7 @@
                     </div>
                 </x-base.dialog.panel>
             </x-base.dialog>
-            <form method="POST" action="{{ route('payment-options.destroy', $paymentOptions) }}" id="delete-record-form">
+            <form method="POST" action="{{ route('payment-options.destroy', $paymentOption) }}" id="delete-record-form">
                 @csrf
                 @method('DELETE')
             </form>

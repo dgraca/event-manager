@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('access_tickets', function (Blueprint $table) {
-            $table->boolean('paid')->default(false)->after('approved');
+        Schema::table('payment_options', function (Blueprint $table) {
+            $table->string('phone')->nullable()->after('email');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('access_tickets', function (Blueprint $table) {
-            $table->dropColumn('paid');
+        Schema::table('payment_options', function (Blueprint $table) {
+            $table->dropColumn('phone');
         });
     }
 };

@@ -257,7 +257,7 @@ Breadcrumbs::for('payment-options.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('payment-options.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('payment-options.index');
-    $trail->push($model->slug, route('payment-options.show', $model));
+    $trail->push($model->id, route('payment-options.show', $model));
 });
 Breadcrumbs::for('payment-options.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('payment-options.show', $model);

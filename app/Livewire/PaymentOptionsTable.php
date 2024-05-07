@@ -70,11 +70,11 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
-            TextColumn::make("data")
-                ->label($newModel->getAttributeLabel("data"))
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
+            //TextColumn::make("data")
+            //    ->label($newModel->getAttributeLabel("data"))
+            //    ->sortable()
+            //    ->toggleable()
+            //    ->searchable(),
             TextColumn::make("currency")
                 ->label($newModel->getAttributeLabel("currency"))
                 ->sortable()
@@ -115,7 +115,7 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (PaymentOption $record): string => route('payment-options.edit', ['payment_options' => $record]))
+                ->url(fn (PaymentOption $record): string => route('payment-options.edit', ['payment_option' => $record]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
@@ -128,7 +128,7 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
             ])
             ->defaultSort('id', 'desc')
             ->recordUrl(
-                fn (Model $record): string => route('payment-options.show', ['payment_options' => $record]),
+                fn (Model $record): string => route('payment-options.show', ['payment_option' => $record]),
             )
             //->striped()
             ->persistFiltersInSession()

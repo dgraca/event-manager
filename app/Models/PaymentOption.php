@@ -61,6 +61,7 @@ class PaymentOption extends Model implements Auditable
         'country',
         'postcode',
         'email',
+        'phone',
         'data',
         'currency'
     ];
@@ -73,6 +74,7 @@ class PaymentOption extends Model implements Auditable
         'country' => 'string',
         'postcode' => 'string',
         'email' => 'string',
+        'phone' => 'string',
         'data' => 'string',
         'currency' => 'string'
     ];
@@ -80,18 +82,19 @@ class PaymentOption extends Model implements Auditable
     public static function rules(): array
     {
         return [
-            'entity_id' => 'required',
+            //'entity_id' => 'required',
         'business_entity_name' => 'required|string|max:255',
-        'vat' => 'nullable|string|max:32',
-        'address' => 'nullable|string|max:512',
-        'location' => 'nullable|string|max:255',
-        'country' => 'nullable|string|max:2',
-        'postcode' => 'nullable|string|max:16',
-        'email' => 'nullable|string|max:255',
+        'vat' => 'required|string|max:32',
+        'address' => 'required|string|max:512',
+        'location' => 'required|string|max:255',
+        'country' => 'required|string|max:2',
+        'postcode' => 'required|string|max:16',
+        'email' => 'required|string|max:255',
+        'phone' => 'required|string|max:255',
         'data' => 'nullable|string|max:65535',
         'currency' => 'required|string|max:3',
-        'created_at' => 'nullable',
-        'updated_at' => 'nullable'
+        //'created_at' => 'nullable',
+        //'updated_at' => 'nullable'
         ];
     }
 
@@ -112,6 +115,7 @@ class PaymentOption extends Model implements Auditable
         'country' => __('Country'),
         'postcode' => __('Postcode'),
         'email' => __('Email'),
+        'phone' => __('Phone'),
         'data' => __('Data'),
         'currency' => __('Currency'),
         'created_at' => __('Created At'),
@@ -125,6 +129,17 @@ class PaymentOption extends Model implements Auditable
     * @return string
     */
     public function getAttributeLabel($attribute) : string
+    {
+        $attributeLabels = static::attributeLabels();
+        return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
+    }
+
+    /**
+     * Return the attribute label as static function
+     * @param string $attribute
+     * @return string
+     */
+    public static function getAttributeLabelStatic($attribute) : string
     {
         $attributeLabels = static::attributeLabels();
         return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
