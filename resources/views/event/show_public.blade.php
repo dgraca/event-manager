@@ -90,8 +90,6 @@ view()->share('pageTitle', __('Homepage'));
                     </div>
                 @endif
 
-                {{ debugbar()->info($paymentOption) }}
-
                 @if(isset($paymentOption->account_holder) || isset($paymentOption->bank_entity) || isset($paymentOption->bank_country) || isset($paymentOption->bic_swift) || isset($paymentOption->iban))
                     <div class="text-center px-6 mt-6">
                         <div class="size-20 bg-indigo-600/5 text-indigo-600 rounded-xl text-3xl flex align-middle justify-center items-center shadow-sm dark:shadow-gray-800 mx-auto">
