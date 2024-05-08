@@ -227,6 +227,10 @@ Breadcrumbs::for('events.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('events.show', $model);
     $trail->push(__('Update'), route('events.edit', $model));
 });
+Breadcrumbs::for('events.validate', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('events.index', $model);
+    $trail->push($model->slug, route('events.show', $model));
+});
 
 // Home > Access Tickets
 Breadcrumbs::for('access-tickets.index', function (BreadcrumbTrail $trail) {

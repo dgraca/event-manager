@@ -101,11 +101,6 @@ class EventController extends Controller
             return redirect(route('events.index'));
         }
 
-        // Access ticket is associated with event_session_ticked via ID
-        // Event_session_ticket is associated with both event_session and ticket via ID
-        // Event_session is associated with event via ID
-
-
         // Get all event sessions
         $eventSessions = $event->eventSessions;
 
@@ -119,7 +114,7 @@ class EventController extends Controller
             return AccessTicket::where('event_session_ticket_id', $ticket->id)->get();
         })->flatten();
 
-        return view('event.show_access_tickets', compact('accessTickets'));
+        return view('event.show_access_tickets', compact('accessTickets', 'event'));
     }
 
     /**
