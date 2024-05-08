@@ -82,7 +82,8 @@ class EventController extends Controller
 
         return view('event.show_public')
             ->with('event', $event)
-            ->with('sessionTickets', $eventSessionTickets);
+            ->with('sessionTickets', $eventSessionTickets)
+            ->with('paymentOption', json_decode($event->entity->paymentOptions->first()->data));
     }
 
     /**

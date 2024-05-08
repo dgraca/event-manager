@@ -143,6 +143,93 @@
     @enderror
 </div>
 
+<!-- Data that is payment related - Banking transfer and paypal -->
+<hr class="h-px my-8 my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+
+<!-- Paypal Email Field -->
+<div class="mb-3">
+    <x-base.form-label :tw-merge="false" for="json.paypal_email">{{ $paymentOption->getNonDBLabelStatic('paypal_email') }}</x-base.form-label>
+    <x-base.form-input
+        :tw-merge="false"
+        class="w-full {{ ($errors->has('json.paypal_email') ? 'border-danger' : '') }}"
+        wire:model="json.paypal_email"
+        type="email"
+    />
+    @error('json.paypal_email')
+    <div class="mt-2 text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+<!-- Account Holder Field -->
+<div class="mb-3">
+    <x-base.form-label :tw-merge="false" for="json.account_holder">{{ $paymentOption->getNonDBLabelStatic('account_holder') }}</x-base.form-label>
+    <x-base.form-input
+        :tw-merge="false"
+        class="w-full {{ ($errors->has('json.account_holder') ? 'border-danger' : '') }}"
+        wire:model="json.account_holder"
+        type="text"
+    />
+    @error('json.account_holder')
+    <div class="mt-2 text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+<!-- Bank Entity Field -->
+<div class="mb-3">
+    <x-base.form-label :tw-merge="false" for="json.bank_entity">{{ $paymentOption->getNonDBLabelStatic('bank_entity') }}</x-base.form-label>
+    <x-base.form-input
+        :tw-merge="false"
+        class="w-full {{ ($errors->has('json.bank_entity') ? 'border-danger' : '') }}"
+        wire:model="json.bank_entity"
+        type="text"
+    />
+    @error('json.bank_entity')
+    <div class="mt-2 text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+<!-- Bank Country Field -->
+<div class="mb-3">
+    <x-base.form-label :tw-merge="false" for="json.bank_country">{{ $paymentOption->getNonDBLabelStatic('bank_country') }}</x-base.form-label>
+    <x-base.form-input
+        :tw-merge="false"
+        class="w-full {{ ($errors->has('json.bank_country') ? 'border-danger' : '') }}"
+        wire:model="json.bank_country"
+        type="text"
+    />
+    @error('json.bank_country')
+    <div class="mt-2 text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+<!-- BIC/SWIFT Field -->
+<div class="mb-3">
+    <x-base.form-label :tw-merge="false" for="json.bic_swift">{{ $paymentOption->getNonDBLabelStatic('bic_swift') }}</x-base.form-label>
+    <x-base.form-input
+        :tw-merge="false"
+        class="w-full {{ ($errors->has('json.bic_swift') ? 'border-danger' : '') }}"
+        wire:model="json.bic_swift"
+        type="text"
+    />
+    @error('json.bic_swift')
+    <div class="mt-2 text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+<!-- IBAN Field -->
+<div class="mb-3">
+    <x-base.form-label :tw-merge="false" for="json.iban">{{ $paymentOption->getNonDBLabelStatic('iban') }}</x-base.form-label>
+    <x-base.form-input
+        :tw-merge="false"
+        class="w-full {{ ($errors->has('json.iban') ? 'border-danger' : '') }}"
+        wire:model="json.iban"
+        type="text"
+    />
+    @error('json.iban')
+    <div class="mt-2 text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
 @pushOnce('scripts')
     <script>
         document.addEventListener('livewire:initialized', () => {

@@ -21,6 +21,9 @@ class PaymentForm extends Component
 
     public $paymentOption;
 
+    // Will hold the data that will be transformed into JSON
+    public array $json = [];
+
     public function mount(PaymentOption $paymentOption)
     {
         // Sets paymentOption as a new one (default) to access its methods (could be static)
@@ -38,6 +41,11 @@ class PaymentForm extends Component
         $this->phone = $paymentOption ? $paymentOption->phone : null;
         $this->data = $paymentOption ? $paymentOption->data : null;
         $this->currency = $paymentOption ? $paymentOption->currency : "EUR";
+
+        // If there is data, decode it and set it to the json property
+        if ($this->data) {
+            $this->json = json_decode($this->data, true);
+        }
     }
 
     public function rules()
@@ -65,6 +73,7 @@ class PaymentForm extends Component
 
         // create new instance of PaymentOption
         $paymentOption = new PaymentOption($this->toArray());
+        $paymentOption->data = json_encode($this->json);
         $paymentOption->save();
     }
 
@@ -76,6 +85,7 @@ class PaymentForm extends Component
         // find event by ID and update it
         $paymentOption = PaymentOption::find($this->paymentOption->id);
         $paymentOption->fill($this->toArray());
+        $paymentOption->data = json_encode($this->json);
         $paymentOption->save();
     }
 

@@ -44,13 +44,14 @@ Route::middleware([
     'ensure-profile-name',
     config('jetstream.auth_session'),
     'verified',
+    'ensure-payment-data',
 ])->prefix('admin')->group(function () {
     Route::get('/', [\App\Http\Controllers\DashboardController::class,'index'])->name('dashboard');
 
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::patch('/user/profile', [App\Http\Controllers\UserController::class, 'updateMe'])->name('users.update_me');
 
-    Route::impersonate();
+    //Route::impersonate();
 
     Route::resource('settings', App\Http\Controllers\SettingController::class);
     Route::get('translations/{groupKey?}', '\Barryvdh\TranslationManager\Controller@getIndex')->where('groupKey', '.*')->name('translations.index');

@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'recaptcha' => \App\Http\Middleware\ValidateRecaptcha::class,
         'ensure-profile-name' => \App\Http\Middleware\EnsureProfileName::class,
+        'ensure-payment-data' => \App\Http\Middleware\EnsurePaymentData::class,
         'has-profile-name' => \App\Http\Middleware\HasProfileName::class,
     ];
 }

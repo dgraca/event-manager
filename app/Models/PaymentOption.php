@@ -124,6 +124,23 @@ class PaymentOption extends Model implements Auditable
     }
 
     /**
+     * Attribute Non-DB labels
+     *
+     * @return array
+     */
+    public static function attributeNonDBLabels() : array
+    {
+        return [
+            'iban' => __('IBAN'),
+            'bic_swift' => __('BIC/SWIFT'),
+            'account_holder' => __('Account Holder'),
+            'bank_entity' => __('Bank Entity'),
+            'bank_country' => __('Bank Country'),
+            'paypal_email' => __('PayPal Email'),
+        ];
+    }
+
+    /**
     * Return the attribute label
     * @param string $attribute
     * @return string
@@ -142,6 +159,23 @@ class PaymentOption extends Model implements Auditable
     public static function getAttributeLabelStatic($attribute) : string
     {
         $attributeLabels = static::attributeLabels();
+        return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
+    }
+
+    /**
+     * Return the non-DB attribute label
+     *
+     *
+     * These attributes will be saved in the DB in JSON format, in the "data" column
+     * These will hold the payment data that is not mandatory. For example, IBAN, SWIFT, etc.
+     * If the user doesn't want to use bank transfer, but instead wants to use PayPal, then the IBAN and SWIFT are not needed.
+     *
+     * @param string $attribute
+     * @return string
+     */
+    public static function getNonDBLabelStatic($attribute) : string
+    {
+        $attributeLabels = static::attributeNonDBLabels();
         return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
     }
 

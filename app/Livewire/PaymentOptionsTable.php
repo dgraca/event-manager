@@ -119,13 +119,13 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
-            ->bulkActions([
-                //BulkActionGroup::make([
-                BulkAction::make('delete')
-                ->requiresConfirmation()
-                ->action(fn (Collection $records) => $records->each->delete())
-                //]),
-            ])
+            //->bulkActions([
+            //    //BulkActionGroup::make([
+            //    BulkAction::make('delete')
+            //    ->requiresConfirmation()
+            //    ->action(fn (Collection $records) => $records->each->delete())
+            //    //]),
+            //])
             ->defaultSort('id', 'desc')
             ->recordUrl(
                 fn (Model $record): string => route('payment-options.show', ['payment_option' => $record]),
