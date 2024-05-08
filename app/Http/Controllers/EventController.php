@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 //use App\Http\Controllers\AppBaseController;
+use App\Models\AccessTicket;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -84,6 +85,41 @@ class EventController extends Controller
             ->with('event', $event)
             ->with('sessionTickets', $eventSessionTickets)
             ->with('paymentOption', json_decode($event->entity->paymentOptions->first()->data));
+    }
+
+    /**
+     * Show the page to manually select an access ticket (belonging to this event) as "paid"
+     */
+    public function showAccessTickets($slug)
+    {
+        /** @var Event $event */
+        $event = Event::where('slug', $slug)->first();
+
+        if (empty($event)) {
+            flash(__('Not found'))->overlay()->danger();
+
+            return redirect(route('events.index'));
+        }
+
+        // Access ticket is associated with event_session_ticked via ID
+        // Event_session_ticket is associated with both event_session and ticket via ID
+        // Event_session is associated with event via ID
+
+
+        // Get all event sessions
+        $eventSessions = $event->eventSessions;
+
+        // Get all event session tickets
+        $eventSessionTickets = $eventSessions->map(function ($session) {
+            return $session->eventSessionTickets;
+        })->flatten();
+
+        // Get all access tickets
+        $accessTickets = $eventSessionTickets->map(function ($ticket) {
+            return AccessTicket::where('event_session_ticket_id', $ticket->id)->get();
+        })->flatten();
+
+        return view('event.show_access_tickets', compact('accessTickets'));
     }
 
     /**

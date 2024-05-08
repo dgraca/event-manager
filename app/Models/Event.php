@@ -172,6 +172,7 @@ class Event extends Model implements Auditable
             'updated_at' => __('Updated At'),
             'deleted_at' => __('Deleted At'),
             'sales_url' => __('Page to sell tickets'),
+            'validate_tickets' => __('Page to validate tickets'),
         ];
     }
 

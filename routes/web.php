@@ -53,6 +53,8 @@ Route::middleware([
 
     //Route::impersonate();
 
+    Route::get('/event/{slug}/access-tickets', [\App\Http\Controllers\EventController::class, 'showAccessTickets'])->name('events.access_tickets');
+
     Route::resource('settings', App\Http\Controllers\SettingController::class);
     Route::get('translations/{groupKey?}', '\Barryvdh\TranslationManager\Controller@getIndex')->where('groupKey', '.*')->name('translations.index');
 
