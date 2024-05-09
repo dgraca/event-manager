@@ -54,7 +54,10 @@ class EventSessionController extends Controller
         /** @var EventSession $eventSession */
         $eventSession = EventSession::where('slug', $slug)->first();
 
-        if (empty($eventSession)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($eventSession) || $eventSession->event->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('event-sessions.index'));
@@ -71,7 +74,10 @@ class EventSessionController extends Controller
         /** @var EventSession $eventSession */
         $eventSession = EventSession::where('slug', $slug)->first();
 
-        if (empty($eventSession)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($eventSession) || $eventSession->event->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('event-sessions.index'));
@@ -88,7 +94,10 @@ class EventSessionController extends Controller
         /** @var EventSession $eventSession */
         $eventSession = EventSession::where('slug', $slug)->first();
 
-        if (empty($eventSession)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($eventSession) || $eventSession->event->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('event-sessions.index'));
@@ -114,7 +123,10 @@ class EventSessionController extends Controller
         /** @var EventSession $eventSession */
         $eventSession = EventSession::where('slug', $slug)->first();
 
-        if (empty($eventSession)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($eventSession) || $eventSession->event->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('event-sessions.index'));

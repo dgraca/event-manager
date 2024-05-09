@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Entity;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
@@ -27,8 +28,10 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         $newModel = new PaymentOption();
+        $entityId = auth()->user()->entities->first()->id;
+
         return $table
-            ->query(PaymentOption::query())
+            ->query(PaymentOption::query()->where('entity_id', '=', $entityId))
             ->columns([
                 TextColumn::make("entity_id")
                 ->label($newModel->getAttributeLabel("entity_id"))

@@ -33,7 +33,10 @@ class PaymentOptionController extends Controller
         /** @var PaymentOption $paymentOption */
         $paymentOption = PaymentOption::find($id);
 
-        if (empty($paymentOption)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($paymentOption) || $paymentOption->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('payment-options.index'));
@@ -50,7 +53,10 @@ class PaymentOptionController extends Controller
         /** @var PaymentOption $paymentOption */
         $paymentOption = PaymentOption::find($id);
 
-        if (empty($paymentOption)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($paymentOption) || $paymentOption->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('payment-options.index'));
@@ -69,7 +75,10 @@ class PaymentOptionController extends Controller
         /** @var PaymentOption $paymentOption */
         $paymentOption = PaymentOption::find($id);
 
-        if (empty($paymentOption)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($paymentOption) || $paymentOption->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('payment-options.index'));

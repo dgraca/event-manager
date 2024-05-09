@@ -76,7 +76,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find($id);
 
-        if (empty($user)) {
+        if (empty($user) || $user->id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('users.index'));
@@ -93,7 +93,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find($id);
 
-        if (empty($user)) {
+        if (empty($user) || $user->id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('users.index'));
@@ -121,7 +121,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find($id);
 
-        if (empty($user)) {
+        if (empty($user) || $user->id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('users.index'));
@@ -160,7 +160,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = auth()->user();
 
-        if (empty($user)) {
+        if (empty($user) || $user->id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('users.index'));
@@ -209,7 +209,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find($id);
 
-        if (empty($user)) {
+        if (empty($user) || $user->id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('users.index'));

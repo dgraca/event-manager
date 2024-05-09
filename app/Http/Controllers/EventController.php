@@ -37,7 +37,10 @@ class EventController extends Controller
         /** @var Event $event */
         $event = Event::where('slug', $slug)->first();
 
-        if (empty($event)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($event) || $event->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('events.index'));
@@ -95,7 +98,10 @@ class EventController extends Controller
         /** @var Event $event */
         $event = Event::where('slug', $slug)->first();
 
-        if (empty($event)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($event) || $event->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('events.index'));
@@ -125,7 +131,10 @@ class EventController extends Controller
         /** @var Event $event */
         $event = Event::where('slug', $slug)->first();
 
-        if (empty($event)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($event) || $event->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('event.index'));
@@ -144,7 +153,10 @@ class EventController extends Controller
         /** @var Event $event */
         $event = Event::where('slug', $slug)->first();
 
-        if (empty($event)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($event) || $event->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('events.index'));

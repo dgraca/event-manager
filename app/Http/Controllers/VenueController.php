@@ -56,7 +56,9 @@ class VenueController extends Controller
         /** @var Venue $venue */
         $venue = Venue::where('slug', $slug)->first();
 
-        if (empty($venue)) {
+        $entity = auth()->user()->entities->first();
+
+        if (empty($venue) || $venue->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('venues.index'));
@@ -73,7 +75,9 @@ class VenueController extends Controller
         /** @var Venue $venue */
         $venue = Venue::where('slug', $slug)->first();
 
-        if (empty($venue)) {
+        $entity = auth()->user()->entities->first();
+
+        if (empty($venue) || $venue->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('venues.index'));
@@ -90,7 +94,9 @@ class VenueController extends Controller
         /** @var Venue $venue */
         $venue = Venue::where('slug', $slug)->first();
 
-        if (empty($venue)) {
+        $entity = auth()->user()->entities->first();
+
+        if (empty($venue) || $venue->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('venues.index'));
@@ -122,7 +128,9 @@ class VenueController extends Controller
             return redirect(route('venues.index'));
         }
 
-        if (empty($venue)) {
+        $entity = auth()->user()->entities->first();
+
+        if (empty($venue) || $venue->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('venues.index'));
