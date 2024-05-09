@@ -17,8 +17,8 @@ class ValidateAccessTickets extends Component
         // Initialize the paid array with the values of the access tickets "paid" attribute
         // and the approved array with the values of the access tickets "approved" attribute
         foreach ($this->accessTickets as $accessTicket) {
-            $this->paid[$accessTicket->id] = $accessTicket->paid ? 1 : 0;
-            $this->approved[$accessTicket->id] = $accessTicket->approved ? 1 : 0;
+            $this->paid[] = $accessTicket->paid ? 1 : 0;
+            $this->approved[] = $accessTicket->approved ? 1 : 0;
         }
     }
 
