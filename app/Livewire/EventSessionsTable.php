@@ -71,22 +71,22 @@ class EventSessionsTable extends Component implements HasForms, HasTable
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
-            TextColumn::make("rrule")
-                ->label($newModel->getAttributeLabel("rrule"))
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
+            //TextColumn::make("rrule")
+            //    ->label($newModel->getAttributeLabel("rrule"))
+            //    ->sortable()
+            //    ->toggleable()
+            //    ->searchable(),
             TextColumn::make("type")
                 ->label($newModel->getAttributeLabel("type"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
-            TextColumn::make("status")
-                ->label($newModel->getAttributeLabel("status"))
-                ->formatStateUsing(fn (EventSession $record): string => $record->statusLabel)
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
+            //TextColumn::make("status")
+            //    ->label($newModel->getAttributeLabel("status"))
+            //    ->formatStateUsing(fn (EventSession $record): string => $record->statusLabel)
+            //    ->sortable()
+            //    ->toggleable()
+            //    ->searchable(),
                 TextColumn::make('created_at')
                     ->label($newModel->getAttributeLabel('created_at'))
                     ->dateTime()
@@ -127,20 +127,20 @@ class EventSessionsTable extends Component implements HasForms, HasTable
                     }))
                     ->options(Entity::pluck('name', 'id')->all()),
             ])
-            ->actions([
-                Action::make('edit')
-                ->label(__('Update'))
-                ->url(fn (EventSession $record): string => route('event-sessions.edit', ['event_session' => $record->slug]))
-                ->icon('heroicon-o-pencil')
-                //->color('danger')
-            ])
-            ->bulkActions([
-                //BulkActionGroup::make([
-                BulkAction::make('delete')
-                ->requiresConfirmation()
-                ->action(fn (Collection $records) => $records->each->delete())
-                //]),
-            ])
+            //->actions([
+            //    Action::make('edit')
+            //    ->label(__('Update'))
+            //    ->url(fn (EventSession $record): string => route('event-sessions.edit', ['event_session' => $record->slug]))
+            //    ->icon('heroicon-o-pencil')
+            //    //->color('danger')
+            //])
+            //->bulkActions([
+            //    //BulkActionGroup::make([
+            //    BulkAction::make('delete')
+            //    ->requiresConfirmation()
+            //    ->action(fn (Collection $records) => $records->each->delete())
+            //    //]),
+            //])
             ->defaultSort('id', 'desc')
             ->recordUrl(
                 fn (Model $record): string => route('event-sessions.show', ['event_session' => $record->slug]),

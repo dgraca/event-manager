@@ -60,36 +60,36 @@ class   MenuComposer
                     'params' => [],
                     'title' => __('Tickets')
                 ],
-                'users' => [
-                    'icon' => 'users',
-                    'title' => __('Users'),
-                    'sub_menu' => [
-                        'users.index' => [
-                            'icon' => 'list',
-                            'route_name' => 'users.index',
-                            'params' => [],
-                            'title' => __('List users')
-                        ],
-                        'users.create' => [
-                            'icon' => 'plus-circle',
-                            'route_name' => 'users.create',
-                            'params' => [],
-                            'title' => __('Create user')
-                        ],
-                    ]
-                ],
-                'translations' => [
-                    'icon' => 'globe',
-                    'route_name' => 'translations.index',
-                    'params' => [],
-                    'title' => __('Translations')
-                ],
-                'settings' => [
-                    'icon' => 'settings',
-                    'route_name' => 'settings.index',
-                    'params' => [],
-                    'title' => __('Settings')
-                ],
+                //'users' => [
+                //    'icon' => 'users',
+                //    'title' => __('Users'),
+                //    'sub_menu' => [
+                //        'users.index' => [
+                //            'icon' => 'list',
+                //            'route_name' => 'users.index',
+                //            'params' => [],
+                //            'title' => __('List users')
+                //        ],
+                //        'users.create' => [
+                //            'icon' => 'plus-circle',
+                //            'route_name' => 'users.create',
+                //            'params' => [],
+                //            'title' => __('Create user')
+                //        ],
+                //    ]
+                //],
+                //'translations' => [
+                //    'icon' => 'globe',
+                //    'route_name' => 'translations.index',
+                //    'params' => [],
+                //    'title' => __('Translations')
+                //],
+                //'settings' => [
+                //    'icon' => 'settings',
+                //    'route_name' => 'settings.index',
+                //    'params' => [],
+                //    'title' => __('Settings')
+                //],
 
             ];
             $pageName = request()->route()->getName();

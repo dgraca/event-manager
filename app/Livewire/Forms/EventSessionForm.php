@@ -22,7 +22,7 @@ class EventSessionForm extends Form
             'sessions.*.start_date' => 'required|date',
             'sessions.*.end_date' => 'required|date',
             'sessions.*.type' => 'required|integer',
-            'sessions.*.status' => 'required|integer',
+            'sessions.*.status' => 'nullable|integer',
         ];
     }
 

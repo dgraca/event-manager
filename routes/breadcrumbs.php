@@ -203,7 +203,7 @@ Breadcrumbs::for('tickets.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('tickets.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('tickets.index');
-    $trail->push($model->slug, route('tickets.show', $model));
+    $trail->push($model->id, route('tickets.show', $model));
 });
 Breadcrumbs::for('tickets.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('tickets.show', $model);

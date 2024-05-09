@@ -174,24 +174,24 @@
     @enderror
 </div>
 
-<!-- Status Field -->
-<div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="status">{{ \App\Models\EventSession::getAttributeLabelStatic('status') }}</x-base.form-label>
-    <x-base.form-select
-            :tw-merge="false"
-            class="w-full {{ ($errors->has('eventSessionForm.sessions.' . $index . '.status') ? 'border-danger' : '') }}"
-            wire:model.live="eventSessionForm.sessions.{{ $index }}.status"
-            type="text"
-    >
-        <option>{{ __('Select an option') }}</option>
-        @foreach(\App\Models\EventSession::getStatusArray() as $key => $label)
-            <option value="{{ $key }}" {{ old('status', $session->status ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>
-        @endforeach
-    </x-base.form-select>
-    @error('eventSessionForm.sessions.' . $index . '.status')
-    <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
-</div>
+{{--<!-- Status Field -->--}}
+{{--<div class="mb-3">--}}
+{{--    <x-base.form-label :tw-merge="false" for="status">{{ \App\Models\EventSession::getAttributeLabelStatic('status') }}</x-base.form-label>--}}
+{{--    <x-base.form-select--}}
+{{--            :tw-merge="false"--}}
+{{--            class="w-full {{ ($errors->has('eventSessionForm.sessions.' . $index . '.status') ? 'border-danger' : '') }}"--}}
+{{--            wire:model.live="eventSessionForm.sessions.{{ $index }}.status"--}}
+{{--            type="text"--}}
+{{--    >--}}
+{{--        <option>{{ __('Select an option') }}</option>--}}
+{{--        @foreach(\App\Models\EventSession::getStatusArray() as $key => $label)--}}
+{{--            <option value="{{ $key }}" {{ old('status', $session->status ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>--}}
+{{--        @endforeach--}}
+{{--    </x-base.form-select>--}}
+{{--    @error('eventSessionForm.sessions.' . $index . '.status')--}}
+{{--    <div class="mt-2 text-danger">{{ $message }}</div>--}}
+{{--    @enderror--}}
+{{--</div>--}}
 
 
 @pushOnce('scripts')
