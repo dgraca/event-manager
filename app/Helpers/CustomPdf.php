@@ -13,7 +13,6 @@ class CustomPdf
     public static function generate($event, $eventSessionTickets, $accessTickets)
     {
         try {
-
             // Generates a PDF using the spatie/laravel-pdf package
             return pdf()
                 ->view('pdf_templates.access_tickets', compact('event', 'eventSessionTickets', 'accessTickets'))

@@ -70,6 +70,6 @@ Route::middleware([
 });
 
 Route::post('/access-tickets', [\App\Http\Controllers\AccessTicketController::class, 'store'])->name('access-tickets.store');
-Route::get('/event/{slug}', [\App\Http\Controllers\EventController::class,'showPublic'])->name('events.show_public');
 Route::get('/thank-you', [\App\Http\Controllers\AccessTicketController::class, 'showThankYou'])->name('access-tickets.thank_you');
-
+Route::get('/event/{slug}', [\App\Http\Controllers\EventController::class,'showPublic'])->name('events.show_public');
+Route::get('/success', [\App\Http\Controllers\PaypalController::class, 'success'])->name('success');

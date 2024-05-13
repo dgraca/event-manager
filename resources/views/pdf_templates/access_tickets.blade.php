@@ -34,7 +34,7 @@
                     </div>
                     <div class="mt-4 flex justify-between">
                         <p class="text-gray-600">{{ __('Venue Address') }}</p>
-                        <p class="font-bold">{{ $event->venue->name }}</p>
+                        <p class="font-bold">{{ $event->venue->address }}</p>
                     </div>
                     <div class="mt-8 flex justify-center">
                         {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->generate($ticket->code); !!}
