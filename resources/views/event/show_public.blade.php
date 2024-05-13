@@ -90,7 +90,7 @@ view()->share('pageTitle', __('Homepage'));
                     </div>
                 @endif
 
-                @if(isset($paymentOption->bank_transfer))
+                @if(isset($paymentOption->bank_transfer) || isset($paymentOption->paypal))
                     <div class="text-center px-6 mt-6">
                         <div class="size-20 bg-indigo-600/5 text-indigo-600 rounded-xl text-3xl flex align-middle justify-center items-center shadow-sm dark:shadow-gray-800 mx-auto">
                             <i class="uil uil-money-bill"></i>
@@ -99,10 +99,8 @@ view()->share('pageTitle', __('Homepage'));
                         <div class="content mt-7">
                             <h5 class="title h5 text-xl font-medium">{{ __('Payment methods') }}</h5>
                             <div class="mt-5">
-                                @if(isset($paymentOption->bank_transfer->account_holder))<p class="text-slate-400 mt-5">{{ $paymentOption->bank_transfer->account_holder }}</p>@endif
-                                @if(isset($paymentOption->bank_transfer->bank_entity) && isset($paymentOption->bank_transfer->bank_country))<p class="text-slate-400 -mt-3">{{ $paymentOption->bank_transfer->bank_entity }} | {{ $paymentOption->bank_transfer->bank_country }}</p>@endif
-                                @if(isset($paymentOption->bank_transfer->bic_swift))<p class="text-slate-400 -mt-3">{{ $paymentOption->bank_transfer->bic_swift }}</p>@endif
-                                @if(isset($paymentOption->bank_transfer->iban))<p class="text-slate-400 -mt-3">{{ $paymentOption->bank_transfer->iban }}</p>@endif
+                                @if(isset($paymentOption->bank_transfer))<p class="text-slate-400 mt-5">{{ __('Bank transfer') }}</p>@endif
+                                @if(isset($paymentOption->paypal))<p class="text-slate-400 -mt-3">{{ __('PayPal') }}</p>@endif
                             </div>
                         </div>
                     </div>
@@ -215,7 +213,14 @@ view()->share('pageTitle', __('Homepage'));
                         </div>
                         <div class="flex flex-col items-end">
                             <input type="hidden" name="event_id" value="{{ $event->id }}">
-                            <x-frontend.button type="submit" class=" w-1/2 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ __('Buy tickets') }}</x-frontend.button>
+                            <div class="w-full flex flex-row items-end gap-4">
+                                @if(isset($paymentOption->bank_transfer))
+                                    <x-frontend.button type="submit" name="payment_method" value="bank_transfer" class="w-full hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ __('Buy tickets via Bank Transfer') }}</x-frontend.button>
+                                @endif
+                                @if(isset($paymentOption->paypal))
+                                    <x-frontend.button type="submit" name="payment_method" value="paypal" class="w-full hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ __('Buy tickets via Paypal') }}</x-frontend.button>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </form>

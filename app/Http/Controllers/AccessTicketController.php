@@ -48,7 +48,7 @@ class AccessTicketController extends Controller
             $event = Event::find($request->event_id);
 
             // Validate if the tickets are available
-            $validationResult = $this->validateTicketsAvailability($request, $event);
+            $validationResult = $this->validateTicketsAvailability($request);
 
             // If the tickets are not available, throw an exception
             if (!$validationResult['availability']) {
@@ -80,21 +80,53 @@ class AccessTicketController extends Controller
          * TODO: If the user chooses bank transfer, the tickets should be sent after the payment is verified (maybe with a cron job)
          */
 
-        // If the total is greater than 0, pay with PayPal
-        if ($validationResult['total'] > 0) {
-            $res = $this->payWithPaypal([
-                'slug' => $event->slug,
-                'total' => $validationResult['total'],
-                'currency' => $validationResult['currency'],
-                'accessTickets' => array_map(function($accessTicket) {
-                    return $accessTicket['id'];
-                }, $validationResult['accessTickets']),
-                'eventSessionTickets' => array_map(function($eventSessionTicket) {
-                    return $eventSessionTicket['id'];
-                }, $validationResult['eventSessionTickets']),
-            ]);
+        // Check which button was clicked
+        $paymentMethod = $request->input('payment_method');
 
-            return redirect()->away($res);
+
+        /**
+         * 3 ways to pay:
+         * 1. free tickets don't require payment, just generate the PDFs and send them to the user
+         * 2. bank transfer - redirects to the page with the bank details
+         * 3. PayPal - redirects to the PayPal page
+         */
+
+        // If the total isn't 0 - which means it needs to be paid - redirect to the payment page: whether bank transfer or PayPal or future payment methods
+        if ($validationResult['total'] != 0) {
+            $paymentOption = $event->entity->paymentOptions->first();
+            // If the payment method is bank transfer, redirect to the bank transfer page
+            if ($paymentMethod == 'bank_transfer' && isset($paymentOption->data->bank_transfer)) {
+                return redirect(route('access-tickets.thank_you', [
+                    'payment_info' => json_decode($paymentOption->data)->bank_transfer,
+                    'email' => $paymentOption->email,
+                    'total' => $validationResult['total'],
+                    'currency' => $validationResult['currency'],
+                ]));
+            }
+
+            // If the payment method is PayPal, redirect to the PayPal page
+            if ($paymentMethod == 'paypal') {
+                $res = $this->payWithPaypal([
+                    'slug' => $event->slug,
+                    'total' => $validationResult['total'],
+                    'currency' => $validationResult['currency'],
+                    'accessTickets' => array_map(function($accessTicket) {
+                        return $accessTicket['id'];
+                    }, $validationResult['accessTickets']),
+                    'eventSessionTickets' => array_map(function($eventSessionTicket) {
+                        return $eventSessionTicket['id'];
+                    }, $validationResult['eventSessionTickets']),
+                ]);
+
+                return redirect()->away($res);
+            }
+        }
+
+        // The total is 0, which means the tickets are free and the user doesn't need to pay
+        // So we need to save each ticket with the "paid" flag as true by default
+        foreach ($validationResult['accessTickets'] as $accessTicket) {
+            $accessTicket->paid = true;
+            $accessTicket->save();
         }
 
         /**
@@ -125,13 +157,7 @@ class AccessTicketController extends Controller
     /**
      * Validate if the tickets are available
      */
-    private function validateTicketsAvailability(Request $request, $event) {
-
-        // TODO: this should be done in the createOrder method
-        if ($event->pre_approval) {
-            $request->merge(['approved' => true]);
-        }
-
+    private function validateTicketsAvailability(Request $request) {
         $accessTickets = [];
         $eventSessionTickets = [];
 
@@ -211,8 +237,8 @@ class AccessTicketController extends Controller
     /**
      * Show the thank-you page
      */
-    public function showThankYou()
+    public function showThankYou(Request $request)
     {
-        return view('event.thank_you_public');
+        return view('event.thank_you_public', $request->all());
     }
 }
