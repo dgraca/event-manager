@@ -39,6 +39,9 @@ class AccessTicketController extends Controller
             }],
         ]);
 
+        // Check which button was clicked
+        $paymentMethod = $request->input('payment_method');
+
         // This transaction will ensure that all the tickets are saved or none
         // ensuring that the user will not be charged for tickets that are not available
         DB::beginTransaction();
@@ -46,6 +49,10 @@ class AccessTicketController extends Controller
         try {
             // Get event
             $event = Event::find($request->event_id);
+
+            $request->merge([
+                'payment_method' => $paymentMethod,
+            ]);
 
             // Validate if the tickets are available
             $validationResult = $this->validateTicketsAvailability($request);
@@ -75,14 +82,13 @@ class AccessTicketController extends Controller
 
         /**
          * TODO: After the payment is verified, the PDFs should be generated
-         * TODO: If the tickets were paid with PayPal, and the payment failed, the tickets should be released (maybe with a cron job)
-         * TODO: Let the user choose if they wanna pay with paypal or via bank transfer
+         * This one is tricky, because the tickets should be sent all at once
+         * , in the same file... How to identify which tickets were purchased at the same time?
+         * Maybe a "transaction" table that stores the tickets purchased at the same time?
+         * Or maybe a "transaction" column in the AccessTicket table?
+         * GenerateAccessTicketPDF::dispatch($event, $validationResult['eventSessionTickets'], $validationResult['accessTickets']);
          * TODO: If the user chooses bank transfer, the tickets should be sent after the payment is verified (maybe with a cron job)
          */
-
-        // Check which button was clicked
-        $paymentMethod = $request->input('payment_method');
-
 
         /**
          * 3 ways to pay:
@@ -90,12 +96,11 @@ class AccessTicketController extends Controller
          * 2. bank transfer - redirects to the page with the bank details
          * 3. PayPal - redirects to the PayPal page
          */
-
         // If the total isn't 0 - which means it needs to be paid - redirect to the payment page: whether bank transfer or PayPal or future payment methods
         if ($validationResult['total'] != 0) {
             $paymentOption = $event->entity->paymentOptions->first();
             // If the payment method is bank transfer, redirect to the bank transfer page
-            if ($paymentMethod == 'bank_transfer' && isset($paymentOption->data->bank_transfer)) {
+            if ($paymentMethod == 'bank_transfer' && isset(json_decode($paymentOption->data)->bank_transfer)) {
                 return redirect(route('access-tickets.thank_you', [
                     'payment_info' => json_decode($paymentOption->data)->bank_transfer,
                     'email' => $paymentOption->email,
@@ -126,14 +131,11 @@ class AccessTicketController extends Controller
         // So we need to save each ticket with the "paid" flag as true by default
         foreach ($validationResult['accessTickets'] as $accessTicket) {
             $accessTicket->paid = true;
+            $accessTicket->payment_method = "free";
             $accessTicket->save();
         }
 
-        /**
-         * If the total is 0, generate the PDFs and send them to the user
-         * Dispatch job for generating PDFs asynchronously
-         */
-        GenerateAccessTicketPDF::dispatch($event, $validationResult['eventSessionTickets'], $validationResult['accessTickets']);
+        // If the total is 0, no need to pay. The tickets should be generated as soon as the "payment" is "verified" by the cron jobs
         return redirect(route('access-tickets.thank_you'));
     }
 
@@ -227,6 +229,9 @@ class AccessTicketController extends Controller
             $accessTicket->code = uuid_create();
             $accessTicket->approved = $request->approved ?? false;
             $accessTickets[] = $accessTicket;
+
+            // Store the payment method to be read by the Scheduled tasks
+            $accessTicket->payment_method = $request->payment_method;
 
             $eventSessionTicket->increment('count');
         }

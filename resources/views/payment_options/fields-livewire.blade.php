@@ -148,7 +148,7 @@
 
 <!-- Paypal Email Field -->
 <div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="json.paypal.paypal_email">{{ $paymentOption->getNonDBLabelStatic('paypal_email') }}</x-base.form-label>
+    <x-base.form-label :tw-merge="false" for="json.paypal_email">{{ $paymentOption->getNonDBLabelStatic('paypal_email') }}</x-base.form-label>
     <x-base.form-input
         :tw-merge="false"
         class="w-full {{ ($errors->has('json.paypal.paypal_email') ? 'border-danger' : '') }}"

@@ -22,7 +22,7 @@ class PaymentForm extends Component
     public $paymentOption;
 
     // Will hold the data that will be transformed into JSON
-    public $json = null;
+    public array $json = [];
 
     public function mount(PaymentOption $paymentOption)
     {

@@ -61,7 +61,7 @@ class AccessTicket extends Model implements Auditable
     public $fillable = [
         'event_session_ticket_id',
         'user_id',
-        'payment_option_id',
+        'payment_method',
         'code',
         'name',
         'email',
@@ -86,7 +86,7 @@ class AccessTicket extends Model implements Auditable
         return [
             'event_session_ticket_id' => 'required',
         'user_id' => 'nullable',
-        'payment_option_id' => 'nullable',
+        'payment_method' => 'nullable',
         'code' => 'required|string|max:255',
         'name' => 'required|string|max:255',
         'email' => 'required|string|max:255',
@@ -111,7 +111,7 @@ class AccessTicket extends Model implements Auditable
             'id' => __('Id'),
         'event_session_ticket_id' => __('Event Session Ticket Id'),
         'user_id' => __('User Id'),
-        'payment_option_id' => __('Payment Option Id'),
+        'payment_method' => __('Payment Method'),
         'code' => __('Code'),
         'name' => __('Name'),
         'email' => __('Email'),
