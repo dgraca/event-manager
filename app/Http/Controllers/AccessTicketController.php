@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Word2Pdf;
-use App\Jobs\GenerateAccessTicketPDF;
 use App\Models\AccessTicket;
 use App\Models\Event;
 use App\Models\EventSessionTicket;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
 
 class AccessTicketController extends Controller
 {
@@ -90,16 +85,6 @@ class AccessTicketController extends Controller
             // return back with error message
             return redirect(route('events.show_public', $event->slug));
         }
-
-        /**
-         * TODO: After the payment is verified, the PDFs should be generated
-         * This one is tricky, because the tickets should be sent all at once
-         * , in the same file... How to identify which tickets were purchased at the same time?
-         * Maybe a "transaction" table that stores the tickets purchased at the same time?
-         * Or maybe a "transaction" column in the AccessTicket table?
-         * GenerateAccessTicketPDF::dispatch($event, $validationResult['eventSessionTickets'], $validationResult['accessTickets']);
-         * TODO: If the user chooses bank transfer, the tickets should be sent after the payment is verified (maybe with a cron job)
-         */
 
         /**
          * 3 ways to pay:
