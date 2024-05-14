@@ -12,8 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('app:delete-unpaid-paypal-access-tickets')->daily();
-        //$schedule->command('app:delete-unpaid-bank-transfer-access-tickets')->everyday();
+        $schedule->command('app:delete-unpaid-paypal-transactions')->daily();
+        //$schedule->command('app:delete-unpaid-bank-transfer-transactions')->everyday();
     }
 
     /**

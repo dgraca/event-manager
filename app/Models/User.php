@@ -280,8 +280,8 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
         return $this->belongsToMany(\App\Models\Entity::class)->withTimestamps();
     }
 
-    public function accessTickets() : HasMany
+    public function transactions(): HasMany
     {
-        return $this->hasOne(PaymentOption::class)->withTimestamps();
+        return $this->hasMany(Transaction::class);
     }
 }

@@ -60,15 +60,13 @@ class AccessTicket extends Model implements Auditable
 
     public $fillable = [
         'event_session_ticket_id',
-        'user_id',
-        'payment_method',
         'code',
+        'transaction_id',
         'name',
         'email',
         'phone',
         'description',
         'tickets_count',
-        'approved',
         'status'
     ];
 
@@ -85,15 +83,13 @@ class AccessTicket extends Model implements Auditable
     {
         return [
             'event_session_ticket_id' => 'required',
-        'user_id' => 'nullable',
-        'payment_method' => 'nullable',
         'code' => 'required|string|max:255',
+        'transaction_id' => 'required|int',
         'name' => 'required|string|max:255',
         'email' => 'required|string|max:255',
         'phone' => 'nullable|string|max:255',
         'description' => 'nullable|string|max:65535',
         'tickets_count' => 'required',
-        'approved' => 'required|boolean',
         'status' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
@@ -110,15 +106,13 @@ class AccessTicket extends Model implements Auditable
         return [
             'id' => __('Id'),
         'event_session_ticket_id' => __('Event Session Ticket Id'),
-        'user_id' => __('User Id'),
-        'payment_method' => __('Payment Method'),
         'code' => __('Code'),
+        'transaction_id' => __('Transaction Id'),
         'name' => __('Name'),
         'email' => __('Email'),
         'phone' => __('Phone'),
         'description' => __('Description'),
         'tickets_count' => __('Tickets Count'),
-        'approved' => __('Approved'),
         'status' => __('Status'),
         'created_at' => __('Created At'),
         'updated_at' => __('Updated At')
@@ -144,11 +138,6 @@ class AccessTicket extends Model implements Auditable
     public function paymentOption(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\PaymentOption::class, 'payment_option_id');
-    }
-
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
 
     /**
@@ -181,6 +170,11 @@ class AccessTicket extends Model implements Auditable
     public function paymentOptions() : BelongsTo
     {
         return $this->belongsTo(User::class)->withTimestamps();
+    }
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
     }
 
 }

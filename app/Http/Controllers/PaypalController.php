@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AccessTicket;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
@@ -80,8 +81,10 @@ class PaypalController extends Controller
 
         // If payment is successful return the success message
         if (isset($reponse['status']) && $reponse['status'] == 'COMPLETED') {
-            // Set the tickets as paid
-            $this->setTicketAsPaid($request->accessTickets);
+            // Set the transaction as paid
+            $transaction = Transaction::where('id', $request->transaction_id)->first();
+            $transaction->paid = true;
+            $transaction->save();
             return redirect()->route('access-tickets.thank_you');
         }
 
@@ -89,15 +92,5 @@ class PaypalController extends Controller
 
         // If payment fails, return the error message
         return back();
-    }
-
-    private function setTicketAsPaid($tickets) {
-        // Set the ticket as paid
-        foreach ($tickets as $ticket) {
-            // Get ticket by ID
-            $ticket = AccessTicket::find($ticket);
-            $ticket->paid = true;
-            $ticket->save();
-        }
     }
 }

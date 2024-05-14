@@ -7,6 +7,7 @@ use App\Jobs\GenerateAccessTicketPDF;
 use App\Models\AccessTicket;
 use App\Models\Event;
 use App\Models\EventSessionTicket;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -54,8 +55,18 @@ class AccessTicketController extends Controller
                 'payment_method' => $paymentMethod,
             ]);
 
+            // Create a new Transaction
+            $transaction = new Transaction();
+            $transaction->approved = $request->approved ?? false;
+            $transaction->paid = false;
+            // Store the payment method to be read by the Scheduled tasks
+            $transaction->payment_method = $request->payment_method;
+
+            // Save the transaction
+            $transaction->save();
+
             // Validate if the tickets are available
-            $validationResult = $this->validateTicketsAvailability($request);
+            $validationResult = $this->validateTicketsAvailability($request, $transaction);
 
             // If the tickets are not available, throw an exception
             if (!$validationResult['availability']) {
@@ -115,12 +126,7 @@ class AccessTicketController extends Controller
                     'slug' => $event->slug,
                     'total' => $validationResult['total'],
                     'currency' => $validationResult['currency'],
-                    'accessTickets' => array_map(function($accessTicket) {
-                        return $accessTicket['id'];
-                    }, $validationResult['accessTickets']),
-                    'eventSessionTickets' => array_map(function($eventSessionTicket) {
-                        return $eventSessionTicket['id'];
-                    }, $validationResult['eventSessionTickets']),
+                    'transaction_id' => $transaction->id,
                 ]);
 
                 return redirect()->away($res);
@@ -129,11 +135,9 @@ class AccessTicketController extends Controller
 
         // The total is 0, which means the tickets are free and the user doesn't need to pay
         // So we need to save each ticket with the "paid" flag as true by default
-        foreach ($validationResult['accessTickets'] as $accessTicket) {
-            $accessTicket->paid = true;
-            $accessTicket->payment_method = "free";
-            $accessTicket->save();
-        }
+        $transaction->paid = true;
+        $transaction->payment_method = "free";
+        $transaction->save();
 
         // If the total is 0, no need to pay. The tickets should be generated as soon as the "payment" is "verified" by the cron jobs
         return redirect(route('access-tickets.thank_you'));
@@ -159,7 +163,7 @@ class AccessTicketController extends Controller
     /**
      * Validate if the tickets are available
      */
-    private function validateTicketsAvailability(Request $request) {
+    private function validateTicketsAvailability(Request $request, $transaction) {
         $accessTickets = [];
         $eventSessionTickets = [];
 
@@ -194,7 +198,7 @@ class AccessTicketController extends Controller
 
                 // Check if there is a limit for this eventSessionTicket (0 is unlimited) and if there is a limit, checks if it is not exceeded
                 if ($eventSessionTicket->limit == 0 || ($eventSessionTicket->limit > 0 && $eventSessionTicket->limit >= $eventSessionTicket->count + $quantity)) {
-                    $accessTickets = array_merge($accessTickets, $this->create($eventSessionTicketId, $request, $quantity, $eventSessionTicket));
+                    $accessTickets = array_merge($accessTickets, $this->create($eventSessionTicketId, $request, $quantity, $eventSessionTicket, $transaction));
                 } else {
                     $availability = false;
                     break;
@@ -214,7 +218,7 @@ class AccessTicketController extends Controller
     /**
      * Create a new AccessTicket
      */
-    private function create($id, $request, $quantity, $eventSessionTicket)
+    private function create($id, $request, $quantity, $eventSessionTicket, $transaction)
     {
         $accessTickets = [];
         // for i in quantity create a new access ticket
@@ -227,11 +231,10 @@ class AccessTicketController extends Controller
             $accessTicket->description = $request->description ?? null;
             $accessTicket->tickets_count = $eventSessionTicket->ticket->max_check_in;
             $accessTicket->code = uuid_create();
-            $accessTicket->approved = $request->approved ?? false;
             $accessTickets[] = $accessTicket;
 
-            // Store the payment method to be read by the Scheduled tasks
-            $accessTicket->payment_method = $request->payment_method;
+            // Associate the access ticket with the transaction
+            $accessTicket->transaction_id = $transaction->id;
 
             $eventSessionTicket->increment('count');
         }
