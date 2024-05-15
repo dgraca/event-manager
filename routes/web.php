@@ -67,6 +67,8 @@ Route::middleware([
     Route::resource('tickets', App\Http\Controllers\TicketController::class);
     Route::resource('events', App\Http\Controllers\EventController::class);
     Route::resource('payment-options', App\Http\Controllers\PaymentOptionController::class);
+
+    Route::get('/validate-access-ticket/{code}', [\App\Http\Controllers\AccessTicketController::class, 'validateAccessTicket'])->name('validate-access-ticket');
 });
 
 Route::post('/access-tickets', [\App\Http\Controllers\AccessTicketController::class, 'store'])->name('access-tickets.store');

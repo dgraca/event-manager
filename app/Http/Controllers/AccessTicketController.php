@@ -235,4 +235,52 @@ class AccessTicketController extends Controller
     {
         return view('event.thank_you_public', $request->all());
     }
+
+    /**
+     * Validate the ticket
+     */
+    public function validateAccessTicket(Request $request) {
+        // Checks if the auth user can validate tickets for this event
+        $userEvents = auth()->user()->entities()->first()->events;
+
+        // Get the access ticket by the code
+        $accessTicket = AccessTicket::where('code', $request->code)->first();
+
+        // Checks if the user can validate tickets for this event and store the event in $event;
+        $event = null;
+        foreach ($userEvents as $userEvent) {
+            if ($userEvent->id == $accessTicket->eventSessionTicket->ticket->event->id) {
+                $event = $userEvent;
+                break;
+            }
+        }
+        // Checks if the user can validate tickets for this event
+        if ($accessTicket->eventSessionTicket->ticket->event->id != $event->id) {
+            flash(__('You do not have permission to validate tickets for this event'))->danger();
+            return redirect(route('dashboard'));
+        }
+
+        // Checks if the event is pre-approval
+        if ($event->pre_approval && !$accessTicket->transaction->approved) {
+            flash(__('Invalid ticket'))->danger();
+            return redirect(route('dashboard'));
+        }
+
+        // Checks if the ticket is paid
+        if (!$accessTicket->transaction->paid) {
+            flash(__('Invalid ticket'))->danger();
+            return redirect(route('dashboard'));
+        }
+
+        // Checks if the ticket "tickets_count" is greater than 0
+        if ($accessTicket->tickets_count > 0) {
+            $accessTicket->tickets_count--;
+            $accessTicket->save();
+            flash(__('Ticket validated'))->success();
+        } else {
+            flash(__('Invalid ticket'))->danger();
+        }
+
+        return redirect(route('dashboard'));
+    }
 }

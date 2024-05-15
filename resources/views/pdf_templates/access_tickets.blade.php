@@ -37,7 +37,7 @@
                         <p class="font-bold">{{ $event->venue->address }}</p>
                     </div>
                     <div class="mt-8 flex justify-center">
-                        {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->generate($ticket->code); !!}
+                        {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->generate($ticket->qr_code_url); !!}
                     </div>
                 </div>
             </div>
