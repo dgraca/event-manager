@@ -56,6 +56,7 @@ class AccessTicketController extends Controller
             $transaction->paid = false;
             // Store the payment method to be read by the Scheduled tasks
             $transaction->payment_method = $request->payment_method;
+            $transaction->event_id = $event->id;
 
             // Save the transaction
             $transaction->save();

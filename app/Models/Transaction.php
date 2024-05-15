@@ -26,4 +26,9 @@ class Transaction extends Model
     {
         return $this->hasMany(AccessTicket::class);
     }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

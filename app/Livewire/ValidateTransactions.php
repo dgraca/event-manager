@@ -5,20 +5,24 @@ namespace App\Livewire;
 use App\Models\AccessTicket;
 use Livewire\Component;
 
-class ValidateAccessTickets extends Component
+class ValidateTransactions extends Component
 {
-    public $accessTickets = [];
+    public $transactions = [];
     public $paid = [];
     public $approved = [];
 
-    public function mount($accessTickets) {
-        $this->accessTickets = $accessTickets;
+    public function mount($transactions) {
+        // $this->transactions should only have the transactions
+        // that are not "deleted"
+        $this->transactions = $transactions->filter(function ($transaction) {
+            return !$transaction->deleted;
+        });
 
-        // Initialize the paid array with the values of the access tickets "paid" attribute
-        // and the approved array with the values of the access tickets "approved" attribute
-        foreach ($this->accessTickets as $accessTicket) {
-            $this->paid[] = $accessTicket->paid ? 1 : 0;
-            $this->approved[] = $accessTicket->approved ? 1 : 0;
+        // Initialize the paid and approved arrays
+        // with the values from the transactions
+        foreach ($this->transactions as $transaction) {
+            $this->paid[] = $transaction->paid;
+            $this->approved[] = $transaction->approved;
         }
     }
 
@@ -39,8 +43,8 @@ class ValidateAccessTickets extends Component
         $property = str_replace('paid.', '', $property);
 
         // Update the access ticket "paid" attribute
-        $this->accessTickets[$property]->paid = $value ? 1 : 0;
-        $this->accessTickets[$property]->save();
+        $this->transactions[$property]->paid = $value ? 1 : 0;
+        $this->transactions[$property]->save();
     }
 
     public function updateApproved($property, $value) {
@@ -48,8 +52,8 @@ class ValidateAccessTickets extends Component
         $property = str_replace('approved.', '', $property);
 
         // Update the access ticket "approved" attribute
-        $this->accessTickets[$property]->approved = $value ? 1 : 0;
-        $this->accessTickets[$property]->save();
+        $this->transactions[$property]->approved = $value ? 1 : 0;
+        $this->transactions[$property]->save();
     }
 
     public function render()

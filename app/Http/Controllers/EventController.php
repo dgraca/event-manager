@@ -93,7 +93,7 @@ class EventController extends Controller
     /**
      * Show the page to manually select an access ticket (belonging to this event) as "paid"
      */
-    public function showAccessTickets($slug)
+    public function showTransactions($slug)
     {
         /** @var Event $event */
         $event = Event::where('slug', $slug)->first();
@@ -107,20 +107,9 @@ class EventController extends Controller
             return redirect(route('events.index'));
         }
 
-        // Get all event sessions
-        $eventSessions = $event->eventSessions;
+        $transactions = $event->transactions;
 
-        // Get all event session tickets
-        $eventSessionTickets = $eventSessions->map(function ($session) {
-            return $session->eventSessionTickets;
-        })->flatten();
-
-        // Get all access tickets
-        $accessTickets = $eventSessionTickets->map(function ($ticket) {
-            return AccessTicket::where('event_session_ticket_id', $ticket->id)->get();
-        })->flatten();
-
-        return view('event.show_access_tickets', compact('accessTickets', 'event'));
+        return view('event.show_access_tickets', compact('transactions', 'event'));
     }
 
     /**

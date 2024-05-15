@@ -241,6 +241,16 @@ class Event extends Model implements Auditable
         return $this->hasMany(\App\Models\Ticket::class, 'event_id');
     }
 
+    public function eventSessionTickets(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(EventSessionTicket::class, 'event_id');
+    }
+
+    public function transactions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\Transaction::class, 'event_id');
+    }
+
     /**
     * Return an array with the values of status field
     * @return array
