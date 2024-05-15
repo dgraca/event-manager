@@ -246,6 +246,12 @@ class AccessTicketController extends Controller
         // Get the access ticket by the code
         $accessTicket = AccessTicket::where('code', $request->code)->first();
 
+        // Checks if the access ticket exists
+        if ($accessTicket == null ) {
+            flash(__('Invalid ticket'))->danger();
+            return redirect(route('dashboard'));
+        }
+
         // Checks if the user can validate tickets for this event and store the event in $event;
         $event = null;
         foreach ($userEvents as $userEvent) {
@@ -254,6 +260,7 @@ class AccessTicketController extends Controller
                 break;
             }
         }
+
         // Checks if the user can validate tickets for this event
         if ($accessTicket->eventSessionTicket->ticket->event->id != $event->id) {
             flash(__('You do not have permission to validate tickets for this event'))->danger();
