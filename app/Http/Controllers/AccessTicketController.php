@@ -248,46 +248,42 @@ class AccessTicketController extends Controller
 
         // Checks if the access ticket exists
         if ($accessTicket == null ) {
-            flash(__('Invalid ticket'))->danger();
-            return redirect(route('dashboard'));
-        }
+            $result = 'invalid';
+        } else {
+            // Checks if the user can validate tickets for this event and store the event in $event;
+            $event = null;
+            foreach ($userEvents as $userEvent) {
+                if ($userEvent->id == $accessTicket->eventSessionTicket->ticket->event->id) {
+                    $event = $userEvent;
+                    break;
+                }
+            }
 
-        // Checks if the user can validate tickets for this event and store the event in $event;
-        $event = null;
-        foreach ($userEvents as $userEvent) {
-            if ($userEvent->id == $accessTicket->eventSessionTicket->ticket->event->id) {
-                $event = $userEvent;
-                break;
+            if ($event == null || $accessTicket->eventSessionTicket->ticket->event->id != $event->id) {
+                $result = 'invalid';
+            } elseif ($event->pre_approval && !$accessTicket->transaction->approved) {
+                $result = 'invalid';
+            } elseif (!$accessTicket->transaction->paid) {
+                $result = 'invalid';
+            } elseif ($accessTicket->tickets_count > 0) {
+                $accessTicket->tickets_count--;
+                $accessTicket->save();
+                $result = 'valid';
+            } else {
+                $result = 'invalid';
             }
         }
 
-        // Checks if the user can validate tickets for this event
-        if ($accessTicket->eventSessionTicket->ticket->event->id != $event->id) {
-            flash(__('You do not have permission to validate tickets for this event'))->danger();
-            return redirect(route('dashboard'));
-        }
+        return redirect()->route('access-ticket-result', ['code' => $request->code, 'result' => $result]);
+    }
 
-        // Checks if the event is pre-approval
-        if ($event->pre_approval && !$accessTicket->transaction->approved) {
-            flash(__('Invalid ticket'))->danger();
-            return redirect(route('dashboard'));
-        }
 
-        // Checks if the ticket is paid
-        if (!$accessTicket->transaction->paid) {
-            flash(__('Invalid ticket'))->danger();
-            return redirect(route('dashboard'));
-        }
-
-        // Checks if the ticket "tickets_count" is greater than 0
-        if ($accessTicket->tickets_count > 0) {
-            $accessTicket->tickets_count--;
-            $accessTicket->save();
-            flash(__('Ticket validated'))->success();
-        } else {
-            flash(__('Invalid ticket'))->danger();
-        }
-
-        return redirect(route('dashboard'));
+    /**
+     * Show the result page
+     */
+    public function result(Request $request)
+    {
+        $result = $request->result;
+        return view('access_tickets.result', compact('result'));
     }
 }
