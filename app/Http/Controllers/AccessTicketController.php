@@ -274,16 +274,6 @@ class AccessTicketController extends Controller
             }
         }
 
-        return redirect()->route('access-ticket-result', ['code' => $request->code, 'result' => $result]);
-    }
-
-
-    /**
-     * Show the result page
-     */
-    public function result(Request $request)
-    {
-        $result = $request->result;
         return view('access_tickets.result', compact('result'));
     }
 }

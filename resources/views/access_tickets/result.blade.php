@@ -35,7 +35,7 @@
         <div>
             <div class="mt-4 flex justify-center">
                 <p class="w-48 px-5 tracking-tight font-semibold py-3 text-center text-gray-600 bg-white rounded-lg shadow-lg -bottom-12 dark:shadow-none shadow-gray-200 dark:bg-gray-800 dark:text-white">
-                    @if($result == 1)
+                    @if($result == 'valid')
                         {{ __('Valid ticket') }}
                     @else
                         {{ __('Invalid ticket') }}

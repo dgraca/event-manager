@@ -174,8 +174,8 @@
         <x-base.input-group
             class="flatpickr"
             data-wrap="true"
-            data-enable-time="false"
-            data-date-format='Y-m-d'
+            data-enable-time="true"
+            data-date-format='Y-m-d H:i'
             data-time_24hr='true'
             data-minute-increment='1'
             inputGroup

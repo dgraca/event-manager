@@ -148,29 +148,33 @@
 </div>
 
 <!-- Phone Field -->
-<div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="phone">{{ $venue->getAttributeLabel('phone') }}</x-base.form-label>
-    <x-base.form-input
+<div class="mb-3" wire:ignore>
+    <x-base.form-label
         :tw-merge="false"
-        class="w-full {{ ($errors->has('phone') ? 'border-danger' : '') }}"
+        for="phone">{{ $venue->getAttributeLabel('phone') }}
+    </x-base.form-label>
+    <x-base.form-phone
+        :tw-merge="true"
+        id="phone"
+        name="phone"
         wire:model="phone"
-        type="text"
+        placeholder="{{ $venue->getAttributeLabel('phone') }}"
+        class="w-full"
     />
-    @error('phone')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
 </div>
 
 <!-- Mobile Field -->
-<div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="mobile">{{ $venue->getAttributeLabel('mobile') }}</x-base.form-label>
-    <x-base.form-input
+<div class="mb-3" wire:ignore>
+    <x-base.form-label
         :tw-merge="false"
-        class="w-full {{ ($errors->has('mobile') ? 'border-danger' : '') }}"
+        for="mobile">{{ $venue->getAttributeLabel('mobile') }}
+    </x-base.form-label>
+    <x-base.form-phone
+        :tw-merge="true"
+        id="mobile"
+        name="mobile"
         wire:model="mobile"
-        type="text"
+        placeholder="{{ $venue->getAttributeLabel('mobile') }}"
+        class="w-full"
     />
-    @error('mobile')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
 </div>

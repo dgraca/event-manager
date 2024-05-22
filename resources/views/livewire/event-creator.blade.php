@@ -98,7 +98,7 @@
             <x-base.button
                 :tw-merge="false"
                 class="mr-1 w-24"
-                type="a"
+                as="a"
                 variant="outline-secondary"
                 href="{{ route('events.index') }}"
             >{{ __('Cancel') }}
@@ -113,3 +113,11 @@
         </div>
     </form>
 </div>
+
+@pushOnce('styles')
+    @vite('resources/css/components/_intl-tel-input.css')
+@endPushOnce
+
+@pushOnce('vendors')
+    @vite('resources/js/vendor/intl-tel-input/index.js')
+@endPushOnce

@@ -112,7 +112,7 @@
 {{--</div>--}}
 
 {{-- Phone Field --}}
-<div class="mb-3">
+<div class="mb-3" wire:ignore>
     <x-base.form-label
         :tw-merge="false"
         for="phone">{{ \App\Models\PaymentOption::getAttributeLabelStatic('phone') }}

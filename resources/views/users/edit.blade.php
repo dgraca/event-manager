@@ -24,7 +24,7 @@
         <div class="mt-5 text-right">
             <x-base.button
                 class="mr-1 w-24"
-                type="a"
+                as="a"
                 variant="outline-secondary"
                 href="{{ route('users.index') }}"
             >{{ __('Cancel') }}
