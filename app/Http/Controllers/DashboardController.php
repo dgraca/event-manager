@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -14,7 +15,7 @@ class   DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         // Get auth user
         $user = auth()->user();
@@ -49,12 +50,32 @@ class   DashboardController extends Controller
         ->flatten()
         ->sum();
 
+        // Get all transactions
+        $transactions = $userEntity->events->map(function ($event) {
+            return $event->transactions->where('deleted', '=', 0);
+        })->flatten();
+
+        // Get the number of items per page from the request
+        $perPage = $request->input('per_page', 10);
+
+        // Paginate the transactions collection
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        // Get the items for the current page
+        $currentPageItems = $transactions->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        // Create a paginator for the items
+        $paginatedTransactions = new LengthAwarePaginator($currentPageItems, $transactions->count(), $perPage, $currentPage, [
+            'path' => $request->url(),
+            'query' => $request->query(),
+        ]);
+
         flash(__('Welcome'))->overlay()->success();
         // Return the view with all data and transactions paginated at the value of 10
         return view('home.index')->with([
             'events' => $events,
             'totalSold' => $tickets,
             'totalEntries' => $totalEntries,
+            'transactions' => $paginatedTransactions,
+            'perPage' => $perPage,
         ]);
     }
 
