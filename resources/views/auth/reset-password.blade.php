@@ -16,11 +16,11 @@
                             alt="{{ config('app.name') }}"
                         />
                         <div class="-intro-x mt-10 text-4xl font-medium leading-tight text-white">
-                            A few more clicks to <br />
-                            sign in to your account.
+                            {{ __('A few more clicks to') }} <br />
+                            {{ __('sign in to your account.') }}
                         </div>
                         <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">
-                            Developed with ❤️ by <a href="https://noop.pt" class="text-white underline">noop</a>
+                            {{ __('Developed with ❤️ by') }} <a href="https://noop.pt" class="text-white underline">noop</a>
                         </div>
                     </div>
                 </div>
