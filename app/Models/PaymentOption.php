@@ -90,7 +90,7 @@ class PaymentOption extends Model implements Auditable
         'country' => 'required|string|max:2',
         'postcode' => 'required|string|max:16',
         'email' => 'required|string|max:255',
-        'phone' => 'required|string|max:255',
+        'phone' => 'nullable|string|max:255',
         'data' => 'nullable|string|max:65535',
         'currency' => 'required|string|max:3',
         //'created_at' => 'nullable',

@@ -162,7 +162,6 @@ class UserController extends Controller
 
         if (empty($user) || $user->id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
-
             return redirect(route('users.index'));
         }
 
@@ -196,7 +195,7 @@ class UserController extends Controller
             flash(__('Ups something went wrong'))->overlay()->danger();
         }
 
-        return redirect(route('profile.show'));
+        return redirect(route('dashboard'));
     }
 
     /**

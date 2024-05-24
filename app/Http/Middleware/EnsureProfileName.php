@@ -22,7 +22,8 @@ class EnsureProfileName
 
         // Perform the profile name check for all routes
         if (!$request->user()->name) {
-            return redirect()->route('profile.show')->with('status', __('Please fill in your profile name.'));
+            flash(__('Please fill in your profile name.'))->overlay()->warning();
+            return redirect()->route('profile.show');
         }
 
         return $next($request);

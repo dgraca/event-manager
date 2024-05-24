@@ -61,6 +61,14 @@ class PaymentForm extends Component
             $this->update();
         }
 
+        // Check if this user's first entity (later will have multiple entities) has any events
+        $eventsNo = auth()->user()->entities->first()->events->count();
+
+        if ($eventsNo == 0) {
+            flash(__('You are now able to create your first event!'))->overlay()->info();
+            return redirect()->route('events.create');
+        }
+
         // Redirects to the paymentOptions list
         return redirect()->route('payment-options.index');
     }

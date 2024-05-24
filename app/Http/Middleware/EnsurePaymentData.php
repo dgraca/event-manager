@@ -28,7 +28,8 @@ class EnsurePaymentData
 
             // If payment option is not found or incomplete, redirect to payment options edit page
             if (!$paymentOption || !$this->isPaymentDataComplete($paymentOption)) {
-                return redirect()->route('payment-options.edit', $paymentOption->id)->with('status', __('Please fill in your payment data.'));
+                flash(__('Please fill in your payment data.'))->overlay()->warning();
+                return redirect()->route('payment-options.edit', $paymentOption->id);
             }
         }
 
