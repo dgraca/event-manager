@@ -10,7 +10,7 @@ return [
 
         'records_per_page' => [
 
-            'label' => 'por página',
+            'label' => __('por página'),
 
             'options' => [
                 'all' => 'Todas',

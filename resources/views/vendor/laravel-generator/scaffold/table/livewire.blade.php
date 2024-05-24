@@ -74,7 +74,7 @@ class {{ $config->modelNames->plural }}Table extends Component implements HasFor
             ])
             ->bulkActions([
                 //BulkActionGroup::make([
-                BulkAction::make('delete')
+                BulkAction::make(__('delete'))
                 ->requiresConfirmation()
                 ->action(fn (Collection $records) => $records->each->delete())
                 //]),

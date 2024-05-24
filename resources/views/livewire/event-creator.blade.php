@@ -6,13 +6,13 @@
         @csrf
 
         {{--   SECTION 1 - Event details     --}}
-        <h1 class="mt-6">SECÇÃO 1</h1>
+        <h1 class="mt-6">{{ __('SECTION :number', ['number' => 1]) }}</h1>
         <div class="box mt-3 p-5">
             @include('event.fields')
         </div>
 
         {{--   SECTION 2 - Event Session details     --}}
-        <h1 class="mt-6">SECÇÃO 2</h1>
+        <h1 class="mt-6">{{ __('SECTION :number', ['number' => 2]) }}</h1>
         <div class="box mt-3 p-5">
             @if(count($eventSessionForm->sessions) <= 0)
                 <div class="w-full text-center">
@@ -22,7 +22,7 @@
 
             @foreach($eventSessionForm->sessions as $index => $session)
                 <div wire:key="session-{{ $index }}" class="box mt-3 p-5">
-                    <h1 class="text-lg font-light">Session #{{ $index + 1 }}</h1>
+                    <h1 class="text-lg font-light">{{ __('Session #:number', ["number" => $index + 1]) }}</h1>
                     <div class="mt-3">
                         @include('event_sessions.livewire-fields', ['session' => $session, 'index' => $index])
                         <div class="mt-5 text-right">
@@ -53,7 +53,7 @@
         </div>
 
         {{--   SECTION 3 - Ticket details     --}}
-        <h1 class="mt-6">SECÇÃO 3</h1>
+        <h1 class="mt-6">{{ __('SECTION :number', ['number' => 3]) }}</h1>
         <div class="box mt-3 p-5">
             @if(count($ticketForm->tickets) <= 0)
                 <div class="w-full text-center">

@@ -13,7 +13,7 @@
         @endpush
     @endonce
     <div class="intro-y mt-8 flex flex-col items-center sm:flex-row">
-        <h2 class="mr-auto text-lg font-medium">{{ __('Access Tickets') }}</h2>
+        <h2 class="mr-auto text-lg font-medium">{{ __('Validation Result') }}</h2>
     </div>
     <!-- BEGIN: HTML Table Data -->
     <div class="mt-8">

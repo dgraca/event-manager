@@ -33,8 +33,8 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
         return $table
             ->query(PaymentOption::query()->where('entity_id', '=', $entityId))
             ->columns([
-                TextColumn::make("entity_id")
-                ->label($newModel->getAttributeLabel("entity_id"))
+                TextColumn::make("entity.name")
+                ->label(Entity::getAttributeLabelStatic("Entity"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
@@ -124,7 +124,7 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
             ])
             //->bulkActions([
             //    //BulkActionGroup::make([
-            //    BulkAction::make('delete')
+            //    BulkAction::make(__('delete'))
             //    ->requiresConfirmation()
             //    ->action(fn (Collection $records) => $records->each->delete())
             //    //]),

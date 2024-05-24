@@ -4,14 +4,14 @@ return [
 
     'column_toggle' => [
 
-        'heading' => 'Colunas',
+        'heading' => __('Colunas'),
 
     ],
 
     'columns' => [
 
         'text' => [
-            'more_list_items' => 'e :count mais',
+            'more_list_items' => __('e :count mais'),
         ],
 
     ],
@@ -19,47 +19,47 @@ return [
     'fields' => [
 
         'bulk_select_page' => [
-            'label' => 'Marcar/desmarcar todos os itens para ações em massa.',
+            'label' => __('Marcar/desmarcar todos os itens para ações em massa.'),
         ],
 
         'bulk_select_record' => [
-            'label' => 'Marcar/desmarcar o item :key para ações em massa.',
+            'label' => __('Marcar/desmarcar o item :key para ações em massa.'),
         ],
 
         'bulk_select_group' => [
-            'label' => 'Marcar/desmarcar o grupo :key para ações em massa.',
+            'label' => __('Marcar/desmarcar o grupo :key para ações em massa.'),
         ],
 
         'search' => [
-            'label' => 'Procurar',
-            'placeholder' => 'Procurar',
-            'indicator' => 'Procurar',
+            'label' => __('Procurar'),
+            'placeholder' => __('Procurar'),
+            'indicator' => __('Procurar'),
         ],
 
     ],
 
     'summary' => [
 
-        'heading' => 'Resumo',
+        'heading' => __('Resumo'),
 
         'subheadings' => [
-            'all' => 'Todos :label',
-            'group' => ':group resumo',
-            'page' => 'Esta página',
+            'all' => __('Todos :label'),
+            'group' => __(':group resumo'),
+            'page' => __('Esta página'),
         ],
 
         'summarizers' => [
 
             'average' => [
-                'label' => 'Média',
+                'label' => __('Média'),
             ],
 
             'count' => [
-                'label' => 'Contagem',
+                'label' => __('Contagem'),
             ],
 
             'sum' => [
-                'label' => 'Soma',
+                'label' => __('Soma'),
             ],
 
         ],
@@ -69,36 +69,36 @@ return [
     'actions' => [
 
         'disable_reordering' => [
-            'label' => 'Concluir a reordenação de registos',
+            'label' => __('Concluir a reordenação de registos'),
         ],
 
         'enable_reordering' => [
-            'label' => 'Reordenar registos',
+            'label' => __('Reordenar registos'),
         ],
 
         'filter' => [
-            'label' => 'Filtrar',
+            'label' => __('Filtrar'),
         ],
 
         'group' => [
-            'label' => 'Agrupar',
+            'label' => __('Agrupar'),
         ],
 
         'open_bulk_actions' => [
-            'label' => 'Abrir ações',
+            'label' => __('Abrir ações'),
         ],
 
         'toggle_columns' => [
-            'label' => 'Alternar colunas',
+            'label' => __('Alternar colunas'),
         ],
 
     ],
 
     'empty' => [
 
-        'heading' => 'Sem registos',
+        'heading' => __('Sem registos'),
 
-        'description' => 'Crie um :model para começar.',
+        'description' => __('Crie um :model para começar.'),
     ],
 
     'filters' => [
@@ -106,40 +106,40 @@ return [
         'actions' => [
 
             'remove' => [
-                'label' => 'Remover filtro',
+                'label' => __('Remover filtro'),
             ],
 
             'remove_all' => [
-                'label' => 'Remover todos os filtros',
-                'tooltip' => 'Remover todos os filtros',
+                'label' => __('Remover todos os filtros'),
+                'tooltip' => __('Remover todos os filtros'),
             ],
 
             'reset' => [
-                'label' => 'Limpar filtros',
+                'label' => __('Limpar filtros'),
             ],
         ],
 
-        'heading' => 'Filtros',
+        'heading' => __('Filtros'),
 
-        'indicator' => 'Filtros ativos',
+        'indicator' => __('Filtros ativos'),
 
         'multi_select' => [
-            'placeholder' => 'Todos',
+            'placeholder' => __('Todos'),
         ],
 
         'select' => [
-            'placeholder' => 'Todos',
+            'placeholder' => __('Todos'),
         ],
 
         'trashed' => [
 
-            'label' => 'Registos excluídos',
+            'label' => __('Registos excluídos'),
 
-            'only_trashed' => 'Somente registos excluídos',
+            'only_trashed' => __('Somente registos excluídos'),
 
-            'with_trashed' => 'Mostrar registos excluídos',
+            'with_trashed' => __('Mostrar registos excluídos'),
 
-            'without_trashed' => 'Não mostrar registos excluídos',
+            'without_trashed' => __('Não mostrar registos excluídos'),
 
         ],
 
@@ -150,17 +150,17 @@ return [
         'fields' => [
 
             'group' => [
-                'label' => 'Agrupar por',
-                'placeholder' => 'Agrupar por',
+                'label' => __('Agrupar por'),
+                'placeholder' => __('Agrupar por'),
             ],
 
             'direction' => [
 
-                'label' => 'Direção do agrupamento',
+                'label' => __('Direção do agrupamento'),
 
                 'options' => [
-                    'asc' => 'Ascendente',
-                    'desc' => 'Descendente',
+                    'asc' => __('Ascendente'),
+                    'desc' => __('Descendente'),
                 ],
 
             ],
@@ -168,20 +168,20 @@ return [
         ],
     ],
 
-    'reorder_indicator' => 'Arraste e solte os registos na ordem.',
+    'reorder_indicator' => __('Arraste e solte os registos na ordem.'),
 
     'selection_indicator' => [
 
-        'selected_count' => '1 registo selecionado|:count registos selecionados',
+        'selected_count' => __('1 registo selecionado|:count registos selecionados'),
 
         'actions' => [
 
             'select_all' => [
-                'label' => 'Selecionar todos :count',
+                'label' => __('Selecionar todos :count'),
             ],
 
             'deselect_all' => [
-                'label' => 'Desmarcar todos',
+                'label' => __('Unmark all'),
             ],
 
         ],
@@ -192,16 +192,16 @@ return [
         'fields' => [
 
             'column' => [
-                'label' => 'Ordenar por',
+                'label' => __('Ordenar por'),
             ],
 
             'direction' => [
 
-                'label' => 'Direção de ordenação',
+                'label' => __('Direção de ordenação'),
 
                 'options' => [
-                    'asc' => 'Ascendente',
-                    'desc' => 'Descendente',
+                    'asc' => __('Ascendente'),
+                    'desc' => __('Descendente'),
                 ],
 
             ],

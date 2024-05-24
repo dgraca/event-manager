@@ -20,7 +20,7 @@
                             {{ __('sign in to your account.') }}
                         </div>
                         <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">
-                            {{ __('Developed with ❤️ by') }} <a href="https://noop.pt" class="text-white underline">noop</a>
+                            {{ __('Developed with love by') }} <a href="https://noop.pt" class="text-white underline">noop</a>
                         </div>
                     </div>
                 </div>

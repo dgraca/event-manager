@@ -69,7 +69,7 @@ view()->share('pageTitle', __('Homepage'));
                     </div>
 
                     <div class="content mt-7">
-                        <h5 class="title h5 text-xl font-medium">Location</h5>
+                        <h5 class="title h5 text-xl font-medium">{{ __('Location') }}</h5>
                         <p class="text-slate-400 mt-5">{{ $event->venue->name }}</p>
                         <p class="text-slate-400 -mt-2">{{ $event->venue->address }}, {{ $event->venue->location }} - {{ $event->venue->postcode }}</p>
                     </div>
@@ -82,7 +82,7 @@ view()->share('pageTitle', __('Homepage'));
                         </div>
 
                         <div class="content mt-7">
-                            <h5 class="title h5 text-xl font-medium">Email</h5>
+                            <h5 class="title h5 text-xl font-medium">{{ __('Email') }}</h5>
                             <div class="mt-5">
                                 <a href="mailto:{{ $event->venue->email }}" class="relative inline-block font-semibold tracking-wide align-middle text-base text-center border-none after:content-[''] after:absolute after:h-px after:w-0 hover:after:w-full after:end-0 hover:after:end-auto after:bottom-0 after:start-0 after:duration-500 text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ $event->venue->email }}</a>
                             </div>
@@ -171,7 +171,7 @@ view()->share('pageTitle', __('Homepage'));
                                                 </td>
                                                 @if($sessionTicket->isSoldOut)
                                                     <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px]">
-                                                        <p class="text-lg font-semibold tracking-wider">SOLD OUT</p>
+                                                        <p class="text-lg font-semibold tracking-wider">{{ __('SOLD OUT') }}</p>
                                                     </td>
                                                 @else
                                                     <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px]">
