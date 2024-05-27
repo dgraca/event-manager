@@ -38,7 +38,7 @@
                     Mais informações
                     Esperemos que esteja esclarecido e, como mencionado anteriormente, se houver algo que você não tem certeza se precisa ou não, geralmente é mais seguro deixar os cookies ativados, caso interaja com um dos recursos que você usa em nosso site.
 
-                    Esta política é efetiva a partir de 27 May 2024 14:44
+                    Esta política é efetiva a partir de 27 de Maio de 2024 - 14:44
                 </div>
             </div>
         </div>
