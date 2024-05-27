@@ -370,7 +370,7 @@
     "Session description": "Descrição da sessão",
     "Our Creativity Is Your": "A nossa criatividade é o seu",
     "Success": "Sucesso",
-    "An all-in-one management platform for live and online events": "Uma plataforma de gestão tudo-em-um para eventos presenciais e online",
+    "An all-in-one management": "Uma plataforma de gestão completa para os seus",
     "Change the way you manage your events": "Mude a forma como gere os seus eventos",
     "These are some of our features": "Estas são algumas das nossas funcionalidades",
     "Free": "Grátis",
@@ -379,5 +379,9 @@
     "Design with": "Design com",
     "by": "por",
     "Check out our socials": "Visite as nossas redes sociais",
-    "Usefull Links": "Links úteis"
+    "Usefull Links": "Links úteis",
+
+    "line1": "Uma plataforma de gestão",
+    "line2": "Completa",
+    "line3": "Para eventos presenciais ou online"
 }

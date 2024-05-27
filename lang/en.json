@@ -370,7 +370,7 @@
     "Session description": "Session description",
     "Our Creativity Is Your": "Our Creativity Is Your",
     "Success": "Success",
-    "An all-in-one management platform for live and online events": "An all-in-one management platform for live and online events",
+    "An all-in-one management platform for your": "An all-in-one management platform for your",
     "Change the way you manage your events": "Change the way you manage your events",
     "These are some of our features": "These are some of our features",
     "Free": "Free",
@@ -379,5 +379,9 @@
     "Design with": "Design with",
     "by": "by",
     "Check out our socials": "Check out our socials",
-    "Usefull Links": "Usefull Links"
+    "Usefull Links": "Usefull Links",
+
+    "line1": "An all-in-one management",
+    "line2": "Platform",
+    "line3": "For in-person and online events"
 }

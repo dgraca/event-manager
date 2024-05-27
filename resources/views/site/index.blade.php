@@ -15,8 +15,8 @@ view()->share('pageTitle', __('Homepage'));
             <div class="grid md:grid-cols-12 grid-cols-1 items-center mt-10 gap-[30px]">
                 <div class="md:col-span-7">
                     <div class="me-6">
-                        <h4 class="font-semibold lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5 text-black dark:text-white">{{ __('Our Creativity Is Your') }}<span class="text-indigo-600"> {{ __('Success') }}</span></h4>
-                        <p class="text-slate-400 text-lg max-w-xl">{{ __('An all-in-one management platform for live and online events') }}</p>
+                        <h4 class="font-semibold lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5 text-black dark:text-white">{{ __('line1') }}<span class="text-indigo-600"> {{ __('line2') }}</span></h4>
+                        <p class="text-slate-400 text-lg max-w-xl">{{ __('line3') }}</p>
                         <div class="mt-6">
                             <a href="{{ route('login') }}" class="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md me-2 mt-2"><i class="uil uil-arrow-up"></i> {{ __('Sign In') }}</a>
                         </div>
