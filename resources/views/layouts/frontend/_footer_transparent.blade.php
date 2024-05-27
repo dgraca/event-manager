@@ -10,7 +10,7 @@
                                 <img src="{{ asset('images/logo-dark.png') }}" class="block dark:hidden" alt="{{ config('app.name', 'Laravel') }}">
                                 <img src="{{ asset('images/logo-light.png') }}" class="hidden dark:block" alt="{{ config('app.name', 'Laravel') }}">
                             </a>
-                            <p class="mt-6">{{ __('Unlock the power of AI with Embedding AI - Your all-in-one solution to interact, summarize, translate, and converse with any document format. From PDFs, images, and audio files to code, URLs, and more. Elevate your data interaction experience') }}</p>
+                            <p class="mt-6 text-gray-300">{{ __('Check out our socials') }}</p>
                             <ul class="list-none mt-6">
                                 @if(false)
                                     <li class="inline"><a href="https://1.envato.market/techwind" target="_blank" class="h-8 w-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center text-gray-400 hover:text-white border border-gray-100 dark:border-gray-800 rounded-md hover:border-indigo-600 dark:hover:border-indigo-600 hover:bg-indigo-600 dark:hover:bg-indigo-600"><i class="uil uil-shopping-cart align-middle" title="Buy Now"></i></a></li>
@@ -47,7 +47,7 @@
                         </div><!--end col-->
 
                         <div class="lg:col-span-3 md:col-span-4">
-                            <h5 class="tracking-[1px] text-gray-100 font-semibold">&nbsp;</h5>
+                            <h5 class="tracking-[1px] text-black dark:text-white font-semibold">{{ __('Usefull Links') }}</h5>
                             <ul class="list-none footer-list mt-6">
                                 <li><a href="{{ route('dashboard.terms_of_service') }}" class="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b"></i> {{ __('Terms of Services') }}</a></li>
                                 <li class="mt-[10px]"><a href="{{ route('dashboard.privacy_policy') }}" class="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b"></i> {{ __('Privacy Policy') }}</a></li>
@@ -93,7 +93,7 @@
         <div class="container relative text-center">
             <div class="grid md:grid-cols-2 items-center">
                 <div class="md:text-start text-center">
-                    <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> {{ config('app.name', 'Laravel') }}. Design with <i class="mdi mdi-heart text-red-600"></i> by <a href="https://noop.pt/" target="_blank" class="text-reset">Noop</a>.</p>
+                    <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> {{ config('app.name', 'Laravel') }}. {{ __('Design with') }} <i class="mdi mdi-heart text-red-600"></i> {{ __('by') }} <a href="https://noop.pt/" target="_blank" class="text-reset">Noop</a>.</p>
                 </div>
 
                 <ul class="list-none md:text-end text-center mt-6 md:mt-0">

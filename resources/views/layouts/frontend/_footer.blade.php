@@ -18,7 +18,7 @@
                             <a href="{{ route('home') }}" class="text-[22px] focus:outline-none">
                                 <img src="{{ asset('images/logo-light.png') }}" class="h-12" alt="{{ config('app.name', 'Laravel') }}">
                             </a>
-                            <p class="mt-6 text-gray-300">{{ 'Some text' }}</p>
+                            <p class="mt-6 text-gray-300">{{ __('Check out our socials') }}</p>
                             <ul class="list-none mt-6">
                                 @if(false)
                                     <li class="inline"><a href="https://1.envato.market/techwind" target="_blank" class="size-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center border border-gray-800 rounded-md hover:border-indigo-600 dark:hover:border-indigo-600 hover:bg-indigo-600 dark:hover:bg-indigo-600"><i class="uil uil-shopping-cart align-middle" title="Buy Now"></i></a></li>
@@ -45,22 +45,13 @@
                         @endif
 
                         <div class="lg:col-span-3 md:col-span-4">
-                            <h5 class="tracking-[1px] text-gray-100 font-semibold">{{ __('Usefull Links') }}</h5>
-                            <ul class="list-none footer-list mt-6">
-                                <li><a href="{{ route('login') }}" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b"></i> {{ __('Login') }}</a></li>
-                                @if(false)
-                                    <li class="mt-[10px]"><a href="#services" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b"></i> {{ __('Services') }}</a></li>
-                                @endif
-                                <li class="mt-[10px]"><a href="{{ route('home') }}#price" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b"></i> {{ __('Pricing') }}</a></li>
-                            </ul>
                         </div><!--end col-->
 
                         <div class="lg:col-span-3 md:col-span-4">
-                            <h5 class="tracking-[1px] text-gray-100 font-semibold">&nbsp;</h5>
+                            <h5 class="tracking-[1px] text-gray-100 font-semibold">{{ __('Usefull Links') }}</h5>
                             <ul class="list-none footer-list mt-6">
                                 <li><a href="{{ route('dashboard.terms_of_service') }}" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b"></i> {{ __('Terms of Services') }}</a></li>
                                 <li class="mt-[10px]"><a href="{{ route('dashboard.privacy_policy') }}" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b"></i> {{ __('Privacy Policy') }}</a></li>
-                                <li class="mt-[10px]"><a href="{{ route('dashboard.cookies_policy') }}" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b"></i> {{ __('Cookies') }}</a></li>
                                 @if(true)
                                     <li class="mt-[10px]"><a href="https://www.livroreclamacoes.pt/" target="_blank" class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i class="uil uil-angle-right-b"></i> {{ __('Complaining book') }}</a></li>
                                 @endif
@@ -102,7 +93,7 @@
         <div class="container relative text-center">
             <div class="grid md:grid-cols-2 items-center">
                 <div class="md:text-start text-center">
-                    <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> {{ config('app.name', 'Laravel') }}. Design with <i class="mdi mdi-heart text-red-600"></i> by <a href="https://noop.pt/" target="_blank" class="text-reset">Noop</a>.</p>
+                    <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> {{ config('app.name', 'Laravel') }}. {{ __('Design with') }} <i class="mdi mdi-heart text-red-600"></i> {{ __('by') }} <a href="https://noop.pt/" target="_blank" class="text-reset">Noop</a>.</p>
                 </div>
                 @if(false)
                     <ul class="list-none md:text-end text-center mt-6 md:mt-0">

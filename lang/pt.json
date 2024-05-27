@@ -162,7 +162,7 @@
     "This password does not match our records.": "Esta palavra-passe não tem correspondência nos nossos registos.",
     "This password reset link will expire in :count minutes.": "O Link para redefinir a palavra-passe vai expirar em :count minutos.",
     "This user already belongs to the team.": "Este utilizador já pertence à equipa.",
-    "This user has already been invited to the team.": "Este usuário já foi convidado para a equipe.",
+    "This user has already been invited to the team.": "Este utilizador já foi convidado para a equipa.",
     "to": "até",
     "To finish enabling two factor authentication, scan the following QR code using your phone's authenticator application or enter the setup key and provide the generated OTP code.": "Para concluir a autenticação de dois factores, digitalize o seguinte código QR usando a aplicação autenticadora do seu telefone ou introduza a chave de configuração e forneça o código OTP gerado.",
     "Toggle navigation": "Alternar navegação",
@@ -365,5 +365,17 @@
     "Remove session": "Remover sessão",
     "Remove ticket": "Remover bilhete",
     "Venue Address": "Endereço do local",
-    "Session description": "Descrição da sessão"
+    "Session description": "Descrição da sessão",
+    "Our Creativity Is Your": "A nossa criatividade é o seu",
+    "Success": "Sucesso",
+    "An all-in-one management platform for live and online events": "Uma plataforma de gestão tudo-em-um para eventos presenciais e online",
+    "Change the way you manage your events": "Mude a forma como gere os seus eventos",
+    "These are some of our features": "Estas são algumas das nossas funcionalidades",
+    "Free": "Grátis",
+    "In-platform tickets validation": "Validação de bilhetes na plataforma",
+    "In-platform payment validation": "Validação de pagamentos na plataforma",
+    "Design with": "Design com",
+    "by": "por",
+    "Check out our socials": "Visite as nossas redes sociais",
+    "Usefull Links": "Links úteis"
 }
