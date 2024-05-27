@@ -30,7 +30,7 @@
                     Os materiais exibidos no site da Event Manager podem incluir erros técnicos, tipográficos ou fotográficos. Event Manager não garante que qualquer material em seu site seja preciso, completo ou atual. Event Manager pode fazer alterações nos materiais contidos em seu site a qualquer momento, sem aviso prévio. No entanto, Event Manager não se compromete a atualizar os materiais.
 
                     6. Links
-                    O Event Manager não analisou todos os sites vinculados ao seu site e não é responsável pelo conteúdo de nenhum site vinculado. A inclusão de qualquer link não implica endosso por Event Manager do site. O uso de qualquer site vinculado é por conta e risco do usuário.
+                    O Event Manager não analisou todos os sites vinculados ao seu site e não é responsável pelo conteúdo de nenhum site vinculado. A inclusão de qualquer link não implica endosso por Event Manager do site. O uso de qualquer site vinculado é por conta e risco do utilizador.
 
 
 

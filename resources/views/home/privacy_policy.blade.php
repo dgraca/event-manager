@@ -20,7 +20,7 @@
 
                     Você é livre para recusar a nossa solicitação de informações pessoais, entendendo que talvez não possamos fornecer alguns dos serviços desejados.
 
-                    O uso continuado de nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais. Se você tiver alguma dúvida sobre como lidamos com dados do usuário e informações pessoais, entre em contacto connosco.
+                    O uso continuado de nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais. Se você tiver alguma dúvida sobre como lidamos com dados do utilizador e informações pessoais, entre em contacto connosco.
 
 
                     O serviço Google AdSense que usamos para veicular publicidade usa um cookie DoubleClick para veicular anúncios mais relevantes em toda a Web e limitar o número de vezes que um determinado anúncio é exibido para você.
@@ -30,7 +30,7 @@
 
 
                     Compromisso do Usuário
-                    O usuário se compromete a fazer uso adequado dos conteúdos e da informação que o Event Manager oferece no site e com caráter enunciativo, mas não limitativo:
+                    O utilizador se compromete a fazer uso adequado dos conteúdos e da informação que o Event Manager oferece no site e com caráter enunciativo, mas não limitativo:
 
                     A) Não se envolver em atividades que sejam ilegais ou contrárias à boa fé a à ordem pública;
                     B) Não difundir propaganda ou conteúdo de natureza racista, xenofóbica, bbebbet ou azar, qualquer tipo de pornografia ilegal, de apologia ao terrorismo ou contra os direitos humanos;
