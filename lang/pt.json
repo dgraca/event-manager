@@ -361,5 +361,9 @@
     "Updated At": "Atualizado em",
     "Validation Result": "Resultado da validação",
     "Valid ticket": "Bilhete válido",
-    "Invalid ticket": "Bilhete inválido"
+    "Invalid ticket": "Bilhete inválido",
+    "Remove session": "Remover sessão",
+    "Remove ticket": "Remover bilhete",
+    "Venue Address": "Endereço do local",
+    "Session description": "Descrição da sessão"
 }

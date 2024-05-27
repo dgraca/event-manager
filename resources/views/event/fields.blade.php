@@ -294,23 +294,23 @@
 </div>
 
 <!-- Type Field -->
-<div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="type">{{ $event->getAttributeLabel('type') }}</x-base.form-label>
-    <x-base.form-select
-        :tw-merge="false"
-        class="w-full {{ ($errors->has('eventForm.event.type') ? 'border-danger' : '') }}"
-        wire:model="eventForm.event.type"
-        type="text"
-    >
-        <option >{{ __('Select an option') }}</option>
-        @foreach(\App\Models\Event::getTypeArray() as $key => $label)
-            <option wire:key="event-type-{{ $key }}" value="{{ $key }}" {{ old('type', $event->status ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>
-        @endforeach
-    </x-base.form-select>
-    @error('eventForm.event.type')
-    <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
-</div>
+{{--<div class="mb-3">--}}
+{{--    <x-base.form-label :tw-merge="false" for="type">{{ $event->getAttributeLabel('type') }}</x-base.form-label>--}}
+{{--    <x-base.form-select--}}
+{{--        :tw-merge="false"--}}
+{{--        class="w-full {{ ($errors->has('eventForm.event.type') ? 'border-danger' : '') }}"--}}
+{{--        wire:model="eventForm.event.type"--}}
+{{--        type="text"--}}
+{{--    >--}}
+{{--        <option >{{ __('Select an option') }}</option>--}}
+{{--        @foreach(\App\Models\Event::getTypeArray() as $key => $label)--}}
+{{--            <option wire:key="event-type-{{ $key }}" value="{{ $key }}" {{ old('type', $event->status ?? '') == $key ? 'selected' : '' }}>{{ $label }}</option>--}}
+{{--        @endforeach--}}
+{{--    </x-base.form-select>--}}
+{{--    @error('eventForm.event.type')--}}
+{{--    <div class="mt-2 text-danger">{{ $message }}</div>--}}
+{{--    @enderror--}}
+{{--</div>--}}
 
 <!-- Status Field -->
 <div class="mb-3">

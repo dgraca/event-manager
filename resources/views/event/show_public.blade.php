@@ -159,9 +159,7 @@ view()->share('pageTitle', __('Homepage'));
                                                     <div class="flex items-center">
                                                         <div class="ms-4">
                                                             <p class="text-lg font-semibold">{{ $sessionTicket->eventSession->name }}</p>
-                                                            @if($sessionTicket->eventSession->description)
-                                                                <p class="text-slate-400 -mt-2">{{ $sessionTicket->eventSession->description }}</p>
-                                                            @endif
+                                                            <p class="text-base font-light">{{ \App\Models\EventSession::getTypeArray()[$sessionTicket->eventSession->type] }}</p>
                                                         </div>
                                                     </div>
                                                 </td>

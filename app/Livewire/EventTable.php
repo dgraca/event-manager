@@ -96,11 +96,11 @@ class EventTable extends Component implements HasForms, HasTable
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
-            TextColumn::make("type")
-                ->label($newModel->getAttributeLabel("type"))
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
+            //TextColumn::make("type")
+            //    ->label($newModel->getAttributeLabel("type"))
+            //    ->sortable()
+            //    ->toggleable()
+            //    ->searchable(),
             TextColumn::make("status")
                 ->label($newModel->getAttributeLabel("status"))
                 ->formatStateUsing(fn (Event $record): string => $record->statusLabel)

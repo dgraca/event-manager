@@ -36,6 +36,12 @@
                         <p class="text-gray-600">{{ __('Venue Address') }}</p>
                         <p class="font-bold">{{ $event->venue->address }}</p>
                     </div>
+                    @if($ticket->eventSessionTicket->eventSession->description != null)
+                        <div class="mt-4 flex justify-between">
+                            <p class="text-gray-600">{{ __('Session description') }}</p>
+                            <p class="font-bold">{{ $ticket->eventSessionTicket->eventSession->description }}</p>
+                        </div>
+                    @endif
                     <div class="mt-8 flex justify-center">
                         {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->generate($ticket->qr_code_url); !!}
                     </div>

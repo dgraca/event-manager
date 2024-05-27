@@ -361,5 +361,9 @@
     "Updated At": "Updated At",
     "Validation Result": "Validation Result",
     "Valid ticket": "Valid ticket",
-    "Invalid ticket": "Invalid ticket"
+    "Invalid ticket": "Invalid ticket",
+    "Remove session": "Remove session",
+    "Remove ticket": "Remove ticket",
+    "Venue Address": "Venue Address",
+    "Session description": "Session description"
 }

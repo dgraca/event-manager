@@ -23,7 +23,6 @@ class EventForm extends Form
     public $registration_note;
     public $pre_approval;
     public $max_capacity;
-    public $type;
     public $status;
 
     public function rules()
@@ -38,7 +37,6 @@ class EventForm extends Form
             'event.end_date' => 'required',
             'event.registration_note' => 'nullable|string|max:65535',
             'event.max_capacity' => 'required|integer',
-            'event.type' => 'required|integer',
             'event.status' => 'required|integer',
         ];
     }
@@ -58,7 +56,6 @@ class EventForm extends Form
             'registration_note' => $ev->registration_note ?? '',
             'pre_approval' => $ev->pre_approval ?? 0,
             'max_capacity' => $ev->max_capacity ?? 0,
-            'type' => $ev->type ?? null,
             'status' => $ev->status ?? null,
         ];
     }
