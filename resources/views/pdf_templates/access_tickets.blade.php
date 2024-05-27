@@ -9,6 +9,7 @@
             <div class="mx-auto max-w-md rounded-lg bg-white p-8 shadow-md">
                 <div class="text-center">
                     <h1 class="text-3xl font-bold">{{ $event->name }}</h1>
+                    <h3 class="text-xl font-bold">{{ __('Transaction Id') }}: {{ $ticket->transaction->id}}</h3>
                     <div class="mt-4 flex flex-row items-center justify-between">
                         <p class="text-gray-600">{{ $event->start_date->format('Y-m-d') }}</p>
                         <p class="text-gray-600">-</p>
