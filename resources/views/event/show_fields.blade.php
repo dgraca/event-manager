@@ -1,12 +1,13 @@
-<!-- Buying page URL Field -->
-<div class="grid grid-cols-1 md:grid-cols-3">
-    <dt class="font-medium md:col-span-1">{{ $event->getAttributeLabel('sales_url') }}</dt>
-    <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">
-        <a href="{{ route('events.show_public', $event->slug) }}">{{ route('events.show_public', $event->slug) }}</a>
-    </dd>
-</div>
-<div class="mt-5 w-full border-t border-slate-200/60 dark:border-darkmode-400 last-of-type:hidden"></div>
-
+@if($event->getStatusArray()[$event->status] != __('Draft'))
+    <!-- Buying page URL Field -->
+    <div class="grid grid-cols-1 md:grid-cols-3">
+        <dt class="font-medium md:col-span-1">{{ $event->getAttributeLabel('sales_url') }}</dt>
+        <dd class="text-slate-500 dark:text-slate-300 md:col-span-2">
+            <a href="{{ route('events.show_public', $event->slug) }}">{{ route('events.show_public', $event->slug) }}</a>
+        </dd>
+    </div>
+    <div class="mt-5 w-full border-t border-slate-200/60 dark:border-darkmode-400 last-of-type:hidden"></div>
+@endif
 <!-- Validate access tickets URL Field -->
 <div class="grid grid-cols-1 md:grid-cols-3">
     <dt class="font-medium md:col-span-1">{{ $event->getAttributeLabel('validate_tickets') }}</dt>
