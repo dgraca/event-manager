@@ -41,6 +41,13 @@ class EventCreator extends Component
         } else {
             $sessions = $event->eventSessions;
             $this->eventSessionForm->sessions = $sessions->toArray();
+
+            // Format the sessions dates correctly
+            foreach ($this->eventSessionForm->sessions as $key => $session) {
+                $this->eventSessionForm->sessions[$key]['start_date'] = Carbon::parse($session['start_date'])->format('Y-m-d H:i');
+                $this->eventSessionForm->sessions[$key]['end_date'] = Carbon::parse($session['end_date'])->format('Y-m-d H:i');
+            }
+
             $this->ticketForm->tickets = $event->tickets->toArray();
 
             // get associations between sessions and tickets
@@ -69,8 +76,8 @@ class EventCreator extends Component
             'name' => 'Sessão padrão',
             'description' => '',
             'max_capacity' => 0,
-            'start_date' => Carbon::now()->format('Y-m-d'),
-            'end_date' => Carbon::now()->format('Y-m-d'),
+            'start_date' => Carbon::now()->format('Y-m-d H:i'),
+            'end_date' => Carbon::now()->format('Y-m-d H:i'),
             'type' => null,
         ]);
         $this->ticketForm->addTicket([
@@ -181,8 +188,8 @@ class EventCreator extends Component
         $eventSessionTicket->ticket_id = $ticket->id;
         $eventSessionTicket->limit = $eventSessionTicket->id === null ? 0 : $eventSessionTicket->limit;
         $eventSessionTicket->count = $eventSessionTicket->id === null ? 0 : $eventSessionTicket->count;
-        $eventSessionTicket->scheduled_start = $eventSessionTicket->id === null ? $event->scheduled_start : $eventSessionTicket->scheduled_start;
-        $eventSessionTicket->scheduled_end = $eventSessionTicket->id === null ? $event->scheduled_end : $eventSessionTicket->scheduled_end;
+        $eventSessionTicket->scheduled_start = $eventSessionTicket->id === null ? $event->scheduled_start->format('Y-m-d H:i') : $eventSessionTicket->scheduled_start->format('Y-m-d H:i');
+        $eventSessionTicket->scheduled_end = $eventSessionTicket->id === null ? $event->scheduled_end->format('Y-m-d H:i') : $eventSessionTicket->scheduled_end->format('Y-m-d H:i');
         $eventSessionTicket->save();
     }
 }

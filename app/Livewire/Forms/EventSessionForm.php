@@ -31,8 +31,8 @@ class EventSessionForm extends Form
             'name' => 'Nova Sessão',
             'description' => '',
             'max_capacity' => 0,
-            'start_date' => now(),
-            'end_date' => now(),
+            'start_date' => now()->format('Y-m-d H:i'),
+            'end_date' => now()->format('Y-m-d H:i'),
             'type' => null,
         ];
     }
