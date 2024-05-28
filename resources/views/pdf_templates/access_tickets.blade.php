@@ -27,7 +27,7 @@
                     </div>
                     <div class="mt-4 flex justify-between">
                         <p class="text-gray-600">{{ __('Price') }}</p>
-                        <p class="font-bold">{{ $ticket->price }}</p>
+                        <p class="font-bold">{{ $ticket->eventSessionTicket->ticket->price }}</p>
                     </div>
                     <div class="mt-4 flex justify-between">
                         <p class="text-gray-600">{{ __('Venue') }}</p>
