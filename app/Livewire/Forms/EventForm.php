@@ -22,7 +22,6 @@ class EventForm extends Form
     public $end_date;
     public $registration_note;
     public $pre_approval;
-    public $max_capacity;
     public $status;
 
     public function rules()
@@ -36,7 +35,6 @@ class EventForm extends Form
             'event.start_date' => 'required',
             'event.end_date' => 'required',
             'event.registration_note' => 'nullable|string|max:65535',
-            'event.max_capacity' => 'required|integer',
             'event.status' => 'required|integer',
         ];
     }
@@ -55,7 +53,6 @@ class EventForm extends Form
             'end_date' => $ev->end_date?->format('Y-m-d H:i') ?? Carbon::now()->format('Y-m-d H:i'),
             'registration_note' => $ev->registration_note ?? '',
             'pre_approval' => $ev->pre_approval ?? 0,
-            'max_capacity' => $ev->max_capacity ?? 0,
             'status' => $ev->status ?? null,
         ];
     }

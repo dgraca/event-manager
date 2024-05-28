@@ -104,7 +104,6 @@ class Event extends Model implements Auditable
         'end_date',
         'registration_note',
         'pre_approval',
-        'max_capacity',
         'status'
     ];
 

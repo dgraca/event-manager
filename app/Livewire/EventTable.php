@@ -91,11 +91,11 @@ class EventTable extends Component implements HasForms, HasTable
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
-            TextColumn::make("max_capacity")
-                ->label($newModel->getAttributeLabel("max_capacity"))
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
+            //TextColumn::make("max_capacity")
+            //    ->label($newModel->getAttributeLabel("max_capacity"))
+            //    ->sortable()
+            //    ->toggleable()
+            //    ->searchable(),
             //TextColumn::make("type")
             //    ->label($newModel->getAttributeLabel("type"))
             //    ->sortable()

@@ -279,19 +279,19 @@
 </div>
 
 <!-- Max Capacity Field -->
-<div class="mb-3">
-    <x-base.form-label :tw-merge="false" for="max_capacity">{{ $event->getAttributeLabel('max_capacity') }}</x-base.form-label>
-    <x-base.form-input
-        :tw-merge="false"
-        class="w-full {{ ($errors->has('eventForm.event.max_capacity') ? 'border-danger' : '') }}"
-        wire:model="eventForm.event.max_capacity"
-        type="number"
-        step="1"
-    />
-    @error('eventForm.event.max_capacity')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-    @enderror
-</div>
+{{--<div class="mb-3">--}}
+{{--    <x-base.form-label :tw-merge="false" for="max_capacity">{{ $event->getAttributeLabel('max_capacity') }}</x-base.form-label>--}}
+{{--    <x-base.form-input--}}
+{{--        :tw-merge="false"--}}
+{{--        class="w-full {{ ($errors->has('eventForm.event.max_capacity') ? 'border-danger' : '') }}"--}}
+{{--        wire:model="eventForm.event.max_capacity"--}}
+{{--        type="number"--}}
+{{--        step="1"--}}
+{{--    />--}}
+{{--    @error('eventForm.event.max_capacity')--}}
+{{--        <div class="mt-2 text-danger">{{ $message }}</div>--}}
+{{--    @enderror--}}
+{{--</div>--}}
 
 <!-- Type Field -->
 {{--<div class="mb-3">--}}
