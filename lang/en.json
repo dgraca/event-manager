@@ -382,6 +382,8 @@
     "Usefull Links": "Usefull Links",
     "Your access ticket is attached.": "Your access ticket is attached.",
     "Max capacity reached for session :session": "Max capacity reached for session :session",
+    "The ticket buying period hasn't started yet.": "The ticket buying period hasn't started yet.",
+    "The ticket purchase period is over!": "The ticket purchase period is over!",
 
     "line1": "An all-in-one management",
     "line2": "Platform",

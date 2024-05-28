@@ -382,6 +382,8 @@
     "Usefull Links": "Links úteis",
     "Your access ticket is attached.": "O seu bilhete de acesso segue em anexo.",
     "Max capacity reached for session :session": "Capacidade máxima atingida para a sessão :session",
+    "The ticket buying period hasn't started yet.": "O período de compra de bilhetes ainda não começou.",
+    "The ticket purchase period is over!": "O período de compra de bilhetes terminou!",
 
     "line1": "Uma plataforma de gestão",
     "line2": "Completa",

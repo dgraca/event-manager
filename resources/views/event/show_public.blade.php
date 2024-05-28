@@ -120,108 +120,121 @@ view()->share('pageTitle', __('Homepage'));
                 <h3 class="md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">{{ __('Sessions') }}</h3>
             </div><!--end grid-->
 
-            {{--
+{{--            Compare the time right now with the schedule start and schedule end --}}
+{{--            if its before schedule start, show message saying that the period to buy tickets didn't start --}}
+{{--            if its after schedule end, show message saying that the period to buy tickets ended --}}
+            @if(now()->lt($event->scheduled_start))
+                <div class="my-16 px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                    <p class="text-center text-2xl">{{ __("The ticket buying period hasn't started yet.") }}</p>
+                </div>
+            @elseif(now()->gt($event->scheduled_start) && now()->lt($event->scheduled_end))
+                {{--
                 If status is available, show form.
                 If status is cancelled, show message saying it was cancelled
                 If status is closed, show message saying buying phase is closed
                 If status is finihed, show message saying event is finished
             --}}
-            @if($event->status == \App\Models\Event::STATUS_CANCELLED)
-                <div class="mb-24 text-center">
-                    <p class="text-xl text-red-500">{{ __('This event has been cancelled.') }}</p>
-                </div>
-            @elseif($event->status == \App\Models\Event::STATUS_CLOSED)
-                <div class="mb-24 text-center">
-                    <p class="text-xl text-red-500">{{ __('The buying phase for this event is closed.') }}</p>
-                </div>
-            @elseif($event->status == \App\Models\Event::STATUS_FINISHED)
-                <div class="mb-24 text-center">
-                    <p class="text-xl text-red-500">{{ __('This event has finished.') }}</p>
-                </div>
-            @else
-                <form method="POST" action="{{ route('access-tickets.store') }}">
-                    @csrf
+                @if($event->status == \App\Models\Event::STATUS_CANCELLED)
+                    <div class="mb-24 text-center">
+                        <p class="text-xl text-red-500">{{ __('This event has been cancelled.') }}</p>
+                    </div>
+                @elseif($event->status == \App\Models\Event::STATUS_CLOSED)
+                    <div class="mb-24 text-center">
+                        <p class="text-xl text-red-500">{{ __('The buying phase for this event is closed.') }}</p>
+                    </div>
+                @elseif($event->status == \App\Models\Event::STATUS_FINISHED)
+                    <div class="mb-24 text-center">
+                        <p class="text-xl text-red-500">{{ __('This event has finished.') }}</p>
+                    </div>
+                @else
+                    <form method="POST" action="{{ route('access-tickets.store') }}">
+                        @csrf
 
-                    <div class="grid grid-cols-1">
-                        <div class="mt-1 mb-12">
-                            <div class="grid grid-cols-1">
-                                <div class="relative overflow-x-auto bg-white dark:bg-slate-900">
-                                    <table class="w-full text-start">
-                                        <tbody>
-                                        @foreach($sessionTickets as $sessionTicket)
-                                            <tr wire:key="{{ $sessionTicket->id }}">
-                                                <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[200px] text-slate-400">
-                                                    {{ $sessionTicket->eventSession->start_date->format('Y-m-d') }}<br />
-                                                    <i class="uil uil-angle-right-b"></i><br />
-                                                    {{ $sessionTicket->eventSession->end_date->format('Y-m-d') }}
-                                                </td>
-                                                <td class="p-3 border-b border-gray-100 dark:border-gray-700 min-w-[540px] py-12 px-5">
-                                                    <div class="flex items-center">
-                                                        <div class="ms-4">
-                                                            <p class="text-lg font-semibold">{{ $sessionTicket->eventSession->name }}</p>
-                                                            <p class="text-base font-light">{{ \App\Models\EventSession::getTypeArray()[$sessionTicket->eventSession->type] }}</p>
+                        <div class="grid grid-cols-1">
+                            <div class="mt-1 mb-12">
+                                <div class="grid grid-cols-1">
+                                    <div class="relative overflow-x-auto bg-white dark:bg-slate-900">
+                                        <table class="w-full text-start">
+                                            <tbody>
+                                            @foreach($sessionTickets as $sessionTicket)
+                                                <tr wire:key="{{ $sessionTicket->id }}">
+                                                    <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[200px] text-slate-400">
+                                                        {{ $sessionTicket->eventSession->start_date->format('Y-m-d') }}<br />
+                                                        <i class="uil uil-angle-right-b"></i><br />
+                                                        {{ $sessionTicket->eventSession->end_date->format('Y-m-d') }}
+                                                    </td>
+                                                    <td class="p-3 border-b border-gray-100 dark:border-gray-700 min-w-[540px] py-12 px-5">
+                                                        <div class="flex items-center">
+                                                            <div class="ms-4">
+                                                                <p class="text-lg font-semibold">{{ $sessionTicket->eventSession->name }}</p>
+                                                                <p class="text-base font-light">{{ \App\Models\EventSession::getTypeArray()[$sessionTicket->eventSession->type] }}</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px] text-slate-400">
-                                                    <span class="block">{{ $sessionTicket->ticket->name }}</span>
-                                                    <span class="block text-black dark:text-white text-md mt-1">{{ $sessionTicket->ticket->price }} ({{ $sessionTicket->ticket->currency }})</span>
-                                                </td>
-                                                @if($sessionTicket->isSoldOut)
-                                                    <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px]">
-                                                        <p class="text-lg font-semibold tracking-wider">{{ __('SOLD OUT') }}</p>
                                                     </td>
-                                                @else
-                                                    <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px]">
-                                                        <input name="tickets[{{ $sessionTicket->id }}]" type="number" class="w-20 h-10 border bg-transparent border-primary dark:border-primary rounded-md text-center" value="{{ old('tickets[' . $sessionTicket->id . ']', 0) }}" min="0" max="{{ $sessionTicket->ticket->max_tickets_per_order > 0 ? $sessionTicket->ticket->max_tickets_per_order : 99 }}">
+                                                    <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px] text-slate-400">
+                                                        <span class="block">{{ $sessionTicket->ticket->name }}</span>
+                                                        <span class="block text-black dark:text-white text-md mt-1">{{ $sessionTicket->ticket->price }} ({{ $sessionTicket->ticket->currency }})</span>
                                                     </td>
-                                                @endif
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                    @error('tickets')
+                                                    @if($sessionTicket->isSoldOut)
+                                                        <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px]">
+                                                            <p class="text-lg font-semibold tracking-wider">{{ __('SOLD OUT') }}</p>
+                                                        </td>
+                                                    @else
+                                                        <td class="text-center border-b border-gray-100 dark:border-gray-700 py-12 px-5 min-w-[180px]">
+                                                            <input name="tickets[{{ $sessionTicket->id }}]" type="number" class="w-20 h-10 border bg-transparent border-primary dark:border-primary rounded-md text-center" value="{{ old('tickets[' . $sessionTicket->id . ']', 0) }}" min="0" max="{{ $sessionTicket->ticket->max_tickets_per_order > 0 ? $sessionTicket->ticket->max_tickets_per_order : 99 }}">
+                                                        </td>
+                                                    @endif
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                        @error('tickets')
                                         <div class="mt-2 text-red-500">{{ $message }}</div>
-                                    @enderror
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="flex flex-col gap-4 mb-24 xl:mb-32">
-                        <h1 class="my-4 text-center tracking-wide font-semibold text-lg">{{ __('Billing information') }}</h1>
-                        <div class="flex flex-row items-center justify-between gap-4">
-                            <div class="mb-3 w-full flex flex-col">
-                                <x-base.form-label :tw-merge="false"
-                                                   for="description">{{ \App\Models\EventSession::getAttributeLabelStatic('name') }}</x-base.form-label>
-                                <input value="{{ old('name', '') }}" name="name" type="text" placeholder="{{ \App\Models\EventSession::getAttributeLabelStatic('name') }}" class="w-full h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required>
-                                @error('name')
+                        <div class="flex flex-col gap-4 mb-24 xl:mb-32">
+                            <h1 class="my-4 text-center tracking-wide font-semibold text-lg">{{ __('Billing information') }}</h1>
+                            <div class="flex flex-row items-center justify-between gap-4">
+                                <div class="mb-3 w-full flex flex-col">
+                                    <x-base.form-label :tw-merge="false"
+                                                       for="description">{{ \App\Models\EventSession::getAttributeLabelStatic('name') }}</x-base.form-label>
+                                    <input value="{{ old('name', '') }}" name="name" type="text" placeholder="{{ \App\Models\EventSession::getAttributeLabelStatic('name') }}" class="w-full h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required>
+                                    @error('name')
                                     <div class="mt-2 text-danger">{{ $message }}</div>
-                                @enderror
+                                    @enderror
+                                </div>
+                                <div class="mb-3 w-full flex flex-col">
+                                    <x-base.form-label :tw-merge="false"
+                                                       for="description">{{ \App\Models\Venue::getAttributeLabelStatic('email') }}</x-base.form-label>
+                                    <input value="{{ old('email', '') }}" name="email" type="email" placeholder="{{ \App\Models\Venue::getAttributeLabelStatic('email') }}" class="w-full h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required>
+                                </div>
                             </div>
-                            <div class="mb-3 w-full flex flex-col">
+                            <div class="w-full flex flex-col justify-between">
                                 <x-base.form-label :tw-merge="false"
-                                                   for="description">{{ \App\Models\Venue::getAttributeLabelStatic('email') }}</x-base.form-label>
-                                <input value="{{ old('email', '') }}" name="email" type="email" placeholder="{{ \App\Models\Venue::getAttributeLabelStatic('email') }}" class="w-full h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" required>
+                                                   for="phone">{{ \App\Models\Venue::getAttributeLabelStatic('phone') }}</x-base.form-label>
+                                <x-base.form-phone value="{{ old('phone', '') }}" id="phone" name="phone" placeholder="{{ \App\Models\Venue::getAttributeLabelStatic('phone') }}" class="w-1/2 h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" />
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <input type="hidden" name="event_id" value="{{ $event->id }}">
+                                <div class="w-full flex flex-row items-end gap-4">
+                                    @if(isset($paymentOption->bank_transfer))
+                                        <x-frontend.button type="submit" name="payment_method" value="bank_transfer" class="w-full hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ __('Buy tickets via Bank Transfer') }}</x-frontend.button>
+                                    @endif
+                                    @if(isset($paymentOption->paypal))
+                                        <x-frontend.button type="submit" name="payment_method" value="paypal" class="w-full hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ __('Buy tickets via Paypal') }}</x-frontend.button>
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                        <div class="w-full flex flex-col justify-between">
-                            <x-base.form-label :tw-merge="false"
-                                               for="phone">{{ \App\Models\Venue::getAttributeLabelStatic('phone') }}</x-base.form-label>
-                            <x-base.form-phone value="{{ old('phone', '') }}" id="phone" name="phone" placeholder="{{ \App\Models\Venue::getAttributeLabelStatic('phone') }}" class="w-1/2 h-10 bg-transparent border border-primary dark:border-primary rounded-md p-2" />
-                        </div>
-                        <div class="flex flex-col items-end">
-                            <input type="hidden" name="event_id" value="{{ $event->id }}">
-                            <div class="w-full flex flex-row items-end gap-4">
-                                @if(isset($paymentOption->bank_transfer))
-                                    <x-frontend.button type="submit" name="payment_method" value="bank_transfer" class="w-full hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ __('Buy tickets via Bank Transfer') }}</x-frontend.button>
-                                @endif
-                                @if(isset($paymentOption->paypal))
-                                    <x-frontend.button type="submit" name="payment_method" value="paypal" class="w-full hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ __('Buy tickets via Paypal') }}</x-frontend.button>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                @endif
+            @else
+                <div class="mb-24 text-center">
+                    <p class="text-2xl text-red-500">{{ __("The ticket purchase period is over!") }}</p>
+                </div>
             @endif
         </div><!--end container-->
     </section><!--end section-->
