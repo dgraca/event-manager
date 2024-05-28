@@ -69,6 +69,11 @@ class AccessTicketController extends Controller
                 throw new \Exception(__("Limit is exceeded"));
             }
 
+            // If the max capacity (for some session) is reached, throw an exception
+            if ($validationResult['maxCapacityReached']['status']) {
+                throw new \Exception(__("Max capacity reached for session :session", ['session' => $validationResult['maxCapacityReached']['session']->ticket->name]));
+            }
+
             // Save all access tickets
             foreach ($validationResult['accessTickets'] as $accessTicket) {
                 $accessTicket->save();
@@ -156,6 +161,7 @@ class AccessTicketController extends Controller
         $availability = true;
         $total = 0;
         $currency = 'EUR';
+        $maxCapacityReached = false;
 
         foreach ($request->tickets as $eventSessionTicketId => $quantity) {
             $quantity = (int) $quantity;
@@ -163,11 +169,11 @@ class AccessTicketController extends Controller
                 $eventSessionTicket = EventSessionTicket::find($eventSessionTicketId);
                 $eventSessionTickets[] = $eventSessionTicket;
 
-                // Get the session of the ticket
-                $eventSession = $eventSessionTicket->ticket;
-                $total += $eventSession->price * $quantity;
+                // Get ticket from the EventSessionTicket
+                $ticket = $eventSessionTicket->ticket;
+                $total += $ticket->price * $quantity;
 
-                $currency = $eventSession->currency;
+                $currency = $ticket->currency;
 
                 // Check how many tickets this email has already bought for this specific eventSession
                 $accessTicketsCount = AccessTicket::where('email', $request->email)
@@ -179,6 +185,13 @@ class AccessTicketController extends Controller
                 // Check if the limit is exceeded
                 if ($eventSessionTicket->limit > 0 && $accessTicketsCount >= $eventSessionTicket->limit) {
                     $availability = false;
+                    break;
+                }
+
+                // Check if this session has max capacity and if it is reached
+                if ($eventSessionTicket->eventSession->max_capacity > 0 && $eventSessionTicket->eventSession->max_capacity < $quantity - $eventSessionTicket->count) {
+                    $maxCapacityReached = true;
+                    $maxCapacityReachedSession = $eventSessionTicket;
                     break;
                 }
 
@@ -198,6 +211,10 @@ class AccessTicketController extends Controller
             'accessTickets' => $accessTickets,
             'total' => $total,
             'currency' => $currency,
+            'maxCapacityReached' => [
+                'status' => $maxCapacityReached,
+                'session' => $maxCapacityReachedSession ?? null,
+            ],
         ];
     }
 
