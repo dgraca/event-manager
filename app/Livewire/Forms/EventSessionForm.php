@@ -6,6 +6,7 @@ use App\Models\EventSession;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Nette\Schema\ValidationException;
 
 class EventSessionForm extends Form
 {
@@ -19,7 +20,7 @@ class EventSessionForm extends Form
             'sessions.*.name' => 'required|string|max:255',
             'sessions.*.description' => 'nullable|string|max:65535',
             'sessions.*.max_capacity' => 'required|integer',
-            'sessions.*.start_date' => 'required|date',
+            'sessions.*.start_date' => 'required|date|before:sessions.*.end_date',
             'sessions.*.end_date' => 'required|date',
             'sessions.*.type' => 'required|integer',
             'sessions.*.status' => 'nullable|integer',

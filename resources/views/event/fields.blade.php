@@ -124,9 +124,6 @@
                 />
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('eventForm.event.scheduled_start')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-        @enderror
     </div>
 
     <!-- Scheduled End Field -->
@@ -161,11 +158,11 @@
                 />
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('eventForm.event.scheduled_end')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-        @enderror
     </div>
 </div>
+@error('eventForm.event.scheduled_start')
+<div class="mb-6 text-danger">{{ $message }}</div>
+@enderror
 
 <div class="flex flex-row items-center justify-between gap-2">
     <!-- Start Date Field -->
@@ -200,9 +197,6 @@
                 />
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('eventForm.event.start_date')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-        @enderror
     </div>
 
     <!-- End Date Field -->
@@ -236,11 +230,11 @@
                 />
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('eventForm.event.end_date')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-        @enderror
     </div>
 </div>
+@error('eventForm.event.start_date')
+<div class="mb-6 text-danger">{{ $message }}</div>
+@enderror
 
 <!-- Registration Note Field -->
 <div class="mb-3">

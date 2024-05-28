@@ -103,9 +103,6 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="x" data-lucide="x" class="lucide lucide-x stroke-1.5 h-5 w-5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('eventSessionForm.sessions.' . $index . '.start_date')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-        @enderror
     </div>
 
     <!-- End Date Field -->
@@ -134,11 +131,11 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="x" data-lucide="x" class="lucide lucide-x stroke-1.5 h-5 w-5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </x-base.input-group.text>
         </x-base.input-group>
-        @error('eventSessionForm.sessions.' . $index . '.end_date')
-        <div class="mt-2 text-danger">{{ $message }}</div>
-        @enderror
     </div>
 </div>
+@error('eventSessionForm.sessions.'. $index . '.start_date')
+<div class="mb-6 text-danger">{{ $message }}</div>
+@enderror
 
 <!-- Rrule Field -->
 {{--<div class="mb-3">--}}
