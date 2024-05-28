@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])->name('home');
 
 
-Route::get('/admin/cookies-policy', [\App\Http\Controllers\DashboardController::class,'cookiesPolicy'])->name('dashboard.cookies_policy');
-Route::get('/admin/privacy-policy', [\App\Http\Controllers\DashboardController::class,'privacyPolicy'])->name('dashboard.privacy_policy');
-Route::get('/admin/terms-of-service', [\App\Http\Controllers\DashboardController::class,'termsOfService'])->name('dashboard.terms_of_service');
+//Route::get('/cookies-policy', [\App\Http\Controllers\DashboardController::class,'cookiesPolicy'])->name('dashboard.cookies_policy');
+Route::get('/privacy-policy', [\App\Http\Controllers\DashboardController::class,'privacyPolicy'])->name('dashboard.privacy_policy');
+Route::get('/terms-of-service', [\App\Http\Controllers\DashboardController::class,'termsOfService'])->name('dashboard.terms_of_service');
 
 
 /* NÂO meti isto porque usei um middleware para fazer a validação do recaptcha ver se faz sentido usar em todo o lado isto
@@ -44,13 +44,16 @@ Route::middleware([
     'ensure-profile-name',
     config('jetstream.auth_session'),
     'verified',
+    'ensure-payment-data',
 ])->prefix('admin')->group(function () {
     Route::get('/', [\App\Http\Controllers\DashboardController::class,'index'])->name('dashboard');
 
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::patch('/user/profile', [App\Http\Controllers\UserController::class, 'updateMe'])->name('users.update_me');
 
-    Route::impersonate();
+    //Route::impersonate();
+
+    Route::get('/event/{slug}/transactions', [\App\Http\Controllers\EventController::class, 'showTransactions'])->name('events.transactions');
 
     Route::resource('settings', App\Http\Controllers\SettingController::class);
     Route::get('translations/{groupKey?}', '\Barryvdh\TranslationManager\Controller@getIndex')->where('groupKey', '.*')->name('translations.index');
@@ -64,9 +67,11 @@ Route::middleware([
     Route::resource('tickets', App\Http\Controllers\TicketController::class);
     Route::resource('events', App\Http\Controllers\EventController::class);
     Route::resource('payment-options', App\Http\Controllers\PaymentOptionController::class);
+
+    Route::get('/validate-access-ticket/{code}', [\App\Http\Controllers\AccessTicketController::class, 'validateAccessTicket'])->name('validate-access-ticket');
 });
 
 Route::post('/access-tickets', [\App\Http\Controllers\AccessTicketController::class, 'store'])->name('access-tickets.store');
-Route::get('/event/{slug}', [\App\Http\Controllers\EventController::class,'showPublic'])->name('events.show_public');
 Route::get('/thank-you', [\App\Http\Controllers\AccessTicketController::class, 'showThankYou'])->name('access-tickets.thank_you');
-
+Route::get('/event/{slug}', [\App\Http\Controllers\EventController::class,'showPublic'])->name('events.show_public');
+Route::get('/success', [\App\Http\Controllers\PaypalController::class, 'success'])->name('success');

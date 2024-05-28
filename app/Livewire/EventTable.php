@@ -91,16 +91,16 @@ class EventTable extends Component implements HasForms, HasTable
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
-            TextColumn::make("max_capacity")
-                ->label($newModel->getAttributeLabel("max_capacity"))
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
-            TextColumn::make("type")
-                ->label($newModel->getAttributeLabel("type"))
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
+            //TextColumn::make("max_capacity")
+            //    ->label($newModel->getAttributeLabel("max_capacity"))
+            //    ->sortable()
+            //    ->toggleable()
+            //    ->searchable(),
+            //TextColumn::make("type")
+            //    ->label($newModel->getAttributeLabel("type"))
+            //    ->sortable()
+            //    ->toggleable()
+            //    ->searchable(),
             TextColumn::make("status")
                 ->label($newModel->getAttributeLabel("status"))
                 ->formatStateUsing(fn (Event $record): string => $record->statusLabel)
@@ -148,7 +148,7 @@ class EventTable extends Component implements HasForms, HasTable
             ])
             ->bulkActions([
                 //BulkActionGroup::make([
-                BulkAction::make('delete')
+                BulkAction::make(__('delete'))
                 ->requiresConfirmation()
                 ->action(fn (Collection $records) => $records->each->delete())
                 //]),

@@ -237,12 +237,6 @@
                     /> {{ __('API Tokens') }}
                 </x-base.menu.item>
             @endif
-            <x-base.menu.item class="hover:bg-white/5"  href="{{ route('larecipe.index') }}">
-                <x-base.lucide
-                    class="mr-2 h-4 w-4"
-                    icon="HelpCircle"
-                /> {{ __('Help') }}
-            </x-base.menu.item>
             <x-base.menu.divider class="bg-white/[0.08]" />
             @impersonating
                 <x-base.menu.item class="hover:bg-white/5"  href="{{ route('impersonate.leave') }}">

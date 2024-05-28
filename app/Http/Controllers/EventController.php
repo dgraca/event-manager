@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 //use App\Http\Controllers\AppBaseController;
+use App\Models\AccessTicket;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,10 @@ class EventController extends Controller
         /** @var Event $event */
         $event = Event::where('slug', $slug)->first();
 
-        if (empty($event)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($event) || $event->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('events.index'));
@@ -76,13 +80,38 @@ class EventController extends Controller
 
         // Add a property to each eventSessionTicket to check if the ticket is sold out
         $eventSessionTickets->map(function ($ticket) {
-            $ticket->isSoldOut = $ticket->limit <= $ticket->count && $ticket->limit > 0;
+            // Check if max capacity was reached
+            $maxCapacityReached = $ticket->count >= $ticket->eventSession->max_capacity;
+            $ticket->isSoldOut = $maxCapacityReached || $ticket->limit <= $ticket->count && $ticket->limit > 0;
             return $ticket;
         });
 
         return view('event.show_public')
             ->with('event', $event)
-            ->with('sessionTickets', $eventSessionTickets);
+            ->with('sessionTickets', $eventSessionTickets)
+            ->with('paymentOption', json_decode($event->entity->paymentOptions->first()->data));
+    }
+
+    /**
+     * Show the page to manually select an access ticket (belonging to this event) as "paid"
+     */
+    public function showTransactions($slug)
+    {
+        /** @var Event $event */
+        $event = Event::where('slug', $slug)->first();
+
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($event) || $event->entity_id != $entity->id) {
+            flash(__('Not found'))->overlay()->danger();
+
+            return redirect(route('events.index'));
+        }
+
+        $transactions = $event->transactions;
+
+        return view('event.show_access_tickets', compact('transactions', 'event'));
     }
 
     /**
@@ -93,7 +122,10 @@ class EventController extends Controller
         /** @var Event $event */
         $event = Event::where('slug', $slug)->first();
 
-        if (empty($event)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($event) || $event->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('event.index'));
@@ -112,7 +144,10 @@ class EventController extends Controller
         /** @var Event $event */
         $event = Event::where('slug', $slug)->first();
 
-        if (empty($event)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($event) || $event->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('events.index'));

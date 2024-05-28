@@ -61,6 +61,7 @@ class PaymentOption extends Model implements Auditable
         'country',
         'postcode',
         'email',
+        'phone',
         'data',
         'currency'
     ];
@@ -73,6 +74,7 @@ class PaymentOption extends Model implements Auditable
         'country' => 'string',
         'postcode' => 'string',
         'email' => 'string',
+        'phone' => 'string',
         'data' => 'string',
         'currency' => 'string'
     ];
@@ -80,18 +82,19 @@ class PaymentOption extends Model implements Auditable
     public static function rules(): array
     {
         return [
-            'entity_id' => 'required',
+            //'entity_id' => 'required',
         'business_entity_name' => 'required|string|max:255',
-        'vat' => 'nullable|string|max:32',
-        'address' => 'nullable|string|max:512',
-        'location' => 'nullable|string|max:255',
-        'country' => 'nullable|string|max:2',
-        'postcode' => 'nullable|string|max:16',
-        'email' => 'nullable|string|max:255',
+        'vat' => 'required|string|max:32',
+        'address' => 'required|string|max:512',
+        'location' => 'required|string|max:255',
+        'country' => 'required|string|max:2',
+        'postcode' => 'required|string|max:16',
+        'email' => 'required|string|max:255',
+        'phone' => 'nullable|string|max:255',
         'data' => 'nullable|string|max:65535',
         'currency' => 'required|string|max:3',
-        'created_at' => 'nullable',
-        'updated_at' => 'nullable'
+        //'created_at' => 'nullable',
+        //'updated_at' => 'nullable'
         ];
     }
 
@@ -112,10 +115,28 @@ class PaymentOption extends Model implements Auditable
         'country' => __('Country'),
         'postcode' => __('Postcode'),
         'email' => __('Email'),
+        'phone' => __('Phone'),
         'data' => __('Data'),
         'currency' => __('Currency'),
         'created_at' => __('Created At'),
         'updated_at' => __('Updated At')
+        ];
+    }
+
+    /**
+     * Attribute Non-DB labels
+     *
+     * @return array
+     */
+    public static function attributeNonDBLabels() : array
+    {
+        return [
+            'iban' => __('IBAN'),
+            'bic_swift' => __('BIC/SWIFT'),
+            'account_holder' => __('Account Holder'),
+            'bank_entity' => __('Bank Entity'),
+            'bank_country' => __('Bank Country'),
+            'paypal_email' => __('PayPal Email'),
         ];
     }
 
@@ -127,6 +148,34 @@ class PaymentOption extends Model implements Auditable
     public function getAttributeLabel($attribute) : string
     {
         $attributeLabels = static::attributeLabels();
+        return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
+    }
+
+    /**
+     * Return the attribute label as static function
+     * @param string $attribute
+     * @return string
+     */
+    public static function getAttributeLabelStatic($attribute) : string
+    {
+        $attributeLabels = static::attributeLabels();
+        return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
+    }
+
+    /**
+     * Return the non-DB attribute label
+     *
+     *
+     * These attributes will be saved in the DB in JSON format, in the "data" column
+     * These will hold the payment data that is not mandatory. For example, IBAN, SWIFT, etc.
+     * If the user doesn't want to use bank transfer, but instead wants to use PayPal, then the IBAN and SWIFT are not needed.
+     *
+     * @param string $attribute
+     * @return string
+     */
+    public static function getNonDBLabelStatic($attribute) : string
+    {
+        $attributeLabels = static::attributeNonDBLabels();
         return isset($attributeLabels[$attribute]) ? $attributeLabels[$attribute] : __($attribute);
     }
 

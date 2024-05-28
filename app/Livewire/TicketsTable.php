@@ -109,20 +109,20 @@ class TicketsTable extends Component implements HasForms, HasTable
                     }))
                     ->options(Entity::pluck('name', 'id')->all()),
             ])
-            ->actions([
-                Action::make('edit')
-                ->label(__('Update'))
-                ->url(fn (Ticket $record): string => route('tickets.edit', ['ticket' => $record]))
-                ->icon('heroicon-o-pencil')
-                //->color('danger')
-            ])
-            ->bulkActions([
-                //BulkActionGroup::make([
-                BulkAction::make('delete')
-                ->requiresConfirmation()
-                ->action(fn (Collection $records) => $records->each->delete())
-                //]),
-            ])
+            //->actions([
+            //    Action::make('edit')
+            //    ->label(__('Update'))
+            //    ->url(fn (Ticket $record): string => route('tickets.edit', ['ticket' => $record]))
+            //    ->icon('heroicon-o-pencil')
+            //    //->color('danger')
+            //])
+            //->bulkActions([
+            //    //BulkActionGroup::make([
+            //    BulkAction::make(__('delete'))
+            //    ->requiresConfirmation()
+            //    ->action(fn (Collection $records) => $records->each->delete())
+            //    //]),
+            //])
             ->defaultSort('id', 'desc')
             ->recordUrl(
                 fn (Model $record): string => route('tickets.show', ['ticket' => $record]),

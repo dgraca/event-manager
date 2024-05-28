@@ -61,7 +61,7 @@ class EntityController extends Controller
         /** @var Entity $entity */
         $entity = Entity::find($id);
 
-        if (empty($entity)) {
+        if (empty($entity) || $entity->user_id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('entities.index'));
@@ -78,7 +78,7 @@ class EntityController extends Controller
         /** @var Entity $entity */
         $entity = Entity::find($id);
 
-        if (empty($entity)) {
+        if (empty($entity) || $entity->user_id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('entities.index'));
@@ -95,7 +95,7 @@ class EntityController extends Controller
         /** @var Entity $entity */
         $entity = Entity::find($id);
 
-        if (empty($entity)) {
+        if (empty($entity) || $entity->user_id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('entities.index'));
@@ -121,7 +121,7 @@ class EntityController extends Controller
         /** @var Entity $entity */
         $entity = Entity::find($id);
 
-        if (empty($entity)) {
+        if (empty($entity) || $entity->user_id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('entities.index'));

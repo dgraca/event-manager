@@ -1,4 +1,4 @@
-<div class="p-4 ">
+<div class="p-4 " x-data="" x-init="$nextTick(() => { setTimeout(function (){window.loadPhone('phone'), window.loadPhone('mobile')},10) });">
     <form wire:submit="save" method="POST" accept-charset="UTF-8">
         @csrf
 

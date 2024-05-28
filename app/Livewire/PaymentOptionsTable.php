@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Entity;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
@@ -27,11 +28,13 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         $newModel = new PaymentOption();
+        $entityId = auth()->user()->entities->first()->id;
+
         return $table
-            ->query(PaymentOption::query())
+            ->query(PaymentOption::query()->where('entity_id', '=', $entityId))
             ->columns([
-                TextColumn::make("entity_id")
-                ->label($newModel->getAttributeLabel("entity_id"))
+                TextColumn::make("entity.name")
+                ->label(Entity::getAttributeLabelStatic("Entity"))
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
@@ -70,11 +73,11 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
-            TextColumn::make("data")
-                ->label($newModel->getAttributeLabel("data"))
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
+            //TextColumn::make("data")
+            //    ->label($newModel->getAttributeLabel("data"))
+            //    ->sortable()
+            //    ->toggleable()
+            //    ->searchable(),
             TextColumn::make("currency")
                 ->label($newModel->getAttributeLabel("currency"))
                 ->sortable()
@@ -115,20 +118,20 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('edit')
                 ->label(__('Update'))
-                ->url(fn (PaymentOption $record): string => route('payment-options.edit', ['payment_options' => $record]))
+                ->url(fn (PaymentOption $record): string => route('payment-options.edit', ['payment_option' => $record]))
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
-            ->bulkActions([
-                //BulkActionGroup::make([
-                BulkAction::make('delete')
-                ->requiresConfirmation()
-                ->action(fn (Collection $records) => $records->each->delete())
-                //]),
-            ])
+            //->bulkActions([
+            //    //BulkActionGroup::make([
+            //    BulkAction::make(__('delete'))
+            //    ->requiresConfirmation()
+            //    ->action(fn (Collection $records) => $records->each->delete())
+            //    //]),
+            //])
             ->defaultSort('id', 'desc')
             ->recordUrl(
-                fn (Model $record): string => route('payment-options.show', ['payment_options' => $record]),
+                fn (Model $record): string => route('payment-options.show', ['payment_option' => $record]),
             )
             //->striped()
             ->persistFiltersInSession()

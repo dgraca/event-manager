@@ -109,7 +109,7 @@ class SettingsTable extends Component implements HasForms, HasTable
             ])
             ->bulkActions([
                 //BulkActionGroup::make([
-                BulkAction::make('delete')
+                BulkAction::make(__('delete'))
                 ->requiresConfirmation()
                 ->action(fn (Collection $records) => $records->each->delete())
                 //]),

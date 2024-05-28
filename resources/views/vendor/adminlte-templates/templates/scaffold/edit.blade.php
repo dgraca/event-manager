@@ -14,7 +14,7 @@
             <div class="mt-5 text-right">
                 @verbatim<x-base.button@endverbatim
                     class="mr-1 w-24"
-                    type="a"
+                    as="a"
                     variant="outline-secondary"
                     href="@{{ route('{!! $config->prefixes->getRoutePrefixWith('.') !!}{!! $config->modelNames->dashedPlural !!}.index') }}"
                 >@{{ __('Cancel') }}

@@ -21,7 +21,7 @@
                 href="{{ route('events.create') }}"
                 as="a"
             >
-                {{ __('Create Events') }}
+                {{ __('Create Event') }}
             </x-base.button>
         </div>
     </div>

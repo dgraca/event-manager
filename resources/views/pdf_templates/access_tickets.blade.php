@@ -9,6 +9,7 @@
             <div class="mx-auto max-w-md rounded-lg bg-white p-8 shadow-md">
                 <div class="text-center">
                     <h1 class="text-3xl font-bold">{{ $event->name }}</h1>
+                    <h3 class="text-xl font-bold">{{ __('Transaction Id') }}: {{ $ticket->transaction->id}}</h3>
                     <div class="mt-4 flex flex-row items-center justify-between">
                         <p class="text-gray-600">{{ $event->start_date->format('Y-m-d') }}</p>
                         <p class="text-gray-600">-</p>
@@ -26,7 +27,7 @@
                     </div>
                     <div class="mt-4 flex justify-between">
                         <p class="text-gray-600">{{ __('Price') }}</p>
-                        <p class="font-bold">{{ $ticket->price }}</p>
+                        <p class="font-bold">{{ $ticket->eventSessionTicket->ticket->price }}</p>
                     </div>
                     <div class="mt-4 flex justify-between">
                         <p class="text-gray-600">{{ __('Venue') }}</p>
@@ -34,10 +35,16 @@
                     </div>
                     <div class="mt-4 flex justify-between">
                         <p class="text-gray-600">{{ __('Venue Address') }}</p>
-                        <p class="font-bold">{{ $event->venue->name }}</p>
+                        <p class="font-bold">{{ $event->venue->address }}</p>
                     </div>
+                    @if($ticket->eventSessionTicket->eventSession->description != null)
+                        <div class="mt-4 flex justify-between">
+                            <p class="text-gray-600">{{ __('Session description') }}</p>
+                            <p class="font-bold">{{ $ticket->eventSessionTicket->eventSession->description }}</p>
+                        </div>
+                    @endif
                     <div class="mt-8 flex justify-center">
-                        {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->generate($ticket->code); !!}
+                        {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->generate($ticket->qr_code_url); !!}
                     </div>
                 </div>
             </div>

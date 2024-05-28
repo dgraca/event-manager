@@ -104,8 +104,6 @@ class Event extends Model implements Auditable
         'end_date',
         'registration_note',
         'pre_approval',
-        'max_capacity',
-        'type',
         'status'
     ];
 
@@ -172,6 +170,7 @@ class Event extends Model implements Auditable
             'updated_at' => __('Updated At'),
             'deleted_at' => __('Deleted At'),
             'sales_url' => __('Page to sell tickets'),
+            'validate_tickets' => __('Page to validate tickets'),
         ];
     }
 
@@ -238,6 +237,16 @@ class Event extends Model implements Auditable
     public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\Models\Ticket::class, 'event_id');
+    }
+
+    public function eventSessionTickets(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(EventSessionTicket::class, 'event_id');
+    }
+
+    public function transactions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\Transaction::class, 'event_id');
     }
 
     /**

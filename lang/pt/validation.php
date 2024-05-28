@@ -222,5 +222,9 @@ return [
         'g-recaptcha-response' => [
             'recaptchav3' => 'Falhou a validação do recaptcha, foi identificado como sendo um bot.',
         ],
+        'postal_code'          => 'O :attribute é inválido.',
+        'postal_code_with'     => 'O :attribute é inválido.',
+        'at_least_one_ticket_selected' => 'Deve selecionar pelo menos um bilhete.',
+        'no_negative_values_allowed' => 'Não são permitidos valores negativos.',
     ],
 ];

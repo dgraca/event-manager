@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -14,37 +15,68 @@ class   DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        //flash('Mensagem no canto superior direito')->overlay()->success();
-        //flash('Mensagem de informação no canto superior direito')->overlay()->info();
-        //flash('Mensagem fixa COM close button')->error(); // without important() we have the close button
-        //flash('Mensagem fixa SEM close button')->warning()->important();// important disable close button
-        //Mail::to('fabio.ferreira@noop.pt')->send(new ExceptionMail("tete"));
-        //Mail::to('no-reply@alertaconcursospublicos.pt')->send(new ExceptionMail("tete"));
-           // mail('fabio@seatwish.com', 'My Subject', "message");
-        //Mail::to('fabio@seatwish.com')->send(new ExceptionMail("tete"));
-        //Mail::to('eu@fabioferreira.pt')->send(new ExceptionMail("tete"));
-        //Mail::to('abuse@SaadHost.com')->send(new ExceptionMail("tete"));
-        //flash('Mensagem de informação no canto superior direito')->overlay()->info();
-        //flash('Mensagem de informação no canto superior direito')->overlay()->danger();
-        //flash('Mensagem de informação no canto superior direito')->overlay()->warning();
-        //flash('Mensagem de informação no canto superior direito')->overlay()->success();
-       // flash('Mensagem de informação no canto superior direito')->overlay()->info();
-        /*flash('Info menssage')->overlay()->info();
-        flash('danger')->overlay()->danger()->duration(3000);
-        flash('success')->overlay()->success();
-        flash('Warning   menssage')->overlay()->warning();
-        flash('No icon')->overlay()->noIcon();
-        flash('Titulo', 'Mensagem mais longa para fazer coisas')->overlay()->warning();*/
-        flash('Bem vindo')->overlay()->success();
+        // Get auth user
+        $user = auth()->user();
+        // Get the user entity (it has support for multiple entities but for now we only have one entity per user)
+        $userEntity = $user->entities->first();
 
+        // Get all events from the user
+        $events = $userEntity->events;
 
-        //request()->session()->flash('flash.banner', 'Yay it works2!');
-        /*request()->session()->flash('flash.banner', 'Yay it works1!');
-        request()->session()->flash('overlay', [['type' =>'success', 'message' => 'Yay it works!'],['type' =>'danger', 'message' => 'Yay it danger!']]);
-        request()->session()->flash('flash.overlay', 'Yay it works232323!');*/
-        return view('home.index');
+        // Get total tickets bought for all events from the user
+        $tickets = $events->map(function ($event) {
+            return $event->eventSessions->map(function ($eventSession) {
+                return $eventSession->eventSessionTickets->map(function ($eventSessionTicket) {
+                    return count($eventSessionTicket->accessTickets);
+                });
+            })->flatten();
+        })
+        ->flatten()
+        ->sum();
+
+        // For each accessTicket, subtract the "tickets_count" with the "max_check_in" from the eventSessionTicket
+        $totalEntries = $events->map(function ($event) { // events
+            return $event->eventSessions->map(function ($eventSession) { // eventSessions
+                return $eventSession->eventSessionTickets->map(function ($eventSessionTicket) { // eventSessionTickets
+                    return $eventSessionTicket->accessTickets->map(function ($accessTicket) use ($eventSessionTicket) {
+                        // for each ticket, subtract the "tickets_count" with the "max_check_in" from the eventSessionTicket
+                        return abs($accessTicket->tickets_count - $eventSessionTicket->ticket->max_check_in);
+                    })->flatten();
+                })->flatten();
+            })->flatten();
+        })
+        ->flatten()
+        ->sum();
+
+        // Get all transactions
+        $transactions = $userEntity->events->map(function ($event) {
+            return $event->transactions->where('deleted', '=', 0);
+        })->flatten();
+
+        // Get the number of items per page from the request
+        $perPage = $request->input('per_page', 10);
+
+        // Paginate the transactions collection
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        // Get the items for the current page
+        $currentPageItems = $transactions->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        // Create a paginator for the items
+        $paginatedTransactions = new LengthAwarePaginator($currentPageItems, $transactions->count(), $perPage, $currentPage, [
+            'path' => $request->url(),
+            'query' => $request->query(),
+        ]);
+
+        flash(__('Welcome'))->overlay()->success();
+        // Return the view with all data and transactions paginated at the value of 10
+        return view('home.index')->with([
+            'events' => $events,
+            'totalSold' => $tickets,
+            'totalEntries' => $totalEntries,
+            'transactions' => $paginatedTransactions,
+            'perPage' => $perPage,
+        ]);
     }
 
     /**

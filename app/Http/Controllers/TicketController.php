@@ -54,7 +54,10 @@ class TicketController extends Controller
         /** @var Ticket $ticket */
         $ticket = Ticket::find($id);
 
-        if (empty($ticket)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($ticket) || $ticket->event->entity->id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('tickets.index'));
@@ -71,7 +74,10 @@ class TicketController extends Controller
         /** @var Ticket $ticket */
         $ticket = Ticket::find($id);
 
-        if (empty($ticket)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($ticket) || $ticket->event->entity->id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('tickets.index'));
@@ -88,7 +94,10 @@ class TicketController extends Controller
         /** @var Ticket $ticket */
         $ticket = Ticket::find($id);
 
-        if (empty($ticket)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($ticket) || $ticket->event->entity->id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('tickets.index'));
@@ -113,7 +122,10 @@ class TicketController extends Controller
         /** @var Ticket $ticket */
         $ticket = Ticket::find($id);
 
-        if (empty($ticket)) {
+        // Gets auth user entity
+        $entity = auth()->user()->entities->first();
+
+        if (empty($ticket) || $ticket->event->entity->id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('tickets.index'));

@@ -6,6 +6,7 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateMeRequest;
 use App\Http\Requests\UpdateUserRequest;
 //use App\Http\Controllers\AppBaseController;
+use App\Models\PaymentOption;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -75,7 +76,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find($id);
 
-        if (empty($user)) {
+        if (empty($user) || $user->id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('users.index'));
@@ -92,7 +93,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find($id);
 
-        if (empty($user)) {
+        if (empty($user) || $user->id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('users.index'));
@@ -120,7 +121,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find($id);
 
-        if (empty($user)) {
+        if (empty($user) || $user->id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('users.index'));
@@ -159,9 +160,8 @@ class UserController extends Controller
         /** @var User $user */
         $user = auth()->user();
 
-        if (empty($user)) {
+        if (empty($user) || $user->id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
-
             return redirect(route('users.index'));
         }
 
@@ -180,6 +180,14 @@ class UserController extends Controller
                 $user->entities()->create([
                     'name' => __('Main entity for :name', ['name' => $user->name]),
                 ]);
+
+                // Also, creates a new PaymentOptions for the first entity of this user
+                $paymentOption = new PaymentOption();
+                $paymentOption->entity_id = $user->entities()->first()->id;
+                $paymentOption->business_entity_name = __('Main payment option for :name', ['name' => $user->name]);
+                $paymentOption->country = 'PT';
+                $paymentOption->currency = 'EUR';
+                $paymentOption->save();
             }
 
             flash(__('Updated successfully.'))->overlay()->success();
@@ -187,7 +195,7 @@ class UserController extends Controller
             flash(__('Ups something went wrong'))->overlay()->danger();
         }
 
-        return redirect(route('profile.show'));
+        return redirect(route('dashboard'));
     }
 
     /**
@@ -200,7 +208,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find($id);
 
-        if (empty($user)) {
+        if (empty($user) || $user->id != auth()->id()) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('users.index'));

@@ -97,8 +97,7 @@
         class="w-full {{ ($errors->has('ticketForm.tickets.' . $index . '.price') ? 'border-danger' : '') }}"
         wire:model.live="ticketForm.tickets.{{ $index }}.price"
         type="number"
-        step="1"
-        step="1"
+        step="0.01"
     />
     @error('ticketForm.tickets.' . $index . '.price')
         <div class="mt-2 text-danger">{{ $message }}</div>

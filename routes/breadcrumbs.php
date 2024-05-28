@@ -203,7 +203,7 @@ Breadcrumbs::for('tickets.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('tickets.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('tickets.index');
-    $trail->push($model->slug, route('tickets.show', $model));
+    $trail->push($model->id, route('tickets.show', $model));
 });
 Breadcrumbs::for('tickets.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('tickets.show', $model);
@@ -227,23 +227,15 @@ Breadcrumbs::for('events.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('events.show', $model);
     $trail->push(__('Update'), route('events.edit', $model));
 });
+Breadcrumbs::for('events.validate', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('events.index', $model);
+    $trail->push($model->slug, route('events.show', $model));
+});
 
 // Home > Access Tickets
-Breadcrumbs::for('access-tickets.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('access-tickets.result', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push(__('access-tickets'), route('access-tickets.index'));
-});
-Breadcrumbs::for('access-tickets.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('access-tickets.index');
-    $trail->push(__('Create'), route('access-tickets.create'));
-});
-Breadcrumbs::for('access-tickets.show', function (BreadcrumbTrail $trail, $model) {
-    $trail->parent('access-tickets.index');
-    $trail->push($model->slug, route('access-tickets.show', $model));
-});
-Breadcrumbs::for('access-tickets.edit', function (BreadcrumbTrail $trail, $model) {
-    $trail->parent('access-tickets.show', $model);
-    $trail->push(__('Update'), route('access-tickets.edit', $model));
+    $trail->push(__('Result'), route('dashboard'));
 });
 
 // Home > Payment Options
@@ -257,7 +249,7 @@ Breadcrumbs::for('payment-options.create', function (BreadcrumbTrail $trail) {
 });
 Breadcrumbs::for('payment-options.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('payment-options.index');
-    $trail->push($model->slug, route('payment-options.show', $model));
+    $trail->push($model->id, route('payment-options.show', $model));
 });
 Breadcrumbs::for('payment-options.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('payment-options.show', $model);

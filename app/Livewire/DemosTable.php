@@ -120,7 +120,7 @@ class DemosTable extends Component implements HasForms, HasTable
                 //->color('danger')
             ])
             ->bulkActions([
-                BulkAction::make('delete')
+                BulkAction::make(__('delete'))
                 ->requiresConfirmation()
                 ->action(fn (Collection $records) => $records->each->delete())
             ])

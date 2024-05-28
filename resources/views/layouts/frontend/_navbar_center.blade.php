@@ -28,26 +28,14 @@
                 <li class="inline mb-0">
                     <a href="{{ route('login') }}" class="size-9 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-full bg-indigo-600/5 hover:bg-indigo-600 border border-indigo-600/10 hover:border-indigo-600 text-indigo-600 hover:text-white dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:border-indigo-600 dark:hover:border-indigo-700 dark:text-white"><i data-feather="log-in" class="size-4"></i></a>
                 </li>
-                @if(false)
-                    <li class="inline ps-1 mb-0">
-                        <a href="https://1.envato.market/techwind" target="_blank" class="size-9 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-full bg-indigo-600 hover:bg-indigo-700 border border-indigo-600 hover:border-indigo-700 text-white"><i data-feather="shopping-cart" class="size-4"></i></a>
-                    </li>
-                @endif
             </ul>
             <!--Login button End-->
         @else
-            <!--Login button Start-->
             <ul class="buy-button list-none mb-0">
                 <li class="inline mb-0">
-                    <a href="{{ route('profile.show') }}" class="size-9 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-full bg-indigo-600/5 hover:bg-indigo-600 border border-indigo-600/10 hover:border-indigo-600 text-indigo-600 hover:text-white"><i data-feather="settings" class="size-4"></i></a>
+                    <a href="{{ route('dashboard') }}" class="size-9 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-full bg-indigo-600/5 hover:bg-indigo-600 border border-indigo-600/10 hover:border-indigo-600 text-indigo-600 hover:text-white"><i data-feather="settings" class="size-4"></i></a>
                 </li>
-                @if(false)
-                    <li class="inline ps-1 mb-0">
-                        <a href="https://1.envato.market/techwind" target="_blank" class="size-9 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-full bg-indigo-600 hover:bg-indigo-700 border border-indigo-600 hover:border-indigo-700 text-white"><i data-feather="shopping-cart" class="size-4"></i></a>
-                    </li>
-                @endif
             </ul>
-            <!--Login button End-->
         @endguest
 
 {{--        <div id="navigation">--}}

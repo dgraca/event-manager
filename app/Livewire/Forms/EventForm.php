@@ -22,8 +22,6 @@ class EventForm extends Form
     public $end_date;
     public $registration_note;
     public $pre_approval;
-    public $max_capacity;
-    public $type;
     public $status;
 
     public function rules()
@@ -32,13 +30,11 @@ class EventForm extends Form
             'event.venue_id' => 'required|integer',
             'event.name' => 'required|string|max:255',
             'event.description' => 'nullable|string|max:65535',
-            'event.scheduled_start' => 'required',
+            'event.scheduled_start' => 'required|before:event.scheduled_end',
             'event.scheduled_end' => 'required',
-            'event.start_date' => 'required',
+            'event.start_date' => 'required|before:event.end_date',
             'event.end_date' => 'required',
             'event.registration_note' => 'nullable|string|max:65535',
-            'event.max_capacity' => 'required|integer',
-            'event.type' => 'required|integer',
             'event.status' => 'required|integer',
         ];
     }
@@ -51,14 +47,12 @@ class EventForm extends Form
             'venue_id' => $ev->venue_id ?? null,
             'name' => $ev->name ?? 'Evento padrão',
             'description' => $ev->description ?? '',
-            'scheduled_start' => $ev->scheduled_start ?? Carbon::now()->format('Y-m-d'),
-            'scheduled_end' => $ev->scheduled_end ?? Carbon::now()->format('Y-m-d'),
-            'start_date' => $ev->start_date ?? Carbon::now()->format('Y-m-d'),
-            'end_date' => $ev->end_date ?? Carbon::now()->format('Y-m-d'),
+            'scheduled_start' => $ev->scheduled_start?->format('Y-m-d H:i') ?? Carbon::now()->format('Y-m-d H:i'),
+            'scheduled_end' => $ev->scheduled_end?->format('Y-m-d H:i') ?? Carbon::now()->format('Y-m-d H:i'),
+            'start_date' => $ev->start_date?->format('Y-m-d H:i') ?? Carbon::now()->format('Y-m-d H:i'),
+            'end_date' => $ev->end_date?->format('Y-m-d H:i') ?? Carbon::now()->format('Y-m-d H:i'),
             'registration_note' => $ev->registration_note ?? '',
             'pre_approval' => $ev->pre_approval ?? 0,
-            'max_capacity' => $ev->max_capacity ?? 0,
-            'type' => $ev->type ?? null,
             'status' => $ev->status ?? null,
         ];
     }

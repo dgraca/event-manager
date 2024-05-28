@@ -56,7 +56,9 @@ class VenueController extends Controller
         /** @var Venue $venue */
         $venue = Venue::where('slug', $slug)->first();
 
-        if (empty($venue)) {
+        $entity = auth()->user()->entities->first();
+
+        if (empty($venue) || $venue->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('venues.index'));
@@ -73,7 +75,9 @@ class VenueController extends Controller
         /** @var Venue $venue */
         $venue = Venue::where('slug', $slug)->first();
 
-        if (empty($venue)) {
+        $entity = auth()->user()->entities->first();
+
+        if (empty($venue) || $venue->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('venues.index'));
@@ -90,7 +94,9 @@ class VenueController extends Controller
         /** @var Venue $venue */
         $venue = Venue::where('slug', $slug)->first();
 
-        if (empty($venue)) {
+        $entity = auth()->user()->entities->first();
+
+        if (empty($venue) || $venue->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('venues.index'));
@@ -116,7 +122,15 @@ class VenueController extends Controller
         /** @var Venue $venue */
         $venue = Venue::where('slug', $slug)->first();
 
-        if (empty($venue)) {
+        // Check if venue is being used by any event
+        if($venue->events->count() > 0){
+            flash(__('This venue is being used by an event. Please remove the event first.'))->overlay()->danger();
+            return redirect(route('venues.index'));
+        }
+
+        $entity = auth()->user()->entities->first();
+
+        if (empty($venue) || $venue->entity_id != $entity->id) {
             flash(__('Not found'))->overlay()->danger();
 
             return redirect(route('venues.index'));
