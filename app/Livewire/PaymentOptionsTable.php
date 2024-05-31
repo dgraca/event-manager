@@ -61,12 +61,12 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
             TextColumn::make("country")
                 ->label($newModel->getAttributeLabel("country"))
                 ->sortable()
-                ->toggleable()
+                ->toggleable(isToggledHiddenByDefault: true)
                 ->searchable(),
             TextColumn::make("postcode")
                 ->label($newModel->getAttributeLabel("postcode"))
                 ->sortable()
-                ->toggleable()
+                ->toggleable(isToggledHiddenByDefault: true)
                 ->searchable(),
             TextColumn::make("email")
                 ->label($newModel->getAttributeLabel("email"))
@@ -81,7 +81,7 @@ class PaymentOptionsTable extends Component implements HasForms, HasTable
             TextColumn::make("currency")
                 ->label($newModel->getAttributeLabel("currency"))
                 ->sortable()
-                ->toggleable()
+                ->toggleable(isToggledHiddenByDefault: true)
                 ->searchable(),
                 TextColumn::make('created_at')
                     ->label($newModel->getAttributeLabel('created_at'))

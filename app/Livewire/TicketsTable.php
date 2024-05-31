@@ -47,7 +47,7 @@ class TicketsTable extends Component implements HasForms, HasTable
             TextColumn::make("description")
                 ->label($newModel->getAttributeLabel("description"))
                 ->sortable()
-                ->toggleable()
+                ->toggleable(isToggledHiddenByDefault: true)
                 ->searchable(),
             TextColumn::make("max_check_in")
                 ->label($newModel->getAttributeLabel("max_check_in"))

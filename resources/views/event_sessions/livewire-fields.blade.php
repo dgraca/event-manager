@@ -198,6 +198,7 @@
                 succeed(({ status, json }) => {
                     setTimeout(() => {
                         window.applyTailwindMerge();
+                        window.flatpickrInit();
                     }, 100);
                 })
             })

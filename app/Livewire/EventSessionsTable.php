@@ -44,15 +44,10 @@ class EventSessionsTable extends Component implements HasForms, HasTable
                 ->sortable()
                 ->toggleable()
                 ->searchable(),
-            TextColumn::make("slug")
-                ->label($newModel->getAttributeLabel("slug"))
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
             TextColumn::make("description")
                 ->label($newModel->getAttributeLabel("description"))
                 ->sortable()
-                ->toggleable()
+                ->toggleable(isToggledHiddenByDefault: true)
                 ->searchable(),
             TextColumn::make("max_capacity")
                 ->label($newModel->getAttributeLabel("max_capacity"))
@@ -80,7 +75,8 @@ class EventSessionsTable extends Component implements HasForms, HasTable
                 ->label($newModel->getAttributeLabel("type"))
                 ->sortable()
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->formatStateUsing(fn ($state) => EventSession::getStatusArray()[$state] ?? $state),
             //TextColumn::make("status")
             //    ->label($newModel->getAttributeLabel("status"))
             //    ->formatStateUsing(fn (EventSession $record): string => $record->statusLabel)

@@ -61,8 +61,8 @@ class VenuesTable extends Component implements HasForms, HasTable
             TextColumn::make("country")
                 ->label($newModel->getAttributeLabel("country"))
                 ->sortable()
-                ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->toggleable(isToggledHiddenByDefault: true),
             TextColumn::make("postcode")
                 ->label($newModel->getAttributeLabel("postcode"))
                 ->sortable()
@@ -71,13 +71,13 @@ class VenuesTable extends Component implements HasForms, HasTable
             TextColumn::make("latitude")
                 ->label($newModel->getAttributeLabel("latitude"))
                 ->sortable()
-                ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->toggleable(isToggledHiddenByDefault: true),
             TextColumn::make("longitude")
                 ->label($newModel->getAttributeLabel("longitude"))
                 ->sortable()
-                ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->toggleable(isToggledHiddenByDefault: true),
             TextColumn::make("email")
                 ->label($newModel->getAttributeLabel("email"))
                 ->sortable()
@@ -86,13 +86,14 @@ class VenuesTable extends Component implements HasForms, HasTable
             TextColumn::make("phone")
                 ->label($newModel->getAttributeLabel("phone"))
                 ->sortable()
-                ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->toggleable(isToggledHiddenByDefault: true),
             TextColumn::make("mobile")
                 ->label($newModel->getAttributeLabel("mobile"))
                 ->sortable()
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->label($newModel->getAttributeLabel('created_at'))
                     ->dateTime()
