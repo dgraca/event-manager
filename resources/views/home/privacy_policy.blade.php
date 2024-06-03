@@ -29,7 +29,7 @@
                     Vários parceiros anunciam em nosso nome e os cookies de rastreamento de afiliados simplesmente nos permitem ver se nossos clientes acessaram o site através de um dos sites de nossos parceiros, para que possamos creditá-los adequadamente e, quando aplicável, permitir que nossos parceiros afiliados ofereçam qualquer promoção que pode fornecê-lo para fazer uma compra.
 
 
-                    Compromisso do Usuário
+                    Compromisso do Utilizador
                     O utilizador se compromete a fazer uso adequado dos conteúdos e da informação que o Event Manager oferece no site e com caráter enunciativo, mas não limitativo:
 
                     A) Não se envolver em atividades que sejam ilegais ou contrárias à boa fé a à ordem pública;
