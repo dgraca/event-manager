@@ -155,7 +155,14 @@ class EventCreator extends Component
                         $eventSessionTicket = EventSessionTicket::where('event_session_id', $sessions[$session]['id'])
                             ->where('ticket_id', $ticket['id'])
                             ->first();
-                        if ($eventSessionTicket === null) {
+                        if ($eventSessionTicket !== null) {
+                            // Check if session is set to true
+                            if ($this->ticketForm->tickets[$index]['sessions'][$session]) {
+                                $this->fillEventSessionTicket($sessions[$session], $eventSessionTicket, $ticket, $event);
+                            } else {
+                                $eventSessionTicket->delete();
+                            }
+                        } else {
                             $eventSessionTicket = new EventSessionTicket();
                             $this->fillEventSessionTicket($sessions[$session], $eventSessionTicket, $ticket, $event);
                         }

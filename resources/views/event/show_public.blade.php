@@ -120,33 +120,33 @@ view()->share('pageTitle', __('Homepage'));
                 <h3 class="md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">{{ __('Sessions') }}</h3>
             </div><!--end grid-->
 
-{{--            Compare the time right now with the schedule start and schedule end --}}
-{{--            if its before schedule start, show message saying that the period to buy tickets didn't start --}}
-{{--            if its after schedule end, show message saying that the period to buy tickets ended --}}
-            @if(now()->lt($event->scheduled_start))
-                <div class="mb-24 text-center">
-                    <p class="text-xl text-red-500">{{ __("The ticket buying period hasn't started yet.") }}</p>
-                </div>
-            @elseif(now()->gt($event->scheduled_start) && now()->lt($event->scheduled_end))
-                {{--
+            {{--
                 If status is available, show form.
                 If status is cancelled, show message saying it was cancelled
                 If status is closed, show message saying buying phase is closed
                 If status is finihed, show message saying event is finished
-            --}}
-                @if($event->status == \App\Models\Event::STATUS_CANCELLED)
+                --}}
+            @if($event->status == \App\Models\Event::STATUS_CANCELLED)
+                <div class="mb-24 text-center">
+                    <p class="text-xl text-red-500">{{ __('This event has been cancelled.') }}</p>
+                </div>
+            @elseif($event->status == \App\Models\Event::STATUS_CLOSED)
+                <div class="mb-24 text-center">
+                    <p class="text-xl text-red-500">{{ __('The buying phase for this event is closed.') }}</p>
+                </div>
+            @elseif($event->status == \App\Models\Event::STATUS_FINISHED)
+                <div class="mb-24 text-center">
+                    <p class="text-xl text-red-500">{{ __('This event has finished.') }}</p>
+                </div>
+            @else
+                {{--            Compare the time right now with the schedule start and schedule end --}}
+                {{--            if its before schedule start, show message saying that the period to buy tickets didn't start --}}
+                {{--            if its after schedule end, show message saying that the period to buy tickets ended --}}
+                @if(now()->lt($event->scheduled_start) && $event->status != \App\Models\Event::STATUS_CANCELLED)
                     <div class="mb-24 text-center">
-                        <p class="text-xl text-red-500">{{ __('This event has been cancelled.') }}</p>
+                        <p class="text-xl text-red-500">{{ __("The ticket buying period hasn't started yet.") }}</p>
                     </div>
-                @elseif($event->status == \App\Models\Event::STATUS_CLOSED)
-                    <div class="mb-24 text-center">
-                        <p class="text-xl text-red-500">{{ __('The buying phase for this event is closed.') }}</p>
-                    </div>
-                @elseif($event->status == \App\Models\Event::STATUS_FINISHED)
-                    <div class="mb-24 text-center">
-                        <p class="text-xl text-red-500">{{ __('This event has finished.') }}</p>
-                    </div>
-                @else
+                @elseif(now()->gt($event->scheduled_start) && now()->lt($event->scheduled_end))
                     <form method="POST" action="{{ route('access-tickets.store') }}">
                         @csrf
 
@@ -230,11 +230,11 @@ view()->share('pageTitle', __('Homepage'));
                             </div>
                         </div>
                     </form>
+                @else
+                    <div class="mb-24 text-center">
+                        <p class="text-xl text-red-500">{{ __('The buying phase for this event is closed.') }}</p>
+                    </div>
                 @endif
-            @else
-                <div class="mb-24 text-center">
-                    <p class="text-xl text-red-500">{{ __('The buying phase for this event is closed.') }}</p>
-                </div>
             @endif
         </div><!--end container-->
     </section><!--end section-->
