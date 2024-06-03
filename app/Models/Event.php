@@ -81,9 +81,9 @@ class Event extends Model implements Auditable
     // Status constants
     const STATUS_DRAFT = 0;
     const STATUS_AVAILABLE = 1;
-    //const STATUS_CLOSED = 2;
-    //const STATUS_CANCELLED = 3;
-    //const STATUS_FINISHED = 4;
+    const STATUS_CLOSED = 2;
+    const STATUS_CANCELLED = 3;
+    const STATUS_FINISHED = 4;
 
     // Type constants
     const TYPE_ON_SITE = 0;
@@ -258,9 +258,9 @@ class Event extends Model implements Auditable
         return [
             self::STATUS_DRAFT => __('Draft'),
             self::STATUS_AVAILABLE => __('Available'),
-            //self::STATUS_CLOSED => __('Closed'),
-            //self::STATUS_CANCELLED => __('Cancelled'),
-            //self::STATUS_FINISHED => __('Finished')
+            self::STATUS_CLOSED => __('Closed'),
+            self::STATUS_CANCELLED => __('Cancelled'),
+            self::STATUS_FINISHED => __('Finished')
         ];
     }
 
