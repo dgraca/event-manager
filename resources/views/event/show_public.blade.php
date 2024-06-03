@@ -124,8 +124,8 @@ view()->share('pageTitle', __('Homepage'));
 {{--            if its before schedule start, show message saying that the period to buy tickets didn't start --}}
 {{--            if its after schedule end, show message saying that the period to buy tickets ended --}}
             @if(now()->lt($event->scheduled_start))
-                <div class="my-16 px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <p class="text-center text-2xl">{{ __("The ticket buying period hasn't started yet.") }}</p>
+                <div class="mb-24 text-center">
+                    <p class="text-xl text-red-500">{{ __("The ticket buying period hasn't started yet.") }}</p>
                 </div>
             @elseif(now()->gt($event->scheduled_start) && now()->lt($event->scheduled_end))
                 {{--
@@ -233,7 +233,7 @@ view()->share('pageTitle', __('Homepage'));
                 @endif
             @else
                 <div class="mb-24 text-center">
-                    <p class="text-2xl text-red-500">{{ __("The ticket purchase period is over!") }}</p>
+                    <p class="text-xl text-red-500">{{ __('The buying phase for this event is closed.') }}</p>
                 </div>
             @endif
         </div><!--end container-->
