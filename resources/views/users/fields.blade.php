@@ -40,34 +40,34 @@
                     </x-base.tippy>
                 </x-base.tab.button>
             </x-base.tab>
-            @if(!empty($user->id))
-                <x-base.tab
-                    id="password-tab"
-                    :fullWidth="false"
-                >
-                    <x-base.tab.button
-                        @class([
-                            'flex items-center justify-center w-full px-0 py-0 sm:w-40 text-slate-500',
-                            '[&:not(.active)]:hover:border-transparent [&:not(.active)]:hover:bg-transparent [&:not(.active)]:hover:text-slate-600 [&:not(.active)]:hover:dark:bg-transparent [&:not(.active)]:hover:dark:text-slate-300',
-                            '[&.active]:text-primary [&.active]:border-transparent [&.active]:dark:bg-darkmode-600 [&.active]:dark:border-x-transparent [&.active]:dark:border-t-transparent [&.active]:dark:text-white',
-                        ])
-                        as="button"
-                        type="button"
-                    >
-                        <x-base.tippy
-                            class="flex w-full items-center justify-center py-4"
-                            aria-selected="false"
-                            content="{{ __('Change password') }}"
-                        >
-                            <x-base.lucide
-                                class="mr-2 h-4 w-4"
-                                icon="password"
-                            /> {{ __('Password') }}
-                        </x-base.tippy>
-                    </x-base.tab.button>
+{{--            @if(!empty($user->id))--}}
+{{--                <x-base.tab--}}
+{{--                    id="password-tab"--}}
+{{--                    :fullWidth="false"--}}
+{{--                >--}}
+{{--                    <x-base.tab.button--}}
+{{--                        @class([--}}
+{{--                            'flex items-center justify-center w-full px-0 py-0 sm:w-40 text-slate-500',--}}
+{{--                            '[&:not(.active)]:hover:border-transparent [&:not(.active)]:hover:bg-transparent [&:not(.active)]:hover:text-slate-600 [&:not(.active)]:hover:dark:bg-transparent [&:not(.active)]:hover:dark:text-slate-300',--}}
+{{--                            '[&.active]:text-primary [&.active]:border-transparent [&.active]:dark:bg-darkmode-600 [&.active]:dark:border-x-transparent [&.active]:dark:border-t-transparent [&.active]:dark:text-white',--}}
+{{--                        ])--}}
+{{--                        as="button"--}}
+{{--                        type="button"--}}
+{{--                    >--}}
+{{--                        <x-base.tippy--}}
+{{--                            class="flex w-full items-center justify-center py-4"--}}
+{{--                            aria-selected="false"--}}
+{{--                            content="{{ __('Change password') }}"--}}
+{{--                        >--}}
+{{--                            <x-base.lucide--}}
+{{--                                class="mr-2 h-4 w-4"--}}
+{{--                                icon="password"--}}
+{{--                            /> {{ __('Password') }}--}}
+{{--                        </x-base.tippy>--}}
+{{--                    </x-base.tab.button>--}}
 
-                </x-base.tab>
-            @endif
+{{--                </x-base.tab>--}}
+{{--            @endif--}}
         </x-base.tab.list>
         <x-base.tab.panels>
             <x-base.tab.panel
