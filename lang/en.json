@@ -232,7 +232,6 @@
     "Venues": "Venues",
     "Sessions": "Sessions",
     "Tickets": "Tickets",
-    "SECTION :number": "SECTION :number",
     "Description": "Description",
     "Scheduled Start": "Starting date for opening ticket purchases",
     "Scheduled End": "Ending date for opening ticket purchases",
@@ -247,6 +246,7 @@
     "Select an option": "Select an option",
     "Mobile": "Mobile",
     "Session #:number": "Session #:number",
+    "Ticket #:number": "Ticket #:number",
     "Max Capacity": "Max Capacity",
     "Start Date": "Start Date",
     "End Date": "End Date",
@@ -384,6 +384,7 @@
     "Max capacity reached for session :session": "Max capacity reached for session :session",
     "The ticket buying period hasn't started yet.": "The ticket buying period hasn't started yet.",
     "The ticket purchase period is over!": "The ticket purchase period is over!",
+    "Event": "Event",
 
     "line1": "An all-in-one management",
     "line2": "Platform",

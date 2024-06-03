@@ -232,7 +232,6 @@
     "Venues": "Locais",
     "Sessions": "Sessões",
     "Tickets": "Bilhetes",
-    "SECTION :number": "SECÇÃO :number",
     "Description": "Descrição",
     "Scheduled Start": "Data de início para abertura de compra dos bilhetes",
     "Scheduled End": "Data de fim para abertura de compra dos bilhetes",
@@ -247,6 +246,7 @@
     "Select an option": "Selecione uma opção",
     "Mobile": "Telemóvel",
     "Session #:number": "Sessão #:number",
+    "Ticket #:number": "Bilhete #:number",
     "Max Capacity": "Capacidade máxima",
     "Start Date": "Data de início",
     "End Date": "Data de fim",
@@ -384,6 +384,7 @@
     "Max capacity reached for session :session": "Capacidade máxima atingida para a sessão :session",
     "The ticket buying period hasn't started yet.": "O período de compra de bilhetes ainda não começou.",
     "The ticket purchase period is over!": "O período de compra de bilhetes terminou!",
+    "Event": "Evento",
 
     "line1": "Uma plataforma de gestão",
     "line2": "Completa",
