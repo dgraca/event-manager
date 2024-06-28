@@ -111,13 +111,6 @@ class EventTable extends Component implements HasForms, HasTable
                 ->icon('heroicon-o-pencil')
                 //->color('danger')
             ])
-            ->bulkActions([
-                //BulkActionGroup::make([
-                BulkAction::make(__('delete'))
-                ->requiresConfirmation()
-                ->action(fn (Collection $records) => $records->each->delete())
-                //]),
-            ])
             ->defaultSort('id', 'desc')
             ->recordUrl(
                 fn (Model $record): string => route('events.show', ['event' => $record->slug])
