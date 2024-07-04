@@ -81,7 +81,7 @@ class EventController extends Controller
         // Add a property to each eventSessionTicket to check if the ticket is sold out
         $eventSessionTickets->map(function ($ticket) {
             // Check if max capacity was reached
-            $maxCapacityReached = $ticket->count >= $ticket->eventSession->max_capacity;
+            $maxCapacityReached = $ticket->count >= $ticket->eventSession->max_capacity && $ticket->eventSession->max_capacity > 0;
             $ticket->isSoldOut = $maxCapacityReached || $ticket->limit <= $ticket->count && $ticket->limit > 0;
             return $ticket;
         });
