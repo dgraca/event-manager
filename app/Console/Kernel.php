@@ -15,6 +15,15 @@ class Kernel extends ConsoleKernel
         $schedule->command('app:delete-unpaid-paypal-transactions')->daily();
         //$schedule->command('app:delete-unpaid-bank-transfer-transactions')->daily();
         $schedule->command('app:send-tickets-for-paid-transactions')->everyMinute();
+
+        $schedule->command('queue:restart')->hourly();
+
+        // run the queue worker "without overlapping"
+        // this will only start a new worker if the previous one has died
+        $schedule->command("queue:work --tries=3 --sleep=10")
+            ->everyMinute()
+            ->name('queue_notifications')
+            ->withoutOverlapping();
     }
 
     /**
